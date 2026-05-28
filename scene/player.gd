@@ -1,101 +1,109 @@
 extends CharacterBody2D
 
-# ====== MOVEMENT CONFIG ======
-@export var speed = 200
-@export var jump_force = -400
-@export var gravity = 900
-
-# ====== STATE ======
+var tile_size = 32
+var is_moving = false
+var target_position = Vector2()
 var is_jumping = false
 
-var enemy_in_range = false
+func _ready():
+	target_position = position
 
-# ====== ANIMATION ======
-@onready var anim = $AnimatedSprite2D
+func _process(delta):
+	if is_moving:
+		position = position.move_toward(target_position, 200 * delta)
 
-# ====== LOGIC SYSTEM (awal sederhana) ======
-var rules = [
-	{"if": "enemy_near", "do": "attack"}
-]
+		if position.distance_to(target_position) < 1:
+			position = target_position
+			is_moving = false
 
+func move_right():
+	
+	sprite.flip_h = false
 
-func _physics_process(delta):
-	handle_movement(delta)
-	process_rules()
-	update_animation()
+	if is_moving:
+		return false
 
-# ==============================
-# MOVEMENT (Dead Cells feel lite)
-# ==============================
-func handle_movement(delta):
-	# Auto-run ke kanan
-	velocity.x = speed
+	wall_check.target_position = Vector2(tile_size, 0)
+	wall_check.force_raycast_update()
 
-	# Gravity
-	if not is_on_floor():
-		velocity.y += gravity * delta
+	if wall_check.is_colliding():
+		print("Tembok di kanan!")
+		return false
 
-	# Jump (manual biar tetap ada skill)
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = jump_force
-		is_jumping = true
+	target_position += Vector2(tile_size, 0)
+	is_moving = true
 
-	move_and_slide()
-
-# ==============================
-# ANIMATION
-# ==============================
-func update_animation():
-	if not is_on_floor():
-		anim.play("jump")
-	elif velocity.x != 0:
-		anim.play("run")
-	else:
-		anim.play("idle")
-
-# ==============================
-# LOGIC SYSTEM (ciri khas game kamu)
-# ==============================
-func process_rules():
-	for rule in rules:
-		if check_condition(rule["if"]):
-			do_action(rule["do"])
-
-# ==============================
-# CONDITIONS
-# ==============================
-func check_condition(cond):
-	match cond:
-		"enemy_near":
-			return is_enemy_near()
-	return false
-
-# ==============================
-# ACTIONS
-# ==============================
-func do_action(action):
-	match action:
-		"attack":
-			attack()
-
-# ==============================
-# DUMMY SYSTEM (sementara)
-# ==============================
-func is_enemy_near():
-	return enemy_in_range
-
-func attack():
-	print("attack triggered!")
+	return true
 
 
+func move_left():
 
-func _on_EnemyDetector_body_entered(body: Node2D) -> void:
-	if body.is_in_group("enemy"):
-		enemy_in_range = true
-		print("ENTERED:", body.name)
+	sprite.flip_h = true
+
+	if is_moving:
+		return false
+
+	wall_check.target_position = Vector2(-tile_size, 0)
+	wall_check.force_raycast_update()
+
+	if wall_check.is_colliding():
+		print("Tembok di kiri!")
+		return false
+
+	target_position += Vector2(-tile_size, 0)
+	is_moving = true
+
+	return true
 
 
-func _on_EnemyDetector_body_exited(body: Node2D) -> void:
-	if body.is_in_group("enemy"):
-		enemy_in_range = false
-		print("ENTERED:", body.name)
+func move_up():
+
+	if is_moving:
+		return false
+
+	wall_check.target_position = Vector2(0, -tile_size)
+	wall_check.force_raycast_update()
+
+	if wall_check.is_colliding():
+		print("Tembok di atas!")
+		return false
+
+	is_jumping = true
+
+	target_position += Vector2(0, -tile_size)
+	is_moving = true
+
+	return true
+
+
+func move_down():
+
+	if is_moving:
+		return false
+
+	floor_check.target_position = Vector2(0, tile_size)
+	floor_check.force_raycast_update()
+
+	if floor_check.is_colliding():
+		is_moving = false
+		return false
+
+	target_position += Vector2(0, tile_size)
+	is_moving = true
+
+	return true
+
+
+func should_fall():
+
+	floor_check.target_position = Vector2(0, tile_size)
+	floor_check.force_raycast_update()
+
+	return !floor_check.is_colliding()
+
+
+@onready var wall_check = $WallCheck
+
+@onready var sprite = $AnimatedSprite2D
+
+@onready var floor_check = $FloorCheck

@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://ccpkyss6ki8ku"]
 
-[ext_resource type="Script" uid="uid://c6xyexdronowt" path="res://scene/player.gd" id="1_xo3ru"]
+[ext_resource type="Script" uid="uid://8gjc0q5u6w2g" path="res://scene/player.gd" id="1_xo3ru"]
 [ext_resource type="Texture2D" uid="uid://cfte2mifmt5qy" path="res://assets/character/_Idle.png" id="2_hjaqi"]
 [ext_resource type="Texture2D" uid="uid://b7i47cpqc7d7y" path="res://assets/character/_Jump.png" id="3_ct4mp"]
 [ext_resource type="Texture2D" uid="uid://rt18tqyp8nf0" path="res://assets/character/_Run.png" id="4_s4jxa"]
 
-[sub_resource type="GDScript" id="GDScript_hjaqi"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ct4mp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oh5ij"]
 atlas = ExtResource("2_hjaqi")
@@ -186,34 +186,20 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fvtld"]
-height = 36.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ct4mp"]
-
-[node name="Player" type="Node2D" unique_id=961151976]
-script = SubResource("GDScript_hjaqi")
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1899771673]
+[node name="Player" type="CharacterBody2D" unique_id=1149818697]
 script = ExtResource("1_xo3ru")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=1105151284]
-position = Vector2(5, -22)
-sprite_frames = SubResource("SpriteFrames_8ie14")
-animation = &"run"
-frame_progress = 0.94034827
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1473038868]
-shape = SubResource("CapsuleShape2D_fvtld")
-
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=190846486]
-position_smoothing_enabled = true
-
-[node name="EnemyDetector" type="Area2D" parent="CharacterBody2D" unique_id=1407797407]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/EnemyDetector" unique_id=1339303703]
-position = Vector2(20, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1473038868]
 shape = SubResource("CapsuleShape2D_ct4mp")
 
-[connection signal="body_entered" from="CharacterBody2D/EnemyDetector" to="CharacterBody2D" method="_on_enemy_detector_body_entered"]
-[connection signal="body_exited" from="CharacterBody2D/EnemyDetector" to="CharacterBody2D" method="_on_enemy_detector_body_exited"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1105151284]
+position = Vector2(5, -22)
+sprite_frames = SubResource("SpriteFrames_8ie14")
+animation = &"idle"
+frame_progress = 0.261062
+
+[node name="WallCheck" type="RayCast2D" parent="." unique_id=620400969]
+target_position = Vector2(32, 0)
+
+[node name="FloorCheck" type="RayCast2D" parent="." unique_id=152763504]
+target_position = Vector2(0, 16)
