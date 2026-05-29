@@ -4,9 +4,12 @@ var tile_size = 32
 var is_moving = false
 var target_position = Vector2()
 var is_jumping = false
+var start_position = Vector2()
+var is_dead = false
 
 func _ready():
 	target_position = position
+	start_position = position
 
 func _process(delta):
 	if is_moving:
@@ -101,6 +104,45 @@ func should_fall():
 
 	return !floor_check.is_colliding()
 
+
+func reset_player():
+
+	position = start_position
+	target_position = start_position
+	is_moving = false
+	
+
+func die():
+
+	is_dead = true
+
+	print("Player mati!")
+
+
+func wall_on_right():
+
+	wall_check.target_position = Vector2(tile_size, 0)
+
+	wall_check.force_raycast_update()
+
+	return wall_check.is_colliding()
+
+
+func spike_ahead():
+
+	if sprite.flip_h:
+		spike_check.target_position = Vector2(-tile_size, 0)
+	else:
+		spike_check.target_position = Vector2(tile_size, 0)
+
+	spike_check.force_raycast_update()
+
+	print("Spike detect:", spike_check.is_colliding())
+
+	return spike_check.is_colliding()
+
+
+@onready var spike_check = $SpikeCheck
 
 @onready var wall_check = $WallCheck
 

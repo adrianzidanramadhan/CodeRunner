@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://rt18tqyp8nf0" path="res://assets/character/_Run.png" id="4_s4jxa"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ct4mp"]
+radius = 5.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oh5ij"]
 atlas = ExtResource("2_hjaqi")
@@ -199,7 +200,13 @@ animation = &"idle"
 frame_progress = 0.261062
 
 [node name="WallCheck" type="RayCast2D" parent="." unique_id=620400969]
-target_position = Vector2(32, 0)
+target_position = Vector2(16, 0)
 
 [node name="FloorCheck" type="RayCast2D" parent="." unique_id=152763504]
 target_position = Vector2(0, 16)
+
+[node name="SpikeCheck" type="RayCast2D" parent="." unique_id=500916654]
+target_position = Vector2(16, 0)
+collision_mask = 4
+collide_with_areas = true
+collide_with_bodies = false
