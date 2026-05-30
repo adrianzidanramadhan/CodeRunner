@@ -131,13 +131,12 @@ func wall_on_right():
 func spike_ahead():
 
 	if sprite.flip_h:
+
 		spike_check.target_position = Vector2(-tile_size, 0)
 	else:
 		spike_check.target_position = Vector2(tile_size, 0)
 
 	spike_check.force_raycast_update()
-
-	print("Spike detect:", spike_check.is_colliding())
 
 	return spike_check.is_colliding()
 

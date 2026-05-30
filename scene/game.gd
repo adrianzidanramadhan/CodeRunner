@@ -7,15 +7,19 @@ extends Node2D
 @onready var error_label = $UI/ErrorLabel
 
 var command_queue = []
-
+var variables = {}
+var functions = {}
 var coins_collected = 0
-
+var execution_limit = 1000
+var execution_count = 0
 
 # ==================================================
 # RUN
 # ==================================================
 
 func _on_run_button_pressed():
+
+	execution_count = 0
 
 	command_queue.clear()
 
@@ -42,17 +46,65 @@ func parse_code(code):
 
 		var line = lines[i].strip_edges()
 
+		# skip empty
+		if line == "":
+			i += 1
+			continue
+
+		# ==========================================
+		# FUNCTION
+		# ==========================================
+		if line.begins_with("func"):
+
+			var func_name = line.replace("func", "")
+			func_name = func_name.replace("():", "")
+			func_name = func_name.strip_edges()
+
+			var func_indent = get_indent(lines[i])
+
+			var result = parse_block(
+				lines,
+				i + 1,
+				func_indent
+			)
+
+			functions[func_name] = result["commands"]
+
+			i = result["next_index"] - 1
+
+		# ==========================================
+		# VARIABLE
+		# ==========================================
+		elif line.contains("=") and !line.begins_with("if"):
+
+			var parts = line.split("=")
+
+			if parts.size() >= 2:
+
+				var var_name = parts[0].strip_edges()
+
+				var value_text = parts[1].strip_edges()
+
+				variables[var_name] = evaluate_expression(value_text)
+
+				print("Variable saved:", var_name, variables[var_name])
+
 		# ==========================================
 		# REPEAT
 		# ==========================================
-		if line.begins_with("repeat"):
+		elif line.begins_with("repeat"):
 
 			var start = line.find("(")
 			var end = line.find(")")
 
 			var number_text = line.substr(start + 1, end - start - 1)
 
-			var repeat_amount = int(number_text)
+			var repeat_amount = 0
+
+			if variables.has(number_text):
+				repeat_amount = variables[number_text]
+			else:
+				repeat_amount = int(number_text)
 
 			var repeat_indent = get_indent(lines[i])
 
@@ -79,64 +131,46 @@ func parse_code(code):
 					command_queue.append(cmd)
 
 		# ==========================================
+		# WHILE
+		# ==========================================
+		elif line.begins_with("while"):
+
+			var condition_text = line.replace("while", "")
+			condition_text = condition_text.replace(":", "")
+			condition_text = condition_text.strip_edges()
+
+			var while_indent = get_indent(lines[i])
+
+			var result = parse_block(
+				lines,
+				i + 1,
+				while_indent
+			)
+
+			command_queue.append({
+				"type": "while",
+				"condition": condition_text,
+				"commands": result["commands"]
+			})
+
+			i = result["next_index"] - 1
+
+		# ==========================================
 		# IF
 		# ==========================================
 		elif line.begins_with("if"):
 
-			var condition = ""
+			var result = parse_if_statement(lines, i)
 
-			if line.contains("wall_right()"):
-				condition = "wall_right"
+			command_queue.append(result["command"])
 
-			elif line.contains("spike_ahead()"):
-				condition = "spike_ahead"
+			i = result["next_index"]
 
-			# ======================================
-			# TRUE COMMAND
-			# ======================================
-			i += 1
-
-			if i >= lines.size():
-				return
-
-			var true_line = lines[i].strip_edges()
-
-			var true_command = parse_command_data(true_line)
-
-			# ======================================
-			# FALSE COMMAND
-			# ======================================
-			var false_command = null
-
-			if i + 1 < lines.size():
-
-				var else_line = lines[i + 1].strip_edges()
-
-				if else_line.begins_with("else"):
-
-					i += 2
-
-					if i < lines.size():
-
-						var false_line = lines[i].strip_edges()
-
-						false_command = parse_command_data(false_line)
-
-			# ======================================
-			# SAVE IF OBJECT
-			# ======================================
-			command_queue.append({
-
-				"type": "if",
-
-				"condition": condition,
-
-				"true_command": true_command,
-
-				"false_command": false_command
-			})
-
+		# ==========================================
+		# NORMAL COMMAND
+		# ==========================================
 		else:
+
 			parse_single_command(line)
 
 		i += 1
@@ -203,6 +237,20 @@ func parse_command_data(line):
 			"type": "jump"
 		}
 
+	# ==========================================
+	# FUNCTION CALL
+	# ==========================================
+	elif line.ends_with("()"):
+
+		var func_name = line.replace("()", "").strip_edges()
+
+		if functions.has(func_name):
+
+			return {
+				"type": "function_call",
+				"name": func_name
+			}
+
 	return null
 
 
@@ -225,6 +273,11 @@ func get_amount(line):
 
 	return int(number_text)
 
+
+# ==================================================
+# GET INDENT
+# ==================================================
+
 func get_indent(line):
 
 	var count = 0
@@ -238,6 +291,205 @@ func get_indent(line):
 
 	return count
 
+
+# ==================================================
+# CONDITION EVALUATOR
+# ==================================================
+
+func evaluate_condition(condition_text):
+
+	condition_text = condition_text.strip_edges()
+
+	# ======================================
+	# AND
+	# ======================================
+	if condition_text.contains(" and "):
+
+		var parts = condition_text.split(" and ")
+
+		for part in parts:
+
+			if !evaluate_condition(part.strip_edges()):
+				return false
+
+		return true
+
+	# ======================================
+	# OR
+	# ======================================
+	if condition_text.contains(" or "):
+
+		var parts = condition_text.split(" or ")
+
+		for part in parts:
+
+			if evaluate_condition(part.strip_edges()):
+				return true
+
+		return false
+
+	# ======================================
+	# NOT
+	# ======================================
+	if condition_text.begins_with("not "):
+
+		var inner = condition_text.substr(4).strip_edges()
+
+		return !evaluate_condition(inner)
+
+	# ======================================
+	# ==
+	# ======================================
+	if condition_text.contains("=="):
+
+		var parts = condition_text.split("==")
+
+		return get_value(parts[0].strip_edges()) == get_value(parts[1].strip_edges())
+
+	# ======================================
+	# >
+	# ======================================
+	if condition_text.contains(">"):
+
+		var parts = condition_text.split(">")
+
+		return get_value(parts[0].strip_edges()) > get_value(parts[1].strip_edges())
+
+	# ======================================
+	# <
+	# ======================================
+	if condition_text.contains("<"):
+
+		var parts = condition_text.split("<")
+
+		return get_value(parts[0].strip_edges()) < get_value(parts[1].strip_edges())
+
+	# ======================================
+	# BUILTIN CONDITIONS
+	# ======================================
+	if condition_text == "wall_right()":
+
+		return player.wall_on_right()
+
+	if condition_text == "spike_ahead()":
+
+		return player.spike_ahead()
+
+	return false
+
+
+# ==================================================
+# GET VALUE
+# ==================================================
+
+func get_value(text):
+
+	# variable
+	if variables.has(text):
+		return variables[text]
+
+	# integer
+	return int(text)
+
+
+# ==================================================
+# PARSE IF
+# ==================================================
+
+func parse_if_statement(lines, start_index):
+
+	var line = lines[start_index].strip_edges()
+
+	var current_indent = get_indent(lines[start_index])
+
+	# ======================================
+	# CONDITION
+	# ======================================
+	var condition = line.replace("if", "")
+	condition = condition.replace(":", "")
+	condition = condition.strip_edges()
+
+	# ======================================
+	# TRUE BLOCK
+	# ======================================
+	var true_result = parse_block(
+		lines,
+		start_index + 1,
+		current_indent
+	)
+
+	var true_commands = true_result["commands"]
+
+	var i = true_result["next_index"]
+
+	# ======================================
+	# FALSE BLOCK
+	# ======================================
+	var false_commands = []
+
+	# ======================================
+	# ELIF
+	# ======================================
+	if i < lines.size():
+
+		var next_line = lines[i].strip_edges()
+
+		if next_line.begins_with("elif"):
+
+			var elif_line = next_line.replace("elif", "if")
+
+			lines[i] = elif_line
+
+			var elif_result = parse_if_statement(lines, i)
+
+			false_commands.append(elif_result["command"])
+
+			i = elif_result["next_index"]
+
+	# ======================================
+	# ELSE
+	# ======================================
+	if i < lines.size():
+
+		var next_line = lines[i].strip_edges()
+
+		if next_line.begins_with("else"):
+
+			var else_indent = get_indent(lines[i])
+
+			var else_result = parse_block(
+				lines,
+				i + 1,
+				else_indent
+			)
+
+			false_commands = else_result["commands"]
+
+			i = else_result["next_index"]
+
+	# ======================================
+	# RETURN
+	# ======================================
+	return {
+
+		"command": {
+
+			"type": "if",
+
+			"condition": condition,
+
+			"true_commands": true_commands,
+
+			"false_commands": false_commands
+		},
+
+		"next_index": i
+	}
+
+
+# ==================================================
+# PARSE BLOCK
+# ==================================================
 
 func parse_block(lines, start_index, parent_indent):
 
@@ -263,52 +515,38 @@ func parse_block(lines, start_index, parent_indent):
 		var line = raw_line.strip_edges()
 
 		# ======================================
-		# IF
+		# WHILE
 		# ======================================
-		if line.begins_with("if"):
+		if line.begins_with("while"):
 
-			var condition = ""
+			var condition_text = line.replace("while", "")
+			condition_text = condition_text.replace(":", "")
+			condition_text = condition_text.strip_edges()
 
-			if line.contains("wall_right()"):
-				condition = "wall_right"
-
-			elif line.contains("spike_ahead()"):
-				condition = "spike_ahead"
-
-			# TRUE COMMAND
-			i += 1
-
-			var true_line = lines[i].strip_edges()
-
-			var true_command = parse_command_data(true_line)
-
-			# FALSE COMMAND
-			var false_command = null
-
-			if i + 1 < lines.size():
-
-				var else_line = lines[i + 1].strip_edges()
-
-				if else_line.begins_with("else"):
-
-					i += 2
-
-					if i < lines.size():
-
-						false_command = parse_command_data(
-							lines[i].strip_edges()
-						)
+			var result = parse_block(
+				lines,
+				i + 1,
+				indent
+			)
 
 			commands.append({
-
-				"type": "if",
-
-				"condition": condition,
-
-				"true_command": true_command,
-
-				"false_command": false_command
+				"type": "while",
+				"condition": condition_text,
+				"commands": result["commands"]
 			})
+
+			i = result["next_index"] - 1
+
+		# ======================================
+		# IF
+		# ======================================
+		elif line.begins_with("if"):
+
+			var result = parse_if_statement(lines, i)
+
+			commands.append(result["command"])
+
+			i = result["next_index"]
 
 		# ======================================
 		# NORMAL COMMAND
@@ -350,6 +588,13 @@ func execute_commands():
 # ==================================================
 
 func execute_command(command):
+
+	execution_count += 1
+
+	if execution_count > execution_limit:
+
+		show_error("Infinite loop detected!")
+		return
 
 	var type = command["type"]
 
@@ -407,35 +652,71 @@ func execute_command(command):
 
 			var condition = command["condition"]
 
-			var condition_result = false
-
-			match condition:
-
-				"wall_right":
-					condition_result = player.wall_on_right()
-
-				"spike_ahead":
-					condition_result = player.spike_ahead()
+			var condition_result = evaluate_condition(condition)
 
 			# ======================================
 			# TRUE
 			# ======================================
 			if condition_result:
 
-				var true_command = command["true_command"]
+				var true_commands = command["true_commands"]
 
-				if true_command != null:
-					await execute_command(true_command)
+				for cmd in true_commands:
+
+					await execute_command(cmd)
 
 			# ======================================
 			# FALSE
 			# ======================================
 			else:
 
-				var false_command = command["false_command"]
+				var false_commands = command["false_commands"]
 
-				if false_command != null:
-					await execute_command(false_command)
+				for cmd in false_commands:
+
+					await execute_command(cmd)
+			
+		# ======================================
+		# FUNCTION CALL
+		# ======================================
+		"function_call":
+
+			var func_name = command["name"]
+
+			if functions.has(func_name):
+
+				var func_commands = functions[func_name]
+
+				for cmd in func_commands:
+
+					await execute_command(cmd)
+					
+		# ======================================
+		# WHILE
+		# ======================================
+		"while":
+
+			var condition = command["condition"]
+			var loop_commands = command["commands"]
+
+			var safety = 0
+			var max_loop = 100
+
+			while evaluate_condition(condition):
+
+				safety += 1
+
+				if safety > max_loop:
+
+					show_error("Infinite loop detected!")
+					return
+
+				for cmd in loop_commands:
+
+					await execute_command(cmd)
+
+				# PENTING
+				await get_tree().process_frame
 
 	# ==========================================
 	# APPLY GRAVITY
@@ -635,3 +916,67 @@ func _on_spike_body_entered(body):
 		await get_tree().create_timer(1.0).timeout
 
 		restart_level()
+
+func evaluate_expression(text):
+
+	text = text.strip_edges()
+
+	# ======================================
+	# +
+	# ======================================
+	if text.contains("+"):
+
+		var parts = text.split("+")
+
+		var left = evaluate_expression(parts[0])
+
+		var right = evaluate_expression(parts[1])
+
+		return left + right
+
+	# ======================================
+	# -
+	# ======================================
+	elif text.contains("-"):
+
+		var parts = text.split("-")
+
+		var left = evaluate_expression(parts[0])
+
+		var right = evaluate_expression(parts[1])
+
+		return left - right
+
+	# ======================================
+	# *
+	# ======================================
+	elif text.contains("*"):
+
+		var parts = text.split("*")
+
+		var left = evaluate_expression(parts[0])
+
+		var right = evaluate_expression(parts[1])
+
+		return left * right
+
+	# ======================================
+	# /
+	# ======================================
+	elif text.contains("/"):
+
+		var parts = text.split("/")
+
+		var left = evaluate_expression(parts[0])
+
+		var right = evaluate_expression(parts[1])
+
+		if right == 0:
+			return 0
+
+		return left / right
+
+	# ======================================
+	# VALUE
+	# ======================================
+	return get_value(text)
