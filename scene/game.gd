@@ -12,6 +12,19 @@ var functions = {}
 var coins_collected = 0
 var execution_limit = 1000
 var execution_count = 0
+var current_line = -1
+var is_paused = false
+var step_count = 0
+var has_error = false
+var step_mode = false
+var waiting_for_step = false
+var runtime_stopped = false
+
+
+func should_stop():
+
+	return runtime_stopped or player.is_dead
+
 
 # ==================================================
 # RUN
@@ -19,8 +32,12 @@ var execution_count = 0
 
 func _on_run_button_pressed():
 
-	execution_count = 0
+	runtime_stopped = false
+	has_error = false
 
+	step_mode = false
+	waiting_for_step = false
+	execution_count = 0
 	command_queue.clear()
 
 	var code = code_input.text
@@ -56,9 +73,31 @@ func parse_code(code):
 		# ==========================================
 		if line.begins_with("func"):
 
-			var func_name = line.replace("func", "")
-			func_name = func_name.replace("():", "")
-			func_name = func_name.strip_edges()
+			var func_text = line.replace("func", "")
+			func_text = func_text.replace(":", "")
+			func_text = func_text.strip_edges()
+
+			var start = func_text.find("(")
+			var end = func_text.find(")")
+
+			var func_name = func_text.substr(0, start).strip_edges()
+
+			var params_text = func_text.substr(
+				start + 1,
+				end - start - 1
+			)
+
+			var params = []
+
+			if params_text.strip_edges() != "":
+
+				var split_params = params_text.split(",")
+
+				for item in split_params:
+					params.append(item.strip_edges())
+				
+				for param_index in range(params.size()):
+					params[param_index] = params[param_index].strip_edges()
 
 			var func_indent = get_indent(lines[i])
 
@@ -68,7 +107,10 @@ func parse_code(code):
 				func_indent
 			)
 
-			functions[func_name] = result["commands"]
+			functions[func_name] = {
+				"params": params,
+				"commands": result["commands"]
+			}
 
 			i = result["next_index"] - 1
 
@@ -97,38 +139,37 @@ func parse_code(code):
 			var start = line.find("(")
 			var end = line.find(")")
 
-			var number_text = line.substr(start + 1, end - start - 1)
+			var amount_text = line.substr(
+				start + 1,
+				end - start - 1
+			).strip_edges()
 
-			var repeat_amount = 0
+			if amount_text == "":
 
-			if variables.has(number_text):
-				repeat_amount = variables[number_text]
-			else:
-				repeat_amount = int(number_text)
+				show_error(
+					"Repeat missing amount at line %d"
+					% [i + 1]
+				)
+
+				runtime_stopped = true
+				return
 
 			var repeat_indent = get_indent(lines[i])
 
-			# ======================================
-			# PARSE CHILD BLOCK
-			# ======================================
 			var result = parse_block(
 				lines,
 				i + 1,
 				repeat_indent
 			)
 
-			var repeat_commands = result["commands"]
+			command_queue.append({
+				"type": "repeat",
+				"amount": amount_text,
+				"commands": result["commands"],
+				"line": i
+			})
 
 			i = result["next_index"] - 1
-
-			# ======================================
-			# DUPLICATE COMMANDS
-			# ======================================
-			for r in range(repeat_amount):
-
-				for cmd in repeat_commands:
-
-					command_queue.append(cmd)
 
 		# ==========================================
 		# WHILE
@@ -138,6 +179,17 @@ func parse_code(code):
 			var condition_text = line.replace("while", "")
 			condition_text = condition_text.replace(":", "")
 			condition_text = condition_text.strip_edges()
+
+			# VALIDASI CONDITION
+			if condition_text == "":
+
+				show_error(
+					"While missing condition at line %d"
+					% [i + 1]
+				)
+
+				runtime_stopped = true
+				return
 
 			var while_indent = get_indent(lines[i])
 
@@ -164,14 +216,15 @@ func parse_code(code):
 
 			command_queue.append(result["command"])
 
-			i = result["next_index"]
+			i = result["next_index"] - 1
+
 
 		# ==========================================
 		# NORMAL COMMAND
 		# ==========================================
 		else:
 
-			parse_single_command(line)
+			parse_single_command(line, i)
 
 		i += 1
 
@@ -180,12 +233,37 @@ func parse_code(code):
 # PARSE SINGLE COMMAND
 # ==================================================
 
-func parse_single_command(line):
+func parse_single_command(line, line_number = -1):
 
 	var command_data = parse_command_data(line)
 
 	if command_data != null:
+
+		command_data["line"] = line_number
+
 		command_queue.append(command_data)
+
+	else:
+
+		show_error(
+			"Unknown command at line %d: %s"
+			% [line_number + 1, line]
+		)
+
+		runtime_stopped = true
+
+
+func validate_amount(amount):
+
+	if amount < 1:
+		show_error("Amount must be > 0")
+		return 1
+
+	if amount > 20:
+		show_error("Amount too large!")
+		return 20
+
+	return amount
 
 
 # ==================================================
@@ -202,7 +280,7 @@ func parse_command_data(line):
 		return {
 			"type": "move",
 			"direction": "right",
-			"amount": get_amount(line)
+			"amount": validate_amount(get_amount(line))
 		}
 
 	# ==========================================
@@ -213,11 +291,11 @@ func parse_command_data(line):
 		return {
 			"type": "move",
 			"direction": "left",
-			"amount": get_amount(line)
+			"amount": validate_amount(get_amount(line))
 		}
 
 	# ==========================================
-	# JUMP
+	# JUMP RIGHT
 	# ==========================================
 	elif line.begins_with("jump_right"):
 
@@ -225,13 +303,19 @@ func parse_command_data(line):
 			"type": "jump_right"
 		}
 
+	# ==========================================
+	# JUMP LEFT
+	# ==========================================
 	elif line.begins_with("jump_left"):
 
 		return {
 			"type": "jump_left"
 		}
 
-	elif line.begins_with("jump"):
+	# ==========================================
+	# JUMP
+	# ==========================================
+	elif line == "jump()" or line == "jump":
 
 		return {
 			"type": "jump"
@@ -240,15 +324,38 @@ func parse_command_data(line):
 	# ==========================================
 	# FUNCTION CALL
 	# ==========================================
-	elif line.ends_with("()"):
+	elif "(" in line and line.ends_with(")"):
 
-		var func_name = line.replace("()", "").strip_edges()
+		var start = line.find("(")
+		var end = line.find(")")
+
+		var func_name = line.substr(0, start).strip_edges()
 
 		if functions.has(func_name):
 
+			var args_text = line.substr(
+				start + 1,
+				end - start - 1
+			)
+
+			var args = []
+
+			if args_text.strip_edges() != "":
+
+				var split_args = args_text.split(",")
+
+				for item in split_args:
+
+					args.append(
+						evaluate_expression(
+							item.strip_edges()
+						)
+					)
+
 			return {
 				"type": "function_call",
-				"name": func_name
+				"name": func_name,
+				"args": args
 			}
 
 	return null
@@ -271,6 +378,16 @@ func get_amount(line):
 	if number_text.strip_edges() == "":
 		return 1
 
+	if !number_text.is_valid_int():
+
+		show_error(
+			"Invalid number: " + number_text
+		)
+
+		runtime_stopped = true
+
+		return 1
+
 	return int(number_text)
 
 
@@ -282,9 +399,9 @@ func get_indent(line):
 
 	var count = 0
 
-	for char in line:
+	for letter in line:
 
-		if char == " ":
+		if letter == " ":
 			count += 1
 		else:
 			break
@@ -336,6 +453,15 @@ func evaluate_condition(condition_text):
 		var inner = condition_text.substr(4).strip_edges()
 
 		return !evaluate_condition(inner)
+		
+	# ======================================
+	# BOOLEAN LITERAL
+	# ======================================
+	if condition_text == "true":
+		return true
+
+	if condition_text == "false":
+		return false
 
 	# ======================================
 	# ==
@@ -375,6 +501,11 @@ func evaluate_condition(condition_text):
 
 		return player.spike_ahead()
 
+	# VARIABLE BOOLEAN
+	if variables.has(condition_text):
+
+		return bool(variables[condition_text])
+
 	return false
 
 
@@ -383,6 +514,15 @@ func evaluate_condition(condition_text):
 # ==================================================
 
 func get_value(text):
+
+	text = text.strip_edges()
+
+	# boolean
+	if text == "true":
+		return true
+
+	if text == "false":
+		return false
 
 	# variable
 	if variables.has(text):
@@ -408,6 +548,20 @@ func parse_if_statement(lines, start_index):
 	var condition = line.replace("if", "")
 	condition = condition.replace(":", "")
 	condition = condition.strip_edges()
+	
+	if condition == "":
+
+		show_error(
+			"If missing condition at line %d"
+			% [start_index + 1]
+		)
+
+		runtime_stopped = true
+
+		return {
+			"command": {},
+			"next_index": start_index + 1
+		}
 
 	# ======================================
 	# TRUE BLOCK
@@ -476,6 +630,8 @@ func parse_if_statement(lines, start_index):
 
 			"type": "if",
 
+			"line": start_index,
+
 			"condition": condition,
 
 			"true_commands": true_commands,
@@ -532,7 +688,36 @@ func parse_block(lines, start_index, parent_indent):
 			commands.append({
 				"type": "while",
 				"condition": condition_text,
-				"commands": result["commands"]
+				"commands": result["commands"],
+				"line": i
+			})
+
+			i = result["next_index"] - 1
+
+		# ======================================
+		# REPEAT
+		# ======================================
+		elif line.begins_with("repeat"):
+
+			var start = line.find("(")
+			var end = line.find(")")
+
+			var amount_text = line.substr(
+				start + 1,
+				end - start - 1
+			).strip_edges()
+
+			var result = parse_block(
+				lines,
+				i + 1,
+				indent
+			)
+
+			commands.append({
+				"type": "repeat",
+				"amount": amount_text,
+				"commands": result["commands"],
+				"line": i
 			})
 
 			i = result["next_index"] - 1
@@ -544,9 +729,11 @@ func parse_block(lines, start_index, parent_indent):
 
 			var result = parse_if_statement(lines, i)
 
+			result["command"]["line"] = i
+
 			commands.append(result["command"])
 
-			i = result["next_index"]
+			i = result["next_index"] - 1
 
 		# ======================================
 		# NORMAL COMMAND
@@ -574,9 +761,19 @@ func execute_commands():
 
 	for i in range(command_queue.size()):
 
+		if should_stop():
+			return
+
+		if has_error:
+			return
+
 		update_queue_display(i)
 
 		var command = command_queue[i]
+
+		current_line = command.get("line", -1)
+
+		highlight_current_line()
 
 		await execute_command(command)
 
@@ -589,11 +786,17 @@ func execute_commands():
 
 func execute_command(command):
 
+	if should_stop():
+		return
+
 	execution_count += 1
 
 	if execution_count > execution_limit:
 
-		show_error("Infinite loop detected!")
+		show_error(
+			"Infinite loop detected!",
+			command.get("line", -1)
+		)
 		return
 
 	var type = command["type"]
@@ -619,7 +822,11 @@ func execute_command(command):
 					success = player.move_left()
 
 				if not success:
-					show_error("Movement blocked!")
+					runtime_stopped = true
+					show_error(
+						"Movement blocked!",
+						command.get("line", -1)
+					)
 					return
 
 				await wait_for_player()
@@ -661,9 +868,7 @@ func execute_command(command):
 
 				var true_commands = command["true_commands"]
 
-				for cmd in true_commands:
-
-					await execute_command(cmd)
+				await execute_command_list(true_commands)
 
 			# ======================================
 			# FALSE
@@ -672,9 +877,7 @@ func execute_command(command):
 
 				var false_commands = command["false_commands"]
 
-				for cmd in false_commands:
-
-					await execute_command(cmd)
+				await execute_command_list(false_commands)
 			
 		# ======================================
 		# FUNCTION CALL
@@ -685,12 +888,32 @@ func execute_command(command):
 
 			if functions.has(func_name):
 
-				var func_commands = functions[func_name]
+				var func_data = functions[func_name]
 
-				for cmd in func_commands:
+				var params = func_data["params"]
+				var commands = func_data["commands"]
+
+				var args = command.get("args", [])
+
+				# save old variables
+				var old_variables = variables.duplicate()
+
+				# assign params
+				for p in range(params.size()):
+
+					if p < args.size():
+
+						variables[params[p]] = args[p]
+
+				# execute
+				for cmd in commands:
 
 					await execute_command(cmd)
-					
+
+				# restore variables
+				variables = old_variables
+		
+		
 		# ======================================
 		# WHILE
 		# ======================================
@@ -702,21 +925,42 @@ func execute_command(command):
 			var safety = 0
 			var max_loop = 100
 
-			while evaluate_condition(condition):
+			while true:
+
+				if should_stop():
+					break
+
+				if !evaluate_condition(condition):
+					break
 
 				safety += 1
 
 				if safety > max_loop:
-
 					show_error("Infinite loop detected!")
 					return
 
-				for cmd in loop_commands:
+				await execute_command_list(loop_commands)
 
-					await execute_command(cmd)
-
-				# PENTING
 				await get_tree().process_frame
+
+
+		# ======================================
+		# REPEAT
+		# ======================================
+		"repeat":
+
+			var amount_text = str(command["amount"])
+
+			var repeat_amount = evaluate_expression(amount_text)
+
+			var repeat_commands = command["commands"]
+
+			for r in range(repeat_amount):
+
+				if should_stop():
+					return
+
+				await execute_command_list(repeat_commands)
 
 	# ==========================================
 	# APPLY GRAVITY
@@ -727,6 +971,16 @@ func execute_command(command):
 
 		while player.is_moving:
 			await get_tree().process_frame
+
+
+func execute_command_list(commands):
+
+	for cmd in commands:
+
+		if should_stop():
+			return
+
+		await execute_command(cmd)
 
 
 # ==================================================
@@ -841,13 +1095,19 @@ func update_queue_display(current_index = -1):
 			queue_display.text += text + "\n"
 
 
-func show_error(message):
+func show_error(message, line = -1):
 
-	error_label.text = message
+	has_error = true
 
-	await get_tree().create_timer(2.0).timeout
+	if line >= 0:
 
-	error_label.text = ""
+		error_label.text = "Line " + str(line + 1) + ": " + message
+
+	else:
+
+		error_label.text = message
+
+	print(error_label.text)
 
 
 # ==================================================
@@ -908,6 +1168,8 @@ func restart_level():
 func _on_spike_body_entered(body):
 
 	if body.name == "Player":
+
+		runtime_stopped = true
 
 		player.die()
 
@@ -980,3 +1242,12 @@ func evaluate_expression(text):
 	# VALUE
 	# ======================================
 	return get_value(text)
+
+
+func highlight_current_line():
+
+	if current_line >= 0:
+
+		code_input.set_caret_line(current_line)
+
+		code_input.center_viewport_to_caret()

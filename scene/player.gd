@@ -114,7 +114,13 @@ func reset_player():
 
 func die():
 
+	if is_dead:
+		return
+
 	is_dead = true
+
+	is_moving = false
+	target_position = position
 
 	print("Player mati!")
 
