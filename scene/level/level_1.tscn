@@ -1,11 +1,11 @@
-[gd_scene format=3 uid="uid://tsh6vgg4ag7t"]
+[gd_scene format=3 uid="uid://bg213rhv5kor6"]
 
-[ext_resource type="Script" uid="uid://cc2dt8t8npftw" path="res://scene/game.gd" id="1_33cqm"]
-[ext_resource type="PackedScene" uid="uid://ccpkyss6ki8ku" path="res://scene/player.tscn" id="2_33cqm"]
-[ext_resource type="PackedScene" uid="uid://dfdvdhl66o2cr" path="res://scene/tile.tscn" id="2_xlg7c"]
-[ext_resource type="Texture2D" uid="uid://hla06eltkwf" path="res://assets/tilemap/door.png" id="4_xwcet"]
-[ext_resource type="Texture2D" uid="uid://dlwbiyfwwkysf" path="res://assets/tilemap/Coin.png" id="5_p1ry8"]
-[ext_resource type="Texture2D" uid="uid://d2bu2g1sunhy8" path="res://assets/tilemap/spike.png" id="6_xlg7c"]
+[ext_resource type="Script" uid="uid://cc2dt8t8npftw" path="res://scene/game.gd" id="1_70cbr"]
+[ext_resource type="PackedScene" uid="uid://dfdvdhl66o2cr" path="res://scene/tile.tscn" id="2_lsoxn"]
+[ext_resource type="PackedScene" uid="uid://ccpkyss6ki8ku" path="res://scene/player.tscn" id="3_x17xt"]
+[ext_resource type="Texture2D" uid="uid://hla06eltkwf" path="res://assets/tilemap/door.png" id="4_c1764"]
+[ext_resource type="Texture2D" uid="uid://dlwbiyfwwkysf" path="res://assets/tilemap/Coin.png" id="5_ri5j0"]
+[ext_resource type="Texture2D" uid="uid://d2bu2g1sunhy8" path="res://assets/tilemap/spike.png" id="6_1gcq6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xwcet"]
 
@@ -16,11 +16,12 @@ radius = 5.0
 size = Vector2(10, 20)
 
 [node name="Game" type="Node2D" unique_id=232416967]
-script = ExtResource("1_33cqm")
+script = ExtResource("1_70cbr")
 
-[node name="World" parent="." unique_id=530434722 instance=ExtResource("2_xlg7c")]
+[node name="World" parent="." unique_id=530434722 instance=ExtResource("2_lsoxn")]
+layer_0/tile_data = PackedInt32Array(1179661, 0, 4, 1179662, 65536, 4, 1179663, 65536, 4, 1179664, 65536, 4, 1179665, 65536, 4, 1179666, 65536, 4, 1179667, 65536, 4, 1179668, 65536, 4, 1179669, 65536, 4, 1179670, 65536, 4, 1179671, 65536, 4, 1179672, 65536, 4, 1179673, 65536, 4, 1179674, 65536, 4, 1179675, 65536, 4, 1179676, 262144, 4, 1114140, 0, 4, 1114141, 65536, 4, 1114142, 65536, 4, 1114143, 65536, 4, 1114144, 65536, 4, 1114145, 65536, 4, 1114146, 65536, 4, 1114147, 65536, 4, 1114148, 65536, 4, 1114149, 65536, 4, 1114150, 65536, 4, 1114151, 65536, 4, 1114152, 65536, 4, 1114153, 65536, 4, 1114154, 262144, 4, 1048618, 0, 4, 1048619, 65536, 4, 1048620, 262144, 4)
 
-[node name="Player" parent="." unique_id=961151976 instance=ExtResource("2_33cqm")]
+[node name="Player" parent="." unique_id=961151976 instance=ExtResource("3_x17xt")]
 position = Vector2(283, 237)
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=558874400]
@@ -65,7 +66,7 @@ text = "Restart"
 
 [node name="Sprite2D" type="Sprite2D" parent="Goal" unique_id=524731989]
 position = Vector2(353, 232)
-texture = ExtResource("4_xwcet")
+texture = ExtResource("4_c1764")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Goal" unique_id=2026875272]
 position = Vector2(352, 236)
@@ -75,7 +76,7 @@ shape = SubResource("RectangleShape2D_xwcet")
 
 [node name="Sprite2D" type="Sprite2D" parent="Coin" unique_id=200307424]
 position = Vector2(458, 180)
-texture = ExtResource("5_p1ry8")
+texture = ExtResource("5_ri5j0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coin" unique_id=886817486]
 position = Vector2(458, 180)
@@ -86,7 +87,7 @@ position = Vector2(457, 246)
 collision_layer = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="Spike" unique_id=841447449]
-texture = ExtResource("6_xlg7c")
+texture = ExtResource("6_1gcq6")
 hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spike" unique_id=1045361270]

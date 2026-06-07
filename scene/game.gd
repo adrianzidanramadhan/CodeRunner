@@ -1116,12 +1116,19 @@ func show_error(message, line = -1):
 
 func _on_goal_body_entered(body):
 
-	if body.name == "Player":
+	if body.name != "Player":
+		return
 
-		if coins_collected >= 1:
-			print("LEVEL COMPLETE!")
-		else:
-			show_error("Collect the coin first!")
+	if coins_collected < 1:
+
+		show_error("Collect the coin first!")
+		return
+
+	print("LEVEL COMPLETE!")
+
+	var next_level = LevelManager.current_level + 1
+
+	LevelManager.load_level(next_level)
 
 
 # ==================================================
