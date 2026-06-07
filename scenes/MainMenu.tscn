@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://dypo6atenxb2i"]
+
+[ext_resource type="Script" uid="uid://lh5x7gawb0y4" path="res://scenes/main_menu.gd" id="1_lnxie"]
+[ext_resource type="Texture2D" uid="uid://625fm3eeyqht" path="res://assets/Background/Background.png" id="2_sks6p"]
+[ext_resource type="FontFile" uid="uid://b1ekjky6mvesf" path="res://assets/font/Poppins-ExtraBold.ttf" id="3_sks6p"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lulne"]
+font = ExtResource("3_sks6p")
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_tf3dk"]
+font_size = 18
+font_color = Color(0.7150368, 0.7150368, 0.71503675, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvc10"]
+bg_color = Color(0, 0, 1, 0.78431374)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_85i58"]
+bg_color = Color(0, 0, 0.47058824, 0.78431374)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q4ih2"]
+bg_color = Color(0, 0, 1, 0.78431374)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="MainMenu" type="Control" unique_id=809523929]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lnxie")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=686395463]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.20833333
+anchor_top = 0.20987654
+anchor_right = 0.7873264
+anchor_bottom = 0.7685185
+offset_left = -240.0
+offset_top = -135.0
+offset_right = 240.0
+offset_bottom = 137.0
+texture = ExtResource("2_sks6p")
+metadata/_edit_use_anchors_ = true
+
+[node name="TitleLabel" type="Label" parent="." unique_id=879199037]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5008681
+anchor_top = 0.3287037
+anchor_right = 0.5008681
+anchor_bottom = 0.3287037
+offset_left = -215.0
+offset_top = -129.0
+offset_right = 211.0
+offset_bottom = -38.0
+text = "Code Runner"
+label_settings = SubResource("LabelSettings_lulne")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="SubtitleLabel" type="Label" parent="." unique_id=381368705]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.49913195
+anchor_top = 0.35493827
+anchor_right = 0.49913195
+anchor_bottom = 0.35493827
+offset_left = -174.0
+offset_top = -56.0
+offset_right = 173.0
+offset_bottom = -30.0
+text = "Learn Programming Through Adventure"
+label_settings = SubResource("LabelSettings_tf3dk")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1231961311]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = 1.0
+offset_right = 125.0
+offset_bottom = 102.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayButton" type="Button" parent="VBoxContainer" unique_id=1932691069]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_rvc10")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_85i58")
+theme_override_styles/hover = SubResource("StyleBoxFlat_q4ih2")
+text = "PLAY"
+
+[node name="LevelButton" type="Button" parent="VBoxContainer" unique_id=516797426]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_rvc10")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_85i58")
+theme_override_styles/hover = SubResource("StyleBoxFlat_q4ih2")
+text = "LEVEL SELECT"
+
+[node name="ExitButton" type="Button" parent="VBoxContainer" unique_id=445218368]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_rvc10")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_85i58")
+theme_override_styles/hover = SubResource("StyleBoxFlat_q4ih2")
+text = "EXIT"
+
+[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/LevelButton" to="." method="_on_level_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

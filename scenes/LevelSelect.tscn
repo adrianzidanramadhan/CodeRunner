@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://c6x6kps43s1gr"]
+
+[ext_resource type="Script" uid="uid://bdcpuuq2j7byl" path="res://scenes/level_select.gd" id="1_3tmwl"]
+[ext_resource type="Texture2D" uid="uid://625fm3eeyqht" path="res://assets/Background/Background.png" id="2_jr52j"]
+[ext_resource type="FontFile" uid="uid://b1ekjky6mvesf" path="res://assets/font/Poppins-ExtraBold.ttf" id="3_ocqp5"]
+
+[sub_resource type="Theme" id="Theme_ocqp5"]
+default_font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_fv6mb"]
+font = ExtResource("3_ocqp5")
+font_size = 64
+
+[node name="LevelSelect" type="Control" unique_id=231942494]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3tmwl")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1255259862]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.20746528
+anchor_top = 0.21296297
+anchor_right = 0.7899306
+anchor_bottom = 0.7839506
+offset_left = -240.0
+offset_top = -135.0
+offset_right = 240.0
+offset_bottom = 137.0
+texture = ExtResource("2_jr52j")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="." unique_id=295499297]
+layout_mode = 0
+offset_left = 368.0
+offset_top = 62.0
+offset_right = 789.0
+offset_bottom = 153.0
+theme = SubResource("Theme_ocqp5")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "SELECT LEVEL"
+label_settings = SubResource("LabelSettings_fv6mb")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1593375296]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -20.0
+offset_right = 22.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 5
+
+[node name="LevelButton1" type="Button" parent="GridContainer" unique_id=789307670]
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton2" type="Button" parent="GridContainer" unique_id=1914082192]
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton3" type="Button" parent="GridContainer" unique_id=114299767]
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton4" type="Button" parent="GridContainer" unique_id=403744410]
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton5" type="Button" parent="GridContainer" unique_id=1861426831]
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton6" type="Button" parent="GridContainer" unique_id=762132363]
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton7" type="Button" parent="GridContainer" unique_id=2053843607]
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton8" type="Button" parent="GridContainer" unique_id=100996567]
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton9" type="Button" parent="GridContainer" unique_id=2035691918]
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton10" type="Button" parent="GridContainer" unique_id=690178048]
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton11" type="Button" parent="GridContainer" unique_id=405652517]
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton12" type="Button" parent="GridContainer" unique_id=1942668634]
+layout_mode = 2
+text = "1"
+
+[node name="BackButton" type="Button" parent="." unique_id=61929860]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0

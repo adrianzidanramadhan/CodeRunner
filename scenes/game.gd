@@ -5,6 +5,7 @@ extends Node2D
 
 @onready var queue_display = $UI/QueueDisplay
 @onready var error_label = $UI/ErrorLabel
+@export var level_number = 1
 
 var command_queue = []
 var variables = {}
@@ -19,11 +20,15 @@ var has_error = false
 var step_mode = false
 var waiting_for_step = false
 var runtime_stopped = false
-
+var level_finished = false
 
 func should_stop():
 
-	return runtime_stopped or player.is_dead
+	return (
+		runtime_stopped
+		or player.is_dead
+		or level_finished
+	)
 
 
 # ==================================================
@@ -1120,15 +1125,22 @@ func _on_goal_body_entered(body):
 		return
 
 	if coins_collected < 1:
-
 		show_error("Collect the coin first!")
 		return
 
-	print("LEVEL COMPLETE!")
+	level_finished = true
 
-	var next_level = LevelManager.current_level + 1
+	var next_level = level_number + 1
 
-	LevelManager.load_level(next_level)
+	if LevelManager.unlocked_level < next_level:
+
+		LevelManager.unlocked_level = next_level
+
+		LevelManager.save_progress()
+
+		print("Unlocked Level ", next_level)
+
+	$LevelCompletePopup.show_popup(level_number)
 
 
 # ==================================================
