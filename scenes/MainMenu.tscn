@@ -104,6 +104,13 @@ offset_bottom = 102.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="ContinueButton" type="Button" parent="VBoxContainer" unique_id=84479768]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_rvc10")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_85i58")
+theme_override_styles/hover = SubResource("StyleBoxFlat_q4ih2")
+text = "Continue"
+
 [node name="PlayButton" type="Button" parent="VBoxContainer" unique_id=1932691069]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_rvc10")
@@ -125,6 +132,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_85i58")
 theme_override_styles/hover = SubResource("StyleBoxFlat_q4ih2")
 text = "EXIT"
 
+[connection signal="pressed" from="VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/LevelButton" to="." method="_on_level_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

@@ -3,15 +3,30 @@ extends Control
 var next_level = 1
 
 func _ready():
-	visible = false
+	show_popup(1)
 
 func show_popup(level_number):
 	next_level = level_number + 1
 	visible = true
-	
-	modulate.a = 0 
+
+	scale = Vector2(0.8, 0.8)
+	modulate.a = 0
+
 	var tween = create_tween()
-	tween.tween_property(self, "modulate:a", 1.0, 0.3)
+
+	tween.parallel().tween_property(
+		self,
+		"scale",
+		Vector2.ONE,
+		0.25
+	)
+
+	tween.parallel().tween_property(
+		self,
+		"modulate:a",
+		1.0,
+		0.25
+	)
 
 func _on_next_button_pressed():
 

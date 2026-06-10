@@ -1130,15 +1130,9 @@ func _on_goal_body_entered(body):
 
 	level_finished = true
 
-	var next_level = level_number + 1
-
-	if LevelManager.unlocked_level < next_level:
-
-		LevelManager.unlocked_level = next_level
-
-		LevelManager.save_progress()
-
-		print("Unlocked Level ", next_level)
+	LevelManager.unlock_level(
+		level_number + 1
+	)
 
 	$LevelCompletePopup.show_popup(level_number)
 

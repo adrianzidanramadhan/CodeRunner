@@ -1,9 +1,16 @@
 extends Node
 
+const MAX_LEVEL = 12
+
 var current_level = 1
 var unlocked_level = 1
 
 const SAVE_PATH = "user://save.dat"
+
+
+func get_level_path(level):
+
+	return "res://scenes/levels/Level%d.tscn" % level
 
 
 func _ready():
@@ -13,16 +20,44 @@ func _ready():
 func load_level(level):
 
 	current_level = level
+	
+	save_progress()
 
 	get_tree().change_scene_to_file(
-		"res://scenes/levels/Level%d.tscn" % level
+		get_level_path(level)
 	)
 
+func continue_game():
+
+	load_level(current_level)
 
 func next_level():
 
-	load_level(current_level + 1)
+	if current_level < MAX_LEVEL:
 
+		load_level(current_level + 1)
+
+	else:
+
+		print("All levels completed")
+
+
+func reload_level():
+
+	load_level(current_level)
+
+
+func unlock_level(level):
+
+	level = min(level, MAX_LEVEL)
+	
+	if level > unlocked_level:
+
+		unlocked_level = level
+
+		save_progress()
+
+		print("Unlocked Level ", level)
 
 # ======================
 # SAVE
@@ -40,18 +75,26 @@ func save_progress():
 		print("FAILED TO CREATE SAVE FILE")
 		return
 
-	save_file.store_var(unlocked_level)
+	var save_data = {
 
-	print("Progress saved:", unlocked_level)
-	print("Location:", ProjectSettings.globalize_path(SAVE_PATH))
+		"current_level": current_level,
+		"unlocked_level": unlocked_level
+
+	}
+
+	save_file.store_var(save_data)
+
+	print(
+		"Progress saved:",
+		current_level,
+		unlocked_level
+	)
 
 
 func load_progress():
 
 	if !FileAccess.file_exists(SAVE_PATH):
-
 		print("No save found")
-
 		return
 
 	var save_file = FileAccess.open(
@@ -59,7 +102,34 @@ func load_progress():
 		FileAccess.READ
 	)
 
-	unlocked_level = save_file.get_var()
+	var save_data = save_file.get_var()
+
+	# SAVE LAMA
+	if save_data is int:
+
+		unlocked_level = save_data
+		current_level = 1
+
+		print("Old save loaded")
+
+	# SAVE BARU
+	elif save_data is Dictionary:
+
+		current_level = save_data.get(
+			"current_level",
+			1
+		)
+
+		unlocked_level = save_data.get(
+			"unlocked_level",
+			1
+		)
+
+	print(
+		"Loaded:",
+		current_level,
+		unlocked_level
+	)
 
 # ======================
 # testing
