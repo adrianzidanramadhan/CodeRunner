@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://ccpkyss6ki8ku" path="res://scenes/player.tscn" id="3_fcruq"]
 [ext_resource type="Texture2D" uid="uid://hla06eltkwf" path="res://assets/tilemap/door.png" id="4_k7kyu"]
 [ext_resource type="Texture2D" uid="uid://dlwbiyfwwkysf" path="res://assets/tilemap/Coin.png" id="5_j04vv"]
-[ext_resource type="PackedScene" uid="uid://dwaw4rn0jcn1x" path="res://scenes/LevelCompletePopup.tscn" id="6_wim12"]
 [ext_resource type="PackedScene" uid="uid://bscnx5m7wej0v" path="res://scenes/ui.tscn" id="7_2r1tl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xwcet"]
@@ -41,12 +40,6 @@ texture = ExtResource("5_j04vv")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coin" unique_id=886817486]
 position = Vector2(508, 253)
 shape = SubResource("CircleShape2D_xlg7c")
-
-[node name="LevelCompletePopup" parent="." unique_id=1506947087 instance=ExtResource("6_wim12")]
-offset_left = 567.0
-offset_top = 301.0
-offset_right = 567.0
-offset_bottom = 301.0
 
 [node name="UI" parent="." unique_id=1980193790 instance=ExtResource("7_2r1tl")]
 

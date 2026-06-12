@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://c1vx66qyh4h4y"
-path="res://.godot/imported/Poppins-BlackItalic.ttf-db87869df789c725092a7b0587ebcb78.fontdata"
+uid="uid://chbpnwj3qvssf"
+path="res://.godot/imported/federhozen-regular.ttf-da4e9865396e9c0d0a50d65f36b524b3.fontdata"
 
 [deps]
 
-source_file="res://assets/font/Poppins-BlackItalic.ttf"
-dest_files=["res://.godot/imported/Poppins-BlackItalic.ttf-db87869df789c725092a7b0587ebcb78.fontdata"]
+source_file="res://assets/font/federhozen-regular.ttf"
+dest_files=["res://.godot/imported/federhozen-regular.ttf-da4e9865396e9c0d0a50d65f36b524b3.fontdata"]
 
 [params]
 

@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://cg1bbk6wo8tq8"
-path="res://.godot/imported/Poppins-MediumItalic.ttf-198549e2cbffefbe7ae2dd0782411c71.fontdata"
+uid="uid://bje0emb1elpv1"
+path="res://.godot/imported/federhozen-plain.ttf-b9b4b3aac33794eda30f9735b73814a8.fontdata"
 
 [deps]
 
-source_file="res://assets/font/Poppins-MediumItalic.ttf"
-dest_files=["res://.godot/imported/Poppins-MediumItalic.ttf-198549e2cbffefbe7ae2dd0782411c71.fontdata"]
+source_file="res://assets/font/federhozen-plain.ttf"
+dest_files=["res://.godot/imported/federhozen-plain.ttf-b9b4b3aac33794eda30f9735b73814a8.fontdata"]
 
 [params]
 

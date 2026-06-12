@@ -1152,7 +1152,7 @@ func _on_goal_body_entered(body):
 		level_number + 1
 	)
 
-	$LevelCompletePopup.show_popup(level_number)
+	ui.show_level_complete(level_number)
 
 
 # ==================================================

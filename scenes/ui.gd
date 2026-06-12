@@ -5,8 +5,19 @@ extends CanvasLayer
 @onready var error_label = $ErrorLabel
 @onready var pause_menu = $Control
 
+@onready var level_complete_popup = $LevelCompletePopup
+
 signal run_pressed
 signal restart_pressed
+
+func _ready():
+	hide_pause()
+
+func show_level_complete(level_number):
+
+	level_complete_popup.show_popup(
+		level_number
+	)
 
 func _on_run_button_pressed():
 	run_pressed.emit()
