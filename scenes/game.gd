@@ -2,9 +2,8 @@ extends Node2D
 
 @onready var code_input = $UI/CodeInput
 @onready var player = $Player
+@onready var ui = $UI
 
-@onready var queue_display = $UI/QueueDisplay
-@onready var error_label = $UI/ErrorLabel
 @export var level_number = 1
 
 var command_queue = []
@@ -21,6 +20,22 @@ var step_mode = false
 var waiting_for_step = false
 var runtime_stopped = false
 var level_finished = false
+
+func _ready():
+
+	ui.run_pressed.connect(_on_ui_run_pressed)
+
+	ui.restart_pressed.connect(
+		_on_ui_restart_pressed
+	)
+
+func _on_ui_run_pressed():
+
+	_on_run_button_pressed()
+
+func _on_ui_restart_pressed():
+
+	restart_level()
 
 func should_stop():
 
@@ -151,7 +166,7 @@ func parse_code(code):
 
 			if amount_text == "":
 
-				show_error(
+				ui.show_error(
 					"Repeat missing amount at line %d"
 					% [i + 1]
 				)
@@ -188,7 +203,7 @@ func parse_code(code):
 			# VALIDASI CONDITION
 			if condition_text == "":
 
-				show_error(
+				ui.show_error(
 					"While missing condition at line %d"
 					% [i + 1]
 				)
@@ -250,7 +265,7 @@ func parse_single_command(line, line_number = -1):
 
 	else:
 
-		show_error(
+		ui.show_error(
 			"Unknown command at line %d: %s"
 			% [line_number + 1, line]
 		)
@@ -261,11 +276,11 @@ func parse_single_command(line, line_number = -1):
 func validate_amount(amount):
 
 	if amount < 1:
-		show_error("Amount must be > 0")
+		ui.show_error("Amount must be > 0")
 		return 1
 
 	if amount > 20:
-		show_error("Amount too large!")
+		ui.show_error("Amount too large!")
 		return 20
 
 	return amount
@@ -385,7 +400,7 @@ func get_amount(line):
 
 	if !number_text.is_valid_int():
 
-		show_error(
+		ui.show_error(
 			"Invalid number: " + number_text
 		)
 
@@ -556,7 +571,7 @@ func parse_if_statement(lines, start_index):
 	
 	if condition == "":
 
-		show_error(
+		ui.show_error(
 			"If missing condition at line %d"
 			% [start_index + 1]
 		)
@@ -772,17 +787,20 @@ func execute_commands():
 		if has_error:
 			return
 
-		update_queue_display(i)
+		ui.update_queue_display(
+			command_queue,
+			i
+		)
 
 		var command = command_queue[i]
 
 		current_line = command.get("line", -1)
 
-		highlight_current_line()
+		ui.highlight_line(current_line)
 
 		await execute_command(command)
 
-	update_queue_display()
+	ui.update_queue_display(command_queue)
 
 
 # ==================================================
@@ -798,7 +816,7 @@ func execute_command(command):
 
 	if execution_count > execution_limit:
 
-		show_error(
+		ui.show_error(
 			"Infinite loop detected!",
 			command.get("line", -1)
 		)
@@ -828,7 +846,7 @@ func execute_command(command):
 
 				if not success:
 					runtime_stopped = true
-					show_error(
+					ui.show_error(
 						"Movement blocked!",
 						command.get("line", -1)
 					)
@@ -941,7 +959,7 @@ func execute_command(command):
 				safety += 1
 
 				if safety > max_loop:
-					show_error("Infinite loop detected!")
+					ui.show_error("Infinite loop detected!")
 					return
 
 				await execute_command_list(loop_commands)
@@ -1009,7 +1027,7 @@ func perform_jump():
 	var success = player.move_up()
 
 	if not success:
-		show_error("Jump blocked!")
+		ui.show_error("Jump blocked!")
 		return
 
 	await wait_for_player()
@@ -1029,7 +1047,7 @@ func perform_jump_right():
 	var success = player.move_up()
 
 	if not success:
-		show_error("Jump blocked!")
+		ui.show_error("Jump blocked!")
 		return
 
 	await wait_for_player()
@@ -1043,7 +1061,7 @@ func perform_jump_right():
 
 	if not success:
 		player.is_jumping = false
-		show_error("Can't move in air!")
+		ui.show_error("Can't move in air!")
 		return
 
 	await wait_for_player()
@@ -1058,7 +1076,7 @@ func perform_jump_left():
 	var success = player.move_up()
 
 	if not success:
-		show_error("Jump blocked!")
+		ui.show_error("Jump blocked!")
 		return
 
 	await wait_for_player()
@@ -1072,7 +1090,7 @@ func perform_jump_left():
 
 	if not success:
 		player.is_jumping = false
-		show_error("Can't move in air!")
+		ui.show_error("Can't move in air!")
 		return
 
 	await wait_for_player()
@@ -1084,35 +1102,35 @@ func perform_jump_left():
 # UI
 # ==================================================
 
-func update_queue_display(current_index = -1):
+#func update_queue_display(current_index = -1):
+#
+	#queue_display.text = ""
+#
+	#for i in range(command_queue.size()):
+#
+		#var command = command_queue[i]
+#
+		#var text = str(command)
+#
+		#if i == current_index:
+			#queue_display.text += "[color=yellow]▶ " + text + "[/color]\n"
+		#else:
+			#queue_display.text += text + "\n"
 
-	queue_display.text = ""
 
-	for i in range(command_queue.size()):
-
-		var command = command_queue[i]
-
-		var text = str(command)
-
-		if i == current_index:
-			queue_display.text += "[color=yellow]▶ " + text + "[/color]\n"
-		else:
-			queue_display.text += text + "\n"
-
-
-func show_error(message, line = -1):
-
-	has_error = true
-
-	if line >= 0:
-
-		error_label.text = "Line " + str(line + 1) + ": " + message
-
-	else:
-
-		error_label.text = message
-
-	print(error_label.text)
+#func show_error(message, line = -1):
+#
+	#has_error = true
+#
+	#if line >= 0:
+#
+		#error_label.text = "Line " + str(line + 1) + ": " + message
+#
+	#else:
+#
+		#error_label.text = message
+#
+	#print(error_label.text)
 
 
 # ==================================================
@@ -1125,7 +1143,7 @@ func _on_goal_body_entered(body):
 		return
 
 	if coins_collected < 1:
-		show_error("Collect the coin first!")
+		ui.show_error("Collect the coin first!")
 		return
 
 	level_finished = true
@@ -1169,9 +1187,9 @@ func restart_level():
 
 	command_queue.clear()
 
-	update_queue_display()
+	ui.update_queue_display(command_queue)
 
-	error_label.text = ""
+	ui.clear_error()
 
 
 # ==================================================
@@ -1186,7 +1204,7 @@ func _on_spike_body_entered(body):
 
 		player.die()
 
-		show_error("You died!")
+		ui.show_error("You died!")
 
 		await get_tree().create_timer(1.0).timeout
 
@@ -1257,10 +1275,10 @@ func evaluate_expression(text):
 	return get_value(text)
 
 
-func highlight_current_line():
-
-	if current_line >= 0:
-
-		code_input.set_caret_line(current_line)
-
-		code_input.center_viewport_to_caret()
+#func highlight_current_line():
+#
+	#if current_line >= 0:
+#
+		#code_input.set_caret_line(current_line)
+#
+		#code_input.center_viewport_to_caret()

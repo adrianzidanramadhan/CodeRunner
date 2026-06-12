@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://bscnx5m7wej0v"]
+
+[ext_resource type="Script" uid="uid://cemsx1hyvxfq6" path="res://scenes/ui.gd" id="1_gdt2y"]
+[ext_resource type="Texture2D" uid="uid://bri3x183i0yqc" path="res://assets/UI Elements/Icons/Icon_10.png" id="2_wm3ai"]
+[ext_resource type="Texture2D" uid="uid://bcw4cl67r4dd2" path="res://assets/UI Elements/Icons/Icon_01.png" id="3_8dubc"]
+[ext_resource type="Texture2D" uid="uid://b6g4cjsfqnrh1" path="res://assets/UI Elements/Icons/Icon_07.png" id="4_p7vwb"]
+[ext_resource type="Texture2D" uid="uid://dngy3yp6iatmx" path="res://assets/UI Elements/Icons/Icon_08.png" id="5_wm3ai"]
+
+[node name="UI" type="CanvasLayer" unique_id=1980193790]
+script = ExtResource("1_gdt2y")
+
+[node name="CodeInput" type="TextEdit" parent="." unique_id=28585654]
+custom_minimum_size = Vector2(20, 400)
+offset_left = 20.0
+offset_top = 400.0
+offset_right = 420.0
+offset_bottom = 800.0
+text = "move_right(3)"
+highlight_current_line = true
+
+[node name="QueueDisplay" type="RichTextLabel" parent="." unique_id=773365491]
+offset_left = 752.0
+offset_top = 1.0
+offset_right = 1152.0
+offset_bottom = 151.0
+
+[node name="ErrorLabel" type="Label" parent="." unique_id=2097746758]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.84263474, 3.5616756e-06, 4.813075e-07, 1)
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=298089783]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1009666802]
+layout_mode = 2
+alignment = 1
+
+[node name="MenuButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=643730678]
+layout_mode = 2
+icon = ExtResource("2_wm3ai")
+icon_alignment = 1
+
+[node name="RestartButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1785115727]
+layout_mode = 2
+icon = ExtResource("3_8dubc")
+icon_alignment = 1
+
+[node name="RunButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1181674180]
+layout_mode = 2
+icon = ExtResource("4_p7vwb")
+icon_alignment = 1
+
+[node name="Control" type="Control" parent="." unique_id=296206926]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=1118957378]
+layout_mode = 0
+offset_left = 492.0
+offset_top = 196.0
+offset_right = 644.0
+offset_bottom = 268.0
+
+[node name="DarkOverlay" type="ColorRect" parent="Control/HBoxContainer" unique_id=2019170695]
+layout_mode = 2
+color = Color(0, 0, 0, 0.19607843)
+
+[node name="ExitToMenuButton" type="Button" parent="Control/HBoxContainer" unique_id=2127123189]
+process_mode = 2
+layout_mode = 2
+icon = ExtResource("5_wm3ai")
+
+[node name="ResumeButton" type="Button" parent="Control/HBoxContainer" unique_id=37928654]
+process_mode = 2
+layout_mode = 2
+icon = ExtResource("4_p7vwb")
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/RunButton" to="." method="_on_run_button_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer/ExitToMenuButton" to="." method="_on_exit_to_menu_button_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]

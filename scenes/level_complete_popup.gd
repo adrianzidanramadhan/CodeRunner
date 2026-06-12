@@ -3,7 +3,7 @@ extends Control
 var next_level = 1
 
 func _ready():
-	show_popup(1)
+	visible = false
 
 func show_popup(level_number):
 	next_level = level_number + 1

@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://hla06eltkwf" path="res://assets/tilemap/door.png" id="4_k7kyu"]
 [ext_resource type="Texture2D" uid="uid://dlwbiyfwwkysf" path="res://assets/tilemap/Coin.png" id="5_j04vv"]
 [ext_resource type="PackedScene" uid="uid://dwaw4rn0jcn1x" path="res://scenes/LevelCompletePopup.tscn" id="6_wim12"]
+[ext_resource type="PackedScene" uid="uid://bscnx5m7wej0v" path="res://scenes/ui.tscn" id="7_2r1tl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xwcet"]
 
@@ -20,44 +21,6 @@ layer_0/tile_data = PackedInt32Array(1310769, 196608, 3, 1245233, 196608, 2, 117
 
 [node name="Player" parent="." unique_id=961151976 instance=ExtResource("3_fcruq")]
 position = Vector2(94, 256)
-
-[node name="UI" type="CanvasLayer" parent="." unique_id=558874400]
-
-[node name="CodeInput" type="TextEdit" parent="UI" unique_id=1438257745]
-custom_minimum_size = Vector2(20, 400)
-offset_left = 20.0
-offset_top = 400.0
-offset_right = 420.0
-offset_bottom = 800.0
-text = "move_right(3)"
-highlight_current_line = true
-
-[node name="RunButton" type="Button" parent="UI" unique_id=482870030]
-offset_right = 8.0
-offset_bottom = 8.0
-text = "RUN"
-
-[node name="QueueDisplay" type="RichTextLabel" parent="UI" unique_id=1419395617]
-offset_left = 752.0
-offset_top = 1.0
-offset_right = 1152.0
-offset_bottom = 151.0
-
-[node name="ErrorLabel" type="Label" parent="UI" unique_id=813689086]
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 23.0
-grow_horizontal = 2
-theme_override_colors/font_color = Color(0.84263474, 3.5616756e-06, 4.813075e-07, 1)
-theme_override_font_sizes/font_size = 24
-horizontal_alignment = 1
-
-[node name="RestartButton" type="Button" parent="UI" unique_id=1837388500]
-offset_left = 1.0
-offset_top = 34.0
-offset_right = 66.0
-offset_bottom = 65.0
-text = "Restart"
 
 [node name="Goal" type="Area2D" parent="." unique_id=2062163517]
 
@@ -85,7 +48,7 @@ offset_top = 301.0
 offset_right = 567.0
 offset_bottom = 301.0
 
-[connection signal="pressed" from="UI/RunButton" to="." method="_on_run_button_pressed"]
-[connection signal="pressed" from="UI/RestartButton" to="." method="_on_restart_button_pressed"]
+[node name="UI" parent="." unique_id=1980193790 instance=ExtResource("7_2r1tl")]
+
 [connection signal="body_entered" from="Goal" to="." method="_on_goal_body_entered"]
 [connection signal="body_entered" from="Coin" to="." method="_on_coin_body_entered"]
