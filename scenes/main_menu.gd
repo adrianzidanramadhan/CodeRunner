@@ -5,14 +5,30 @@ extends Control
 @onready var main_buttons = $MainMenuPanel
 @onready var level_select_panel = $LevelSelectPanel
 
+@onready var banner = $LevelSelectPanel/MarginContainer/Banner
 @onready var level_grid = $LevelSelectPanel/MarginContainer/Banner/GridContainer
 
 var target_pos : Vector2
+var idle_time := 0.0
+var banner_start_pos : Vector2
 
 func _process(delta):
+
 	parallax.scroll_offset.x -= 50 * delta
 
+	idle_time += delta
+
+	if level_select_panel.visible:
+
+		banner.rotation = deg_to_rad(
+			sin(idle_time * 1.5) * 2
+		)
+
+		banner.position.y = banner_start_pos.y + sin(idle_time * 2.0) * 2
+
 func _ready():
+
+	banner_start_pos = banner.position
 
 	target_pos = level_select_panel.position
 
@@ -25,6 +41,12 @@ func _ready():
 	level_select_panel.hide()
 
 	setup_level_buttons()
+	
+	if LevelManager.open_level_select:
+
+		LevelManager.open_level_select = false
+
+		show_level_select()
 
 func show_level_select():
 
@@ -58,6 +80,10 @@ func show_level_select():
 	)
 
 	main_buttons.hide()
+
+	await tween.finished
+
+	idle_time = 0
 
 func hide_level_select():
 

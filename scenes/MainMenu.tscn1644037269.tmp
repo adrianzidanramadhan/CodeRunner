@@ -1,0 +1,715 @@
+[gd_scene format=3 uid="uid://dypo6atenxb2i"]
+
+[ext_resource type="Script" uid="uid://lh5x7gawb0y4" path="res://scenes/main_menu.gd" id="1_lnxie"]
+[ext_resource type="Texture2D" uid="uid://625fm3eeyqht" path="res://assets/Background/Background.png" id="2_sks6p"]
+[ext_resource type="Texture2D" uid="uid://dt1hyiujlgamd" path="res://assets/Trees/Background.png" id="4_ow34m"]
+[ext_resource type="Texture2D" uid="uid://bri3x183i0yqc" path="res://assets/UI Elements/Icons/Icon_10.png" id="5_ucygd"]
+[ext_resource type="Texture2D" uid="uid://c1vpjabsellde" path="res://assets/UI Elements/Banners/Banner.png" id="7_7la6k"]
+[ext_resource type="Texture2D" uid="uid://cwc2ycmp1pjwv" path="res://assets/UI Elements/Icons/Icon_11.png" id="7_8a8k8"]
+[ext_resource type="FontFile" uid="uid://drau7u1dxkxss" path="res://assets/font/federhozen-bold.ttf" id="8_2nypq"]
+[ext_resource type="Texture2D" uid="uid://cvbwk3l1oea7c" path="res://assets/UI Elements/Icons/Icon_09.png" id="8_l4mxc"]
+[ext_resource type="FontFile" uid="uid://chbpnwj3qvssf" path="res://assets/font/federhozen-regular.ttf" id="9_bky6r"]
+[ext_resource type="StyleBox" uid="uid://bsh8wguyv7y71" path="res://assets/tres/button_rounded_transparent.tres" id="9_l4mxc"]
+[ext_resource type="Texture2D" uid="uid://sg20yhjq1hkh" path="res://assets/UI Elements/Ribbons/SmallRibbons1.png" id="10_7la6k"]
+[ext_resource type="Theme" uid="uid://bdadd0m5206uq" path="res://assets/tres/menu_button.tres" id="10_bky6r"]
+[ext_resource type="StyleBox" uid="uid://du0m108rqovtq" path="res://assets/tres/button_rounded_transparent_hover.tres" id="10_l4mxc"]
+[ext_resource type="Texture2D" uid="uid://b8k7vpgt2utlt" path="res://assets/UI Elements/Ribbons/SmallRibbonsOpen.png" id="11_2nypq"]
+[ext_resource type="Texture2D" uid="uid://dngy3yp6iatmx" path="res://assets/UI Elements/Icons/Icon_08.png" id="12_bky6r"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lulne"]
+font = ExtResource("8_2nypq")
+font_size = 80
+
+[sub_resource type="Theme" id="Theme_l4mxc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tf3dk"]
+font = ExtResource("9_bky6r")
+font_size = 18
+font_color = Color(13.750843, 13.750843, 13.750843, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bky6r"]
+atlas = ExtResource("10_7la6k")
+region = Rect2(2, 0, 190, 60)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ptake"]
+font = ExtResource("8_2nypq")
+font_size = 48
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ptake"]
+bg_color = Color(11.708403, 11.708403, 11.708403, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hubol"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8vx4p"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="MainMenu" type="Control" unique_id=809523929]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lnxie")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1214013777]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" unique_id=554088283]
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(903, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=945931100]
+position = Vector2(453.00003, 229.5)
+scale = Vector2(1.8875002, 1.694853)
+texture = ExtResource("2_sks6p")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground" unique_id=350759658]
+motion_scale = Vector2(0.4, 0.4)
+motion_mirroring = Vector2(1150, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=71809869]
+position = Vector2(48, 381)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(800, 0, 96, 256)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=1568118738]
+position = Vector2(144, 381)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(800, 0, 96, 256)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=234089303]
+position = Vector2(240, 381)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(800, 0, 96, 256)
+
+[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=2034794238]
+position = Vector2(336, 381)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(800, 0, 96, 256)
+
+[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=1196508710]
+position = Vector2(432, 381)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(800, 0, 96, 256)
+
+[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=1746217737]
+position = Vector2(528, 381)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(800, 0, 96, 256)
+
+[node name="Sprite2D7" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=1727576272]
+position = Vector2(624, 381)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(800, 0, 96, 256)
+
+[node name="Sprite2D8" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=187451009]
+position = Vector2(720, 381)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(800, 0, 96, 256)
+
+[node name="Sprite2D9" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=1028789025]
+position = Vector2(816, 381)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(800, 0, 96, 256)
+
+[node name="Sprite2D10" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=897694224]
+position = Vector2(912, 381)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(800, 0, 96, 256)
+
+[node name="Sprite2D11" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=1395875411]
+position = Vector2(1008, 381)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(800, 0, 96, 256)
+
+[node name="Sprite2D12" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=48494047]
+position = Vector2(1104, 381)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(800, 0, 96, 256)
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground" unique_id=408573244]
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(1152, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=1417285674]
+position = Vector2(26, 455)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=602520726]
+position = Vector2(122, 455)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=1229952885]
+position = Vector2(218, 455)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=1138443711]
+position = Vector2(314, 455)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=397630332]
+position = Vector2(410, 455)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=1452763276]
+position = Vector2(506, 455)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D7" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=19533487]
+position = Vector2(602, 455)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D8" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=1518893238]
+position = Vector2(698, 455)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D9" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=417970358]
+position = Vector2(794, 455)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D10" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=619005610]
+position = Vector2(890, 455)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D11" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=737199927]
+position = Vector2(986, 455)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D12" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=1033472512]
+position = Vector2(1082, 455)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxBackground" unique_id=556985615]
+position = Vector2(-11, 16)
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(1152, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6" unique_id=2050024610]
+position = Vector2(13, 515)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6" unique_id=262818646]
+position = Vector2(109, 515)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6" unique_id=708228077]
+position = Vector2(205, 515)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6" unique_id=2031923103]
+position = Vector2(301, 515)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6" unique_id=1756851532]
+position = Vector2(397, 515)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6" unique_id=470939226]
+position = Vector2(493, 515)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D7" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6" unique_id=1025792867]
+position = Vector2(589, 515)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D8" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6" unique_id=404603552]
+position = Vector2(685, 515)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D9" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6" unique_id=1245261796]
+position = Vector2(781, 515)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D10" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6" unique_id=403544525]
+position = Vector2(877, 515)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D11" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6" unique_id=1677890789]
+position = Vector2(973, 515)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D12" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6" unique_id=1596462541]
+position = Vector2(1069, 515)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1207403744]
+motion_scale = Vector2(0.7, 0.7)
+motion_mirroring = Vector2(800, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5" unique_id=1642543121]
+position = Vector2(179, 523)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(352, 0, 96, 256)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5" unique_id=523755137]
+position = Vector2(275, 523)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(464, 0, 96, 256)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5" unique_id=1583074674]
+position = Vector2(387, 523)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(576, 0, 128, 256)
+
+[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5" unique_id=1074889803]
+position = Vector2(641, 530)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(352, 0, 96, 256)
+
+[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5" unique_id=2118225894]
+position = Vector2(737, 530)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(464, 0, 96, 256)
+
+[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5" unique_id=245335803]
+position = Vector2(849, 530)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(576, 0, 128, 256)
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground" unique_id=639153658]
+motion_scale = Vector2(0.8, 0.8)
+motion_mirroring = Vector2(900, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=658943023]
+position = Vector2(-1, 549)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 256)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=471597740]
+position = Vector2(95, 549)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(112, 0, 96, 256)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=1415617585]
+position = Vector2(191, 549)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(112, 0, 96, 256)
+
+[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=1532322330]
+position = Vector2(303, 549)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(224, 0, 128, 256)
+
+[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=114784496]
+position = Vector2(464, 549)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 256)
+
+[node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=1632957010]
+position = Vector2(560, 549)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(112, 0, 96, 256)
+
+[node name="Sprite2D7" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=933518839]
+position = Vector2(656, 549)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(112, 0, 96, 256)
+
+[node name="Sprite2D8" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=1918860931]
+position = Vector2(768, 549)
+texture = ExtResource("4_ow34m")
+region_enabled = true
+region_rect = Rect2(224, 0, 128, 256)
+
+[node name="VersionLabel" type="Label" parent="." unique_id=591734142]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -51.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "V.0.1.0"
+
+[node name="MainMenuPanel" type="Control" parent="." unique_id=1463801683]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenuPanel" unique_id=930373344]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 306.0
+offset_top = 54.0
+offset_right = 806.0
+offset_bottom = 554.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 64
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MainMenuPanel/MarginContainer" unique_id=924822231]
+layout_mode = 2
+theme_override_constants/separation = -8
+
+[node name="TitleLabel" type="Label" parent="MainMenuPanel/MarginContainer/VBoxContainer2" unique_id=879199037]
+layout_mode = 2
+text = "Code Runner"
+label_settings = SubResource("LabelSettings_lulne")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="SubtitleLabel" type="Label" parent="MainMenuPanel/MarginContainer/VBoxContainer2" unique_id=381368705]
+layout_mode = 2
+theme = SubResource("Theme_l4mxc")
+text = "Learn Programming Through Adventure"
+label_settings = SubResource("LabelSettings_tf3dk")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuPanel/MarginContainer" unique_id=1231961311]
+layout_mode = 2
+alignment = 2
+
+[node name="ContinueButton" type="TextureButton" parent="MainMenuPanel/MarginContainer/VBoxContainer" unique_id=513682078]
+layout_mode = 2
+theme = ExtResource("10_bky6r")
+texture_normal = SubResource("AtlasTexture_bky6r")
+texture_pressed = ExtResource("10_7la6k")
+texture_hover = ExtResource("11_2nypq")
+stretch_mode = 3
+flip_h = true
+
+[node name="Label" type="Label" parent="MainMenuPanel/MarginContainer/VBoxContainer/ContinueButton" unique_id=89739878]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "Continue"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayButton" type="TextureButton" parent="MainMenuPanel/MarginContainer/VBoxContainer" unique_id=479900205]
+layout_mode = 2
+theme = ExtResource("10_bky6r")
+texture_normal = ExtResource("10_7la6k")
+texture_pressed = ExtResource("10_7la6k")
+texture_hover = ExtResource("11_2nypq")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="MainMenuPanel/MarginContainer/VBoxContainer/PlayButton" unique_id=2062161839]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Play"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelButton" type="TextureButton" parent="MainMenuPanel/MarginContainer/VBoxContainer" unique_id=457608349]
+layout_mode = 2
+theme = ExtResource("10_bky6r")
+texture_normal = ExtResource("10_7la6k")
+texture_pressed = ExtResource("10_7la6k")
+texture_hover = ExtResource("11_2nypq")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="MainMenuPanel/MarginContainer/VBoxContainer/LevelButton" unique_id=1406437264]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Level Select"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="MainMenuPanel" unique_id=1415221915]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 1046.0
+offset_right = 1112.0
+offset_bottom = 174.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MainMenuPanel/MarginContainer2" unique_id=2008250046]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+
+[node name="SettingButton" type="Button" parent="MainMenuPanel/MarginContainer2/VBoxContainer2" unique_id=1138769690]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("9_l4mxc")
+theme_override_styles/pressed = ExtResource("9_l4mxc")
+theme_override_styles/hover = ExtResource("10_l4mxc")
+icon = ExtResource("5_ucygd")
+icon_alignment = 1
+expand_icon = true
+
+[node name="InfoButton" type="Button" parent="MainMenuPanel/MarginContainer2/VBoxContainer2" unique_id=983739140]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("9_l4mxc")
+theme_override_styles/pressed = ExtResource("9_l4mxc")
+theme_override_styles/hover = ExtResource("10_l4mxc")
+icon = ExtResource("7_8a8k8")
+icon_alignment = 1
+expand_icon = true
+
+[node name="ExitButton" type="Button" parent="MainMenuPanel/MarginContainer2/VBoxContainer2" unique_id=909471629]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("9_l4mxc")
+theme_override_styles/pressed = ExtResource("9_l4mxc")
+theme_override_styles/hover = ExtResource("10_l4mxc")
+icon = ExtResource("8_l4mxc")
+icon_alignment = 1
+expand_icon = true
+
+[node name="LevelSelectPanel" type="Control" parent="." unique_id=492008617]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="LevelSelectPanel" unique_id=2120527167]
+custom_minimum_size = Vector2(500, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -250.0
+offset_right = 250.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 120
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 0
+
+[node name="Banner" type="NinePatchRect" parent="LevelSelectPanel/MarginContainer" unique_id=876870182]
+layout_mode = 2
+texture = ExtResource("7_7la6k")
+region_rect = Rect2(0, 0, 248, 242)
+
+[node name="MarginContainer2" type="MarginContainer" parent="LevelSelectPanel/MarginContainer/Banner" unique_id=1915091604]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.5
+offset_right = 120.5
+offset_bottom = 58.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 42
+
+[node name="Label" type="Label" parent="LevelSelectPanel/MarginContainer/Banner/MarginContainer2" unique_id=1923524125]
+layout_mode = 2
+text = "Select Level"
+label_settings = SubResource("LabelSettings_ptake")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 128
+
+[node name="MarginContainer" type="MarginContainer" parent="LevelSelectPanel/MarginContainer/Banner" unique_id=1886202348]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -180.0
+offset_right = 102.0
+offset_bottom = -22.0
+grow_vertical = 0
+theme_override_constants/margin_left = 52
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 48
+
+[node name="BackButton" type="Button" parent="LevelSelectPanel/MarginContainer/Banner/MarginContainer" unique_id=761738084]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ptake")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hubol")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8vx4p")
+icon = ExtResource("12_bky6r")
+icon_alignment = 1
+expand_icon = true
+
+[node name="GridContainer" type="GridContainer" parent="LevelSelectPanel/MarginContainer/Banner" unique_id=2136274460]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.0
+offset_top = -50.5
+offset_right = 83.0
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+columns = 5
+
+[node name="LevelButton1" type="Button" parent="LevelSelectPanel/MarginContainer/Banner/GridContainer" unique_id=158122707]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton2" type="Button" parent="LevelSelectPanel/MarginContainer/Banner/GridContainer" unique_id=1448326589]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton3" type="Button" parent="LevelSelectPanel/MarginContainer/Banner/GridContainer" unique_id=1906546337]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton4" type="Button" parent="LevelSelectPanel/MarginContainer/Banner/GridContainer" unique_id=1018475192]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton5" type="Button" parent="LevelSelectPanel/MarginContainer/Banner/GridContainer" unique_id=71084629]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton6" type="Button" parent="LevelSelectPanel/MarginContainer/Banner/GridContainer" unique_id=1555213801]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton7" type="Button" parent="LevelSelectPanel/MarginContainer/Banner/GridContainer" unique_id=193140002]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton8" type="Button" parent="LevelSelectPanel/MarginContainer/Banner/GridContainer" unique_id=497167380]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton9" type="Button" parent="LevelSelectPanel/MarginContainer/Banner/GridContainer" unique_id=1187980287]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton10" type="Button" parent="LevelSelectPanel/MarginContainer/Banner/GridContainer" unique_id=1893967917]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton11" type="Button" parent="LevelSelectPanel/MarginContainer/Banner/GridContainer" unique_id=452600035]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "1"
+
+[node name="LevelButton12" type="Button" parent="LevelSelectPanel/MarginContainer/Banner/GridContainer" unique_id=779756355]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "1"
+
+[connection signal="pressed" from="MainMenuPanel/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="MainMenuPanel/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MainMenuPanel/MarginContainer/VBoxContainer/LevelButton" to="." method="_on_level_button_pressed"]
+[connection signal="pressed" from="MainMenuPanel/MarginContainer2/VBoxContainer2/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="LevelSelectPanel/MarginContainer/Banner/MarginContainer/BackButton" to="." method="_on_back_button_pressed"]

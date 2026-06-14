@@ -4,6 +4,7 @@ const MAX_LEVEL = 12
 
 var current_level = 1
 var unlocked_level = 1
+var open_level_select = false
 
 const SAVE_PATH = "user://save.dat"
 

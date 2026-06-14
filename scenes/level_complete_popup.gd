@@ -35,7 +35,9 @@ func _on_next_button_pressed():
 	)
 
 func _on_level_select_button_pressed():
-	
+
+	LevelManager.open_level_select = true
+
 	get_tree().change_scene_to_file(
-		"res://scenes/LevelSelect.tscn"
+		"res://scenes/MainMenu.tscn"
 	)
