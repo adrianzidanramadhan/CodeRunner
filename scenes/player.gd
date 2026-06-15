@@ -1,27 +1,87 @@
+#player.gd
 extends CharacterBody2D
 
 var tile_size = 32
 var is_moving = false
-var target_position = Vector2()
 var is_jumping = false
-var start_position = Vector2()
+var is_falling = false
 var is_dead = false
+var is_arc_jumping = false
+
+var target_position = Vector2()
+var start_position = Vector2()
+
+@onready var spike_check = $SpikeCheck
+@onready var wall_check = $WallCheck
+@onready var floor_check = $FloorCheck
+@onready var sprite = $Visual/Knight
 
 func _ready():
+
 	target_position = position
 	start_position = position
 
+	set_state_idle()
+
 func _process(delta):
-	if is_moving:
-		position = position.move_toward(target_position, 200 * delta)
+
+	if is_moving and !is_arc_jumping:
+
+		position = position.move_toward(
+			target_position,
+			200 * delta
+		)
 
 		if position.distance_to(target_position) < 1:
+
 			position = target_position
 			is_moving = false
 
-func move_right():
+			if is_jumping:
+				is_jumping = false
+
+			if is_falling:
+				is_falling = false
+
+
+func stop_action():
+
+	if is_dead:return
+
+	is_moving = false
+	is_jumping = false
+	is_falling = false
+
+	set_state_idle()
+
+
+func play_anim(anim_name):
+
+	if sprite.animation != anim_name:
+		sprite.play(anim_name)
+
+func set_state_idle():
+	play_anim("idle")
+
+func set_state_run():
+	play_anim("run")
+
+func set_state_jump():
+	play_anim("jump")
+
+func set_state_fall():
+	play_anim("fall")
+
+func set_state_death():
+	play_anim("death")
 	
+
+func move_right():
+
 	sprite.flip_h = false
+
+	if is_dead:
+		return false
 
 	if is_moving:
 		return false
@@ -30,11 +90,15 @@ func move_right():
 	wall_check.force_raycast_update()
 
 	if wall_check.is_colliding():
+
 		print("Tembok di kanan!")
 		return false
 
 	target_position += Vector2(tile_size, 0)
+
 	is_moving = true
+
+	set_state_run()
 
 	return true
 
@@ -43,6 +107,9 @@ func move_left():
 
 	sprite.flip_h = true
 
+	if is_dead:
+		return false
+
 	if is_moving:
 		return false
 
@@ -50,16 +117,23 @@ func move_left():
 	wall_check.force_raycast_update()
 
 	if wall_check.is_colliding():
+
 		print("Tembok di kiri!")
 		return false
 
 	target_position += Vector2(-tile_size, 0)
+
 	is_moving = true
+
+	set_state_run()
 
 	return true
 
 
 func move_up():
+
+	if is_dead:
+		return false
 
 	if is_moving:
 		return false
@@ -68,33 +142,100 @@ func move_up():
 	wall_check.force_raycast_update()
 
 	if wall_check.is_colliding():
+
 		print("Tembok di atas!")
 		return false
 
 	is_jumping = true
+	is_moving = true
 
 	target_position += Vector2(0, -tile_size)
-	is_moving = true
+
+	set_state_jump()
 
 	return true
 
 
-func move_down():
+func jump_arc(direction):
 
 	if is_moving:
 		return false
 
-	floor_check.target_position = Vector2(0, tile_size)
-	floor_check.force_raycast_update()
+	is_arc_jumping = true
+	is_jumping = true
 
-	if floor_check.is_colliding():
-		is_moving = false
+	set_state_jump()
+
+	var end = position + Vector2(
+		direction.x * tile_size * 2,
+		0
+	)
+	
+	target_position = end
+
+	wall_check.target_position = Vector2(
+		direction.x * tile_size * 2,
+		0
+	)
+
+	wall_check.force_raycast_update()
+
+	if wall_check.is_colliding():
+		target_position = position
+		is_arc_jumping = false
+		is_jumping = false
+		set_state_idle()
 		return false
 
-	target_position += Vector2(0, tile_size)
-	is_moving = true
+	# Horizontal
+	var move_tween = create_tween()
+
+	move_tween.tween_property(
+		self,
+		"position",
+		end,
+		0.5
+	)
+
+	# Arc visual
+	var visual_tween = create_tween()
+
+	visual_tween.set_trans(Tween.TRANS_SINE)
+
+	# Naik
+	visual_tween.tween_property(
+		$Visual,
+		"position:y",
+		-90,
+		0.20
+	)
+
+	# Ganti animasi jadi fall di puncak
+	visual_tween.tween_callback(
+		func():
+			set_state_fall()
+	)
+
+	# Turun sedikit lebih lama
+	visual_tween.tween_property(
+		$Visual,
+		"position:y",
+		-30,
+		0.30
+	)
+
+	await move_tween.finished
+
+	is_arc_jumping = false
+	is_jumping = false
+
+	set_state_idle()
 
 	return true
+
+
+func is_airborne():
+	return is_arc_jumping or is_jumping
 
 
 func should_fall():
@@ -109,20 +250,29 @@ func reset_player():
 
 	position = start_position
 	target_position = start_position
+
 	is_moving = false
-	
+	is_jumping = false
+	is_falling = false
+
+	set_state_idle()
 
 func die():
 
 	if is_dead:
 		return
-
+	
 	is_dead = true
 
 	is_moving = false
+	is_jumping = false
+	is_falling = false
+
 	target_position = position
 
-	print("Player mati!")
+	set_state_death()
+
+	await get_tree().create_timer(2.0).timeout
 
 
 func wall_on_right():
@@ -145,12 +295,3 @@ func spike_ahead():
 	spike_check.force_raycast_update()
 
 	return spike_check.is_colliding()
-
-
-@onready var spike_check = $SpikeCheck
-
-@onready var wall_check = $WallCheck
-
-@onready var sprite = $AnimatedSprite2D
-
-@onready var floor_check = $FloorCheck

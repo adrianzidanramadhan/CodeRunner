@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cemsx1hyvxfq6" path="res://scenes/ui.gd" id="1_gdt2y"]
 [ext_resource type="Texture2D" uid="uid://bri3x183i0yqc" path="res://assets/UI Elements/Icons/Icon_10.png" id="2_wm3ai"]
 [ext_resource type="Texture2D" uid="uid://bcw4cl67r4dd2" path="res://assets/UI Elements/Icons/Icon_01.png" id="3_8dubc"]
+[ext_resource type="Texture2D" uid="uid://cwc2ycmp1pjwv" path="res://assets/UI Elements/Icons/Icon_11.png" id="3_vdcm2"]
 [ext_resource type="Texture2D" uid="uid://b6g4cjsfqnrh1" path="res://assets/UI Elements/Icons/Icon_07.png" id="4_p7vwb"]
 [ext_resource type="Texture2D" uid="uid://c1vpjabsellde" path="res://assets/UI Elements/Banners/Banner.png" id="5_ktti3"]
 [ext_resource type="Texture2D" uid="uid://dngy3yp6iatmx" path="res://assets/UI Elements/Icons/Icon_08.png" id="5_wm3ai"]
@@ -10,10 +11,28 @@
 [ext_resource type="StyleBox" uid="uid://bsh8wguyv7y71" path="res://assets/tres/button_rounded_transparent.tres" id="7_cgfq5"]
 [ext_resource type="PackedScene" uid="uid://dwaw4rn0jcn1x" path="res://scenes/LevelCompletePopup.tscn" id="8_7dvkv"]
 [ext_resource type="StyleBox" uid="uid://du0m108rqovtq" path="res://assets/tres/button_rounded_transparent_hover.tres" id="8_vdcm2"]
+[ext_resource type="FontFile" uid="uid://chbpnwj3qvssf" path="res://assets/font/federhozen-regular.ttf" id="11_6rmj2"]
+[ext_resource type="Texture2D" uid="uid://c8xo6wxpt8kph" path="res://assets/UI Elements/Banners/Banner_Slots.png" id="11_vsj0x"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vdcm2"]
 font = ExtResource("6_cgfq5")
 font_size = 64
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vsj0x"]
+texture = ExtResource("11_vsj0x")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qsv74"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1mc3"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cof4p"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="UI" type="CanvasLayer" unique_id=1980193790]
 script = ExtResource("1_gdt2y")
@@ -24,14 +43,21 @@ offset_left = 20.0
 offset_top = 400.0
 offset_right = 420.0
 offset_bottom = 800.0
+theme_override_fonts/font = ExtResource("11_6rmj2")
+theme_override_font_sizes/font_size = 24
 text = "move_right(3)"
 highlight_current_line = true
 
 [node name="QueueDisplay" type="RichTextLabel" parent="." unique_id=773365491]
-offset_left = 752.0
-offset_top = 1.0
-offset_right = 1152.0
-offset_bottom = 151.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -400.0
+offset_bottom = 200.0
+grow_horizontal = 0
+theme_override_fonts/normal_font = ExtResource("11_6rmj2")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
 
 [node name="ErrorLabel" type="Label" parent="." unique_id=2097746758]
 anchors_preset = 10
@@ -59,6 +85,11 @@ layout_mode = 2
 icon = ExtResource("2_wm3ai")
 icon_alignment = 1
 
+[node name="CommandsButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=2137507386]
+layout_mode = 2
+icon = ExtResource("3_vdcm2")
+icon_alignment = 1
+
 [node name="RestartButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1785115727]
 layout_mode = 2
 icon = ExtResource("3_8dubc")
@@ -70,6 +101,7 @@ icon = ExtResource("4_p7vwb")
 icon_alignment = 1
 
 [node name="Control" type="Control" parent="." unique_id=978164803]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -156,6 +188,68 @@ text = "RESUME"
 icon = ExtResource("4_p7vwb")
 icon_alignment = 1
 vertical_icon_alignment = 0
+
+[node name="CommandsPopup" type="Control" parent="." unique_id=1073825368]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="CommandsPopup" unique_id=1485034647]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -252.0
+offset_top = -225.0
+offset_right = -29.0
+offset_bottom = 225.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_vsj0x")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CommandsPopup/Panel" unique_id=225788306]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.5
+offset_top = -205.0
+offset_right = 98.5
+offset_bottom = 195.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(20, 20)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("11_6rmj2")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="CommandsPopup/Panel" unique_id=146821500]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -50.0
+offset_right = 40.0
+offset_bottom = -20.0
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_qsv74")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h1mc3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cof4p")
+icon = ExtResource("5_wm3ai")
+icon_alignment = 1
+expand_icon = true
 
 [node name="LevelCompletePopup" parent="." unique_id=1506947087 instance=ExtResource("8_7dvkv")]
 visible = false

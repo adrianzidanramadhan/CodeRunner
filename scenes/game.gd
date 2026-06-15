@@ -1,3 +1,4 @@
+#game.gd
 extends Node2D
 
 @onready var code_input = $UI/CodeInput
@@ -38,12 +39,17 @@ func _on_ui_restart_pressed():
 	restart_level()
 
 func should_stop():
-
-	return (
-		runtime_stopped
-		or player.is_dead
+	
+	return runtime_stopped \
+		or has_error \
+		or player.is_dead \
 		or level_finished
-	)
+
+	#return (
+		#runtime_stopped
+		#or player.is_dead
+		#or level_finished
+	#)
 
 
 # ==================================================
@@ -801,6 +807,8 @@ func execute_commands():
 		await execute_command(command)
 
 	ui.update_queue_display(command_queue)
+	
+	player.stop_action()
 
 
 # ==================================================
@@ -853,6 +861,9 @@ func execute_command(command):
 					return
 
 				await wait_for_player()
+				
+				if should_stop():
+					return
 
 		# ======================================
 		# JUMP
@@ -1042,60 +1053,28 @@ func perform_jump():
 
 func perform_jump_right():
 
-	player.is_jumping = true
+	var success = await player.jump_arc(
+		Vector2.RIGHT
+	)
 
-	var success = player.move_up()
+	if !success:
 
-	if not success:
-		ui.show_error("Jump blocked!")
-		return
-
-	await wait_for_player()
-
-	success = player.move_up()
-
-	if success:
-		await wait_for_player()
-
-	success = player.move_right()
-
-	if not success:
-		player.is_jumping = false
-		ui.show_error("Can't move in air!")
-		return
-
-	await wait_for_player()
-
-	player.is_jumping = false
+		ui.show_error(
+			"Jump failed!"
+		)
 
 
 func perform_jump_left():
 
-	player.is_jumping = true
+	var success = await player.jump_arc(
+		Vector2.LEFT
+	)
 
-	var success = player.move_up()
+	if !success:
 
-	if not success:
-		ui.show_error("Jump blocked!")
-		return
-
-	await wait_for_player()
-
-	success = player.move_up()
-
-	if success:
-		await wait_for_player()
-
-	success = player.move_left()
-
-	if not success:
-		player.is_jumping = false
-		ui.show_error("Can't move in air!")
-		return
-
-	await wait_for_player()
-
-	player.is_jumping = false
+		ui.show_error(
+			"Jump failed!"
+		)
 
 
 # ==================================================
@@ -1161,13 +1140,12 @@ func _on_goal_body_entered(body):
 
 func _on_coin_body_entered(body):
 
-	if body.name == "Player":
+	if body.name != "Player":
+		return
 
-		coins_collected += 1
+	coins_collected += 1
 
-		print("Coin diambil!")
-
-		$Coin.queue_free()
+	$Coin.queue_free()
 
 
 # ==================================================
@@ -1181,14 +1159,16 @@ func _on_restart_button_pressed():
 
 func restart_level():
 
+	runtime_stopped = false
+	has_error = false
+	level_finished = false
+
 	player.reset_player()
-
 	player.is_dead = false
-
+	
 	command_queue.clear()
 
 	ui.update_queue_display(command_queue)
-
 	ui.clear_error()
 
 
@@ -1198,17 +1178,19 @@ func restart_level():
 
 func _on_spike_body_entered(body):
 
-	if body.name == "Player":
+	if body.name != "Player":
+		return
 
-		runtime_stopped = true
+	if body.is_airborne():
+		return
 
-		player.die()
+	runtime_stopped = true
 
-		ui.show_error("You died!")
+	await player.die()
 
-		await get_tree().create_timer(1.0).timeout
+	ui.show_error("You died!")
 
-		restart_level()
+	restart_level()
 
 func evaluate_expression(text):
 

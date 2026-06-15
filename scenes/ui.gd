@@ -4,6 +4,7 @@ extends CanvasLayer
 @onready var queue_display = $QueueDisplay
 @onready var error_label = $ErrorLabel
 @onready var pause_menu = $Control
+@onready var commands_popup = $CommandsPopup
 
 @onready var level_complete_popup = $LevelCompletePopup
 
@@ -12,6 +13,74 @@ signal restart_pressed
 
 func _ready():
 	hide_pause()
+	
+	commands_popup.hide()
+
+	$MarginContainer/HBoxContainer/CommandsButton.pressed.connect(
+		_on_commands_pressed
+	)
+
+	$CommandsPopup/Panel/CloseButton.pressed.connect(
+		_on_close_commands_pressed
+	)
+
+	$CommandsPopup/Panel/RichTextLabel.text = """
+=== MOVEMENT ===
+
+move_right(3)
+move_left(3)
+
+=== JUMP ===
+
+jump()
+jump_right()
+jump_left()
+
+=== LOOP ===
+
+repeat(3):
+    move_right()
+
+=== CONDITION ===
+
+if wall_right():
+    jump_right()
+
+=== FUNCTION ===
+
+func go():
+    move_right()
+
+go()
+"""
+	
+
+func _on_commands_pressed():
+	
+	$CommandsPopup/Panel.pivot_offset = $CommandsPopup/Panel.size / 2
+	
+	commands_popup.show()
+	
+	$CommandsPopup/Panel.scale = Vector2.ZERO
+	var pop_tween = create_tween()
+	pop_tween.tween_property(
+		$CommandsPopup/Panel, 
+		"scale", 
+		Vector2.ONE, 
+		0.2
+	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+
+func _on_close_commands_pressed():
+
+	commands_popup.hide()
+
+func _input(event):
+
+	if event.is_action_pressed("ui_help"):
+
+		commands_popup.visible = \
+			!commands_popup.visible
 
 func show_level_complete(level_number):
 

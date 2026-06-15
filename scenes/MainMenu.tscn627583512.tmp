@@ -566,132 +566,128 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BannerSprite" type="TextureRect" parent="LevelSelectPanel" unique_id=480723713]
-custom_minimum_size = Vector2(450, 450)
+[node name="MarginContainer" type="MarginContainer" parent="LevelSelectPanel" unique_id=2120527167]
+custom_minimum_size = Vector2(500, 600)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -124.0
-offset_top = -121.0
-offset_right = 124.0
-offset_bottom = 121.0
+offset_left = -250.0
+offset_top = -250.0
+offset_right = 250.0
+offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 120
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 0
+
+[node name="BannerSprite" type="Sprite2D" parent="LevelSelectPanel/MarginContainer" unique_id=793082302]
 texture = ExtResource("7_7la6k")
+region_rect = Rect2(0, 0, 248, 242)
 
-[node name="Content" type="TextureRect" parent="LevelSelectPanel" unique_id=945723381]
-custom_minimum_size = Vector2(450, 450)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -124.0
-offset_top = -121.0
-offset_right = 124.0
-offset_bottom = 121.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="BannerContent" type="Control" parent="LevelSelectPanel/MarginContainer" unique_id=254930998]
+layout_mode = 2
 
-[node name="LabelSelect" type="Label" parent="LevelSelectPanel/Content" unique_id=1923524125]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 40.0
-offset_bottom = 98.0
+[node name="MarginContainer2" type="MarginContainer" parent="LevelSelectPanel/MarginContainer/BannerContent" unique_id=1915091604]
+layout_mode = 0
+offset_right = 468.0
+offset_bottom = 480.0
 grow_horizontal = 2
+theme_override_constants/margin_top = 42
+
+[node name="Label" type="Label" parent="LevelSelectPanel/MarginContainer/BannerContent/MarginContainer2" unique_id=1923524125]
+layout_mode = 2
 text = "Select Level"
 label_settings = SubResource("LabelSettings_ptake")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_trim_flags = 128
 
-[node name="GridContainer" type="GridContainer" parent="LevelSelectPanel/Content" unique_id=2136274460]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -133.0
-offset_top = -105.0
-offset_right = 133.0
-offset_bottom = 53.0
+[node name="GridContainer" type="GridContainer" parent="LevelSelectPanel/MarginContainer/BannerContent" unique_id=2136274460]
+layout_mode = 0
+offset_right = 468.0
+offset_bottom = 480.0
 grow_horizontal = 2
 grow_vertical = 2
 columns = 5
 
-[node name="LevelButton1" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=158122707]
+[node name="LevelButton1" type="Button" parent="LevelSelectPanel/MarginContainer/BannerContent/GridContainer" unique_id=158122707]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "1"
 
-[node name="LevelButton2" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=1448326589]
+[node name="LevelButton2" type="Button" parent="LevelSelectPanel/MarginContainer/BannerContent/GridContainer" unique_id=1448326589]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "1"
 
-[node name="LevelButton3" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=1906546337]
+[node name="LevelButton3" type="Button" parent="LevelSelectPanel/MarginContainer/BannerContent/GridContainer" unique_id=1906546337]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "1"
 
-[node name="LevelButton4" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=1018475192]
+[node name="LevelButton4" type="Button" parent="LevelSelectPanel/MarginContainer/BannerContent/GridContainer" unique_id=1018475192]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "1"
 
-[node name="LevelButton5" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=71084629]
+[node name="LevelButton5" type="Button" parent="LevelSelectPanel/MarginContainer/BannerContent/GridContainer" unique_id=71084629]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "1"
 
-[node name="LevelButton6" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=1555213801]
+[node name="LevelButton6" type="Button" parent="LevelSelectPanel/MarginContainer/BannerContent/GridContainer" unique_id=1555213801]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "1"
 
-[node name="LevelButton7" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=193140002]
+[node name="LevelButton7" type="Button" parent="LevelSelectPanel/MarginContainer/BannerContent/GridContainer" unique_id=193140002]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "1"
 
-[node name="LevelButton8" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=497167380]
+[node name="LevelButton8" type="Button" parent="LevelSelectPanel/MarginContainer/BannerContent/GridContainer" unique_id=497167380]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "1"
 
-[node name="LevelButton9" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=1187980287]
+[node name="LevelButton9" type="Button" parent="LevelSelectPanel/MarginContainer/BannerContent/GridContainer" unique_id=1187980287]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "1"
 
-[node name="LevelButton10" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=1893967917]
+[node name="LevelButton10" type="Button" parent="LevelSelectPanel/MarginContainer/BannerContent/GridContainer" unique_id=1893967917]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "1"
 
-[node name="LevelButton11" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=452600035]
+[node name="LevelButton11" type="Button" parent="LevelSelectPanel/MarginContainer/BannerContent/GridContainer" unique_id=452600035]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "1"
 
-[node name="LevelButton12" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=779756355]
+[node name="LevelButton12" type="Button" parent="LevelSelectPanel/MarginContainer/BannerContent/GridContainer" unique_id=779756355]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 text = "1"
 
-[node name="BackButton" type="Button" parent="LevelSelectPanel/Content" unique_id=761738084]
-custom_minimum_size = Vector2(40, 40)
+[node name="MarginContainer" type="MarginContainer" parent="LevelSelectPanel/MarginContainer/BannerContent" unique_id=1886202348]
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 0
-offset_left = 59.0
-offset_top = 312.0
-offset_right = 99.0
-offset_bottom = 352.0
+offset_right = 468.0
+offset_bottom = 480.0
+grow_vertical = 0
+theme_override_constants/margin_left = 52
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 48
+
+[node name="BackButton" type="Button" parent="LevelSelectPanel/MarginContainer/BannerContent/MarginContainer" unique_id=761738084]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_ptake")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_hubol")
 theme_override_styles/hover = SubResource("StyleBoxFlat_8vx4p")
@@ -703,4 +699,4 @@ expand_icon = true
 [connection signal="pressed" from="MainMenuPanel/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="MainMenuPanel/MarginContainer/VBoxContainer/LevelButton" to="." method="_on_level_button_pressed"]
 [connection signal="pressed" from="MainMenuPanel/MarginContainer2/VBoxContainer2/ExitButton" to="." method="_on_exit_button_pressed"]
-[connection signal="pressed" from="LevelSelectPanel/Content/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="LevelSelectPanel/MarginContainer/BannerContent/MarginContainer/BackButton" to="." method="_on_back_button_pressed"]

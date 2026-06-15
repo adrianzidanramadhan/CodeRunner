@@ -5,8 +5,8 @@ extends Control
 @onready var main_buttons = $MainMenuPanel
 @onready var level_select_panel = $LevelSelectPanel
 
-@onready var banner = $LevelSelectPanel/MarginContainer/Banner
-@onready var level_grid = $LevelSelectPanel/MarginContainer/Banner/GridContainer
+@onready var banner = $LevelSelectPanel/BannerSprite
+@onready var level_grid = $LevelSelectPanel/Content/GridContainer
 
 var target_pos : Vector2
 var idle_time := 0.0
@@ -20,9 +20,9 @@ func _process(delta):
 
 	if level_select_panel.visible:
 
-		banner.rotation = deg_to_rad(
-			sin(idle_time * 1.5) * 2
-		)
+		banner.rotation = deg_to_rad(sin(idle_time * 1.2) * 0.8)
+
+		banner.position.y = banner_start_pos.y + sin(idle_time * 2.0) * 2
 
 		banner.position.y = banner_start_pos.y + sin(idle_time * 2.0) * 2
 
@@ -52,32 +52,34 @@ func show_level_select():
 
 	level_select_panel.show()
 
-	level_select_panel.scale = Vector2(0.8, 0.8)
+	level_select_panel.scale = Vector2(0.7, 0.7)
 	level_select_panel.modulate.a = 0
 	level_select_panel.position.y = -500
 
 	var tween = create_tween()
 
-	tween.parallel().tween_property(
+	tween.set_parallel(true)
+
+	tween.tween_property(
 		level_select_panel,
 		"scale",
 		Vector2.ONE,
-		0.25
-	)
+		0.45
+	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
-	tween.parallel().tween_property(
+	tween.tween_property(
 		level_select_panel,
 		"modulate:a",
 		1.0,
-		0.25
+		0.3
 	)
-	
+
 	tween.tween_property(
 		level_select_panel,
 		"position",
 		target_pos,
-		0.3
-	)
+		0.5
+	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 	main_buttons.hide()
 
