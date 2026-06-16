@@ -8,6 +8,9 @@ extends CanvasLayer
 
 @onready var level_complete_popup = $LevelCompletePopup
 
+@onready var objective_label = \
+	$ObjectivePanel/ObjectiveLabel
+
 signal run_pressed
 signal restart_pressed
 
@@ -54,6 +57,25 @@ func go():
 go()
 """
 	
+
+func update_objectives(
+	coin_done: bool,
+	portal_done: bool
+):
+
+	var text = "OBJECTIVE\n\n"
+
+	if coin_done:
+		text += "[s][color=gray]Collect Coin[/color][/s]\n"
+	else:
+		text += "Collect Coin\n"
+
+	if portal_done:
+		text += "[s][color=gray]Reach Portal[/color][/s]"
+	else:
+		text += "Reach Portal"
+
+	objective_label.text = text
 
 func _on_commands_pressed():
 	

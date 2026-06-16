@@ -13,10 +13,14 @@
 [ext_resource type="StyleBox" uid="uid://du0m108rqovtq" path="res://assets/tres/button_rounded_transparent_hover.tres" id="8_vdcm2"]
 [ext_resource type="FontFile" uid="uid://chbpnwj3qvssf" path="res://assets/font/federhozen-regular.ttf" id="11_6rmj2"]
 [ext_resource type="Texture2D" uid="uid://c8xo6wxpt8kph" path="res://assets/UI Elements/Banners/Banner_Slots.png" id="11_vsj0x"]
+[ext_resource type="FontFile" uid="uid://drau7u1dxkxss" path="res://assets/font/federhozen-bold.ttf" id="14_qsv74"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vdcm2"]
 font = ExtResource("6_cgfq5")
 font_size = 64
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qsv74"]
+texture = ExtResource("11_vsj0x")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vsj0x"]
 texture = ExtResource("11_vsj0x")
@@ -52,8 +56,8 @@ highlight_current_line = true
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -400.0
-offset_bottom = 200.0
+offset_left = -600.0
+offset_bottom = 100.0
 grow_horizontal = 0
 theme_override_fonts/normal_font = ExtResource("11_6rmj2")
 theme_override_font_sizes/normal_font_size = 24
@@ -101,7 +105,6 @@ icon = ExtResource("4_p7vwb")
 icon_alignment = 1
 
 [node name="Control" type="Control" parent="." unique_id=978164803]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -189,6 +192,41 @@ icon = ExtResource("4_p7vwb")
 icon_alignment = 1
 vertical_icon_alignment = 0
 
+[node name="ObjectivePanel" type="Panel" parent="." unique_id=1295188757]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -172.0
+offset_top = 110.0
+offset_right = -22.0
+offset_bottom = 240.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_qsv74")
+
+[node name="ObjectiveLabel" type="RichTextLabel" parent="ObjectivePanel" unique_id=1445517058]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -50.5
+offset_right = 58.0
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.27450982)
+theme_override_fonts/normal_font = ExtResource("14_qsv74")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "OBJECTIVE
+
+Collect Coin
+Reach Portal"
+fit_content = true
+horizontal_alignment = 1
+
 [node name="CommandsPopup" type="Control" parent="." unique_id=1073825368]
 layout_mode = 3
 anchors_preset = 15
@@ -197,6 +235,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="DarkOverlay" type="ColorRect" parent="CommandsPopup" unique_id=701550544]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.19607843)
 
 [node name="Panel" type="Panel" parent="CommandsPopup" unique_id=1485034647]
 layout_mode = 1
@@ -252,7 +299,6 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="LevelCompletePopup" parent="." unique_id=1506947087 instance=ExtResource("8_7dvkv")]
-visible = false
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

@@ -22,12 +22,20 @@ var waiting_for_step = false
 var runtime_stopped = false
 var level_finished = false
 
+var coin_completed = false
+var portal_completed = false
+
 func _ready():
 
 	ui.run_pressed.connect(_on_ui_run_pressed)
 
 	ui.restart_pressed.connect(
 		_on_ui_restart_pressed
+	)
+	
+	ui.update_objectives(
+		false,
+		false
 	)
 
 func _on_ui_run_pressed():
@@ -1131,6 +1139,13 @@ func _on_goal_body_entered(body):
 		level_number + 1
 	)
 
+	portal_completed = true
+
+	ui.update_objectives(
+		coin_completed,
+		portal_completed
+	)
+
 	ui.show_level_complete(level_number)
 
 
@@ -1144,6 +1159,13 @@ func _on_coin_body_entered(body):
 		return
 
 	coins_collected += 1
+	
+	coin_completed = true
+	
+	ui.update_objectives(
+		coin_completed,
+		portal_completed
+	)
 
 	$Coin.queue_free()
 
@@ -1167,6 +1189,14 @@ func restart_level():
 	player.is_dead = false
 	
 	command_queue.clear()
+	
+	coin_completed = false
+	portal_completed = false
+
+	ui.update_objectives(
+		false,
+		false
+	)
 
 	ui.update_queue_display(command_queue)
 	ui.clear_error()
