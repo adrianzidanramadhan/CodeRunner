@@ -10,6 +10,24 @@ extends CanvasLayer
 
 @onready var objective_label = \
 	$ObjectivePanel/ObjectiveLabel
+	
+@onready var byte_portrait = $TutorialPopup/Portrait
+@onready var tutorial_popup = $TutorialPopup
+@onready var tutorial_name = $TutorialPopup/NinePatchRect/TutorialLabel
+@onready var tutorial_message = $TutorialPopup/NinePatchRect/MessageLabel
+@onready var tutorial_next = $TutorialPopup/NinePatchRect/NextButton
+
+enum ByteMood {
+	IDLE
+}
+
+var tutorial_messages = []
+var tutorial_index = 0
+
+var full_text = ""
+var is_typing = false
+var skip_typing = false
+var pulse_tween = null
 
 signal run_pressed
 signal restart_pressed
@@ -56,7 +74,34 @@ func go():
 
 go()
 """
+
+	tutorial_popup.hide()
+
+	tutorial_next.pressed.connect(
+		_on_next_button_pressed
+	)
 	
+	tutorial_next.mouse_entered.connect(_on_next_hover)
+	tutorial_next.mouse_exited.connect(_on_next_exit)
+
+func set_byte_mood(mood):
+
+	match mood:
+
+		ByteMood.IDLE:
+			byte_portrait.play("idle")
+
+func _on_next_hover():
+
+	if pulse_tween:
+		pulse_tween.kill()
+
+	tutorial_next.scale = Vector2.ONE
+
+func _on_next_exit():
+
+	if !is_typing:
+		start_next_pulse()
 
 func update_objectives(
 	coin_done: bool,
@@ -98,6 +143,11 @@ func _on_close_commands_pressed():
 	commands_popup.hide()
 
 func _input(event):
+
+	if tutorial_popup.visible and event is InputEventMouseButton:
+		if event.pressed:
+			if is_typing:
+				skip_typing = true
 
 	if event.is_action_pressed("ui_help"):
 
@@ -200,3 +250,94 @@ func _on_menu_button_pressed():
 	else:
 
 		show_pause()
+
+func start_tutorial(messages):
+
+	tutorial_messages = messages
+	tutorial_index = 0
+
+	show_current_tutorial()
+	
+func show_current_tutorial():
+	
+	tutorial_popup.show()
+	
+	var data = tutorial_messages[tutorial_index]
+	
+	full_text = data["text"]
+	
+	match data["mood"]:
+		"idle":
+			set_byte_mood(ByteMood.IDLE)
+
+	start_typewriter()
+
+func start_typewriter():
+
+	is_typing = true
+	skip_typing = false
+	tutorial_next.hide()
+
+	var i = 0
+
+	while i < full_text.length():
+
+		if skip_typing:
+			tutorial_message.text = full_text
+			break
+
+		if full_text[i] == "[":
+			var close_index = full_text.find("]", i)
+
+			if close_index != -1:
+				var bbcode_tag = full_text.substr(
+					i,
+					close_index - i + 1
+				)
+
+				tutorial_message.text += bbcode_tag
+				i = close_index + 1
+				continue
+
+		tutorial_message.text += full_text[i]
+		i += 1
+
+		await get_tree().create_timer(0.03).timeout
+
+	is_typing = false
+	tutorial_next.show()
+	start_next_pulse()
+
+func _on_next_button_pressed():
+	tutorial_index += 1
+
+	if tutorial_index >= tutorial_messages.size():
+
+		tutorial_popup.hide()
+		return
+
+	show_current_tutorial()
+
+func start_next_pulse():
+	
+	if pulse_tween:
+		pulse_tween.kill()
+	
+	tutorial_next.scale = Vector2.ONE
+	
+	pulse_tween = create_tween()
+	pulse_tween.set_loops()
+
+	pulse_tween.tween_property(
+		tutorial_next,
+		"scale",
+		Vector2(1.08, 1.08),
+		0.5
+	)
+
+	pulse_tween.tween_property(
+		tutorial_next,
+		"scale",
+		Vector2.ONE,
+		0.5
+	)

@@ -147,7 +147,7 @@ func _on_continue_button_pressed():
 
 func _on_play_button_pressed():
 
-	LevelManager.reset_progress()
+	#LevelManager.reset_progress()
 	LevelManager.load_level(1)
 
 

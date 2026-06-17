@@ -73,10 +73,7 @@ func show_popup(level_number):
 	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func _on_next_button_pressed():
-
-	get_tree().change_scene_to_file(
-		"res://scenes/levels/Level%d.tscn" % next_level
-	)
+	LevelManager.load_level(next_level)
 
 func _on_level_select_button_pressed():
 

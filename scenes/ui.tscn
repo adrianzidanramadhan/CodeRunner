@@ -14,6 +14,9 @@
 [ext_resource type="FontFile" uid="uid://chbpnwj3qvssf" path="res://assets/font/federhozen-regular.ttf" id="11_6rmj2"]
 [ext_resource type="Texture2D" uid="uid://c8xo6wxpt8kph" path="res://assets/UI Elements/Banners/Banner_Slots.png" id="11_vsj0x"]
 [ext_resource type="FontFile" uid="uid://drau7u1dxkxss" path="res://assets/font/federhozen-bold.ttf" id="14_qsv74"]
+[ext_resource type="Texture2D" uid="uid://cvii5iff1kggb" path="res://assets/HUD/Base-01.png" id="15_cof4p"]
+[ext_resource type="SpriteFrames" uid="uid://4mm2mc7lpa61" path="res://assets/tres/knight_outline_animated.tres" id="15_f7tlh"]
+[ext_resource type="Texture2D" uid="uid://bv8q477j1ngak" path="res://assets/UI Elements/Icons/Icon_05.png" id="16_f7tlh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vdcm2"]
 font = ExtResource("6_cgfq5")
@@ -37,6 +40,13 @@ content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
 bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8k7j3"]
+font = ExtResource("14_qsv74")
+font_size = 24
+
+[sub_resource type="Theme" id="Theme_jkdwc"]
+default_font = ExtResource("11_6rmj2")
 
 [node name="UI" type="CanvasLayer" unique_id=1980193790]
 script = ExtResource("1_gdt2y")
@@ -299,6 +309,100 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="LevelCompletePopup" parent="." unique_id=1506947087 instance=ExtResource("8_7dvkv")]
+
+[node name="TutorialPopup" type="Control" parent="." unique_id=2134741134]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DarkOverlay" type="ColorRect" parent="TutorialPopup" unique_id=1840744067]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.039215688)
+
+[node name="Portrait" type="AnimatedSprite2D" parent="TutorialPopup" unique_id=1620793429]
+position = Vector2(250, 230)
+scale = Vector2(10, 10)
+sprite_frames = ExtResource("15_f7tlh")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.55230963
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TutorialPopup" unique_id=1681046276]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -500.0
+offset_top = -200.0
+offset_right = 500.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("15_cof4p")
+region_rect = Rect2(0, 0, 64, 64)
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="TutorialLabel" type="Label" parent="TutorialPopup/NinePatchRect" unique_id=263081298]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 10.0
+offset_right = 93.0
+offset_bottom = 39.0
+text = "Knight"
+label_settings = SubResource("LabelSettings_8k7j3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MessageLabel" type="RichTextLabel" parent="TutorialPopup/NinePatchRect" unique_id=1081608460]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -490.0
+offset_top = -150.0
+offset_right = 490.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_jkdwc")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+
+[node name="NextButton" type="Button" parent="TutorialPopup/NinePatchRect" unique_id=449600621]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/normal = ExtResource("7_cgfq5")
+theme_override_styles/pressed = ExtResource("7_cgfq5")
+theme_override_styles/hover = ExtResource("8_vdcm2")
+icon = ExtResource("16_f7tlh")
+icon_alignment = 1
+expand_icon = true
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

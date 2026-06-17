@@ -24,6 +24,9 @@ func load_level(level):
 	
 	save_progress()
 
+	call_deferred("_deferred_load_level", level)
+
+func _deferred_load_level(level):
 	get_tree().change_scene_to_file(
 		get_level_path(level)
 	)

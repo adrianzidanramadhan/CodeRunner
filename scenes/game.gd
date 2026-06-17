@@ -5,7 +5,7 @@ extends Node2D
 @onready var player = $Player
 @onready var ui = $UI
 
-@export var level_number = 1
+@export var level_number = LevelManager.current_level
 
 var command_queue = []
 var variables = {}
@@ -25,7 +25,41 @@ var level_finished = false
 var coin_completed = false
 var portal_completed = false
 
+var tutorial_data = {
+	1: [
+		{
+			"text": "Halo! Aku Knight.\n",
+			"mood": "idle"
+		},
+		{
+			"text": "Aku akan mengajarkan command dasar.\n",
+			"mood": "idle"
+		},
+		{
+			"text": "Coba ketik: [color=yellow]move_right(3)[/color]\n",
+			"mood": "idle"
+		}
+	],
+	2: [
+		{
+			"text": "Sekarang kita belajar loop.",
+			"mood": "idle"
+		},
+		{
+			"text": "Gunakan [color=blue]repeat()[/color] agar kode lebih singkat.",
+			"mood": "idle"
+		}
+	]
+}
+
 func _ready():
+	
+	print(
+		"Progress saved: current=",
+		LevelManager.current_level,
+		", unlocked=",
+		LevelManager.unlocked_level
+	)
 
 	ui.run_pressed.connect(_on_ui_run_pressed)
 
@@ -37,6 +71,11 @@ func _ready():
 		false,
 		false
 	)
+	
+	if tutorial_data.has(level_number):
+		ui.start_tutorial(
+			tutorial_data[level_number]
+		)
 
 func _on_ui_run_pressed():
 
@@ -1031,7 +1070,11 @@ func execute_command_list(commands):
 
 func wait_for_player():
 
-	while player.is_moving:
+	while is_instance_valid(player) and player.is_moving:
+
+		if !is_inside_tree():
+			return
+
 		await get_tree().process_frame
 
 
@@ -1138,6 +1181,7 @@ func _on_goal_body_entered(body):
 	LevelManager.unlock_level(
 		level_number + 1
 	)
+	
 
 	portal_completed = true
 
@@ -1147,7 +1191,9 @@ func _on_goal_body_entered(body):
 	)
 
 	ui.show_level_complete(level_number)
-
+	
+	await get_tree().process_frame
+	LevelManager.next_level()
 
 # ==================================================
 # COIN

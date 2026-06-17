@@ -12,7 +12,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_xlg7c"]
 radius = 5.0
 
-[node name="Game" type="Node2D" unique_id=232416967]
+[node name="Level2" type="Node2D" unique_id=232416967]
 script = ExtResource("1_ok6xr")
 
 [node name="World" parent="." unique_id=530434722 instance=ExtResource("2_dj4wq")]
