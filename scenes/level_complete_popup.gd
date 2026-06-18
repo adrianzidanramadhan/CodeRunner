@@ -29,7 +29,10 @@ func _ready():
 
 func show_popup(level_number):
 
-	next_level = level_number + 1
+	next_level = min(
+		level_number + 1,
+		LevelManager.MAX_LEVEL
+	)
 
 	visible = true
 
@@ -73,7 +76,8 @@ func show_popup(level_number):
 	).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func _on_next_button_pressed():
-	LevelManager.load_level(next_level)
+	#LevelManager.load_level(next_level)
+	LevelManager.next_level()
 
 func _on_level_select_button_pressed():
 

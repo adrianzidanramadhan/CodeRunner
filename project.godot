@@ -18,9 +18,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 LevelManager="*uid://djh3h2b8eqmfj"
+AudioManager="*uid://b6bug1ivls6fi"
 
 [display]
 
+window/size/mode=4
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

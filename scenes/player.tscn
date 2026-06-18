@@ -35,5 +35,6 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1017530793]
+offset = Vector2(0, -100)
 zoom = Vector2(1.2, 1.2)
 position_smoothing_enabled = true

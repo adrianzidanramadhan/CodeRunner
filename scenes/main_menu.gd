@@ -27,6 +27,8 @@ func _process(delta):
 		banner.position.y = banner_start_pos.y + sin(idle_time * 2.0) * 2
 
 func _ready():
+	
+	AudioManager.play_bgm("main_menu")
 
 	banner_start_pos = banner.position
 

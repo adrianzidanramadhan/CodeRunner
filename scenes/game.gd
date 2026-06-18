@@ -1,7 +1,7 @@
 #game.gd
 extends Node2D
 
-@onready var code_input = $UI/CodeInput
+@onready var code_input = $UI/BottomLeftLayout/CodeInput
 @onready var player = $Player
 @onready var ui = $UI
 
@@ -53,6 +53,8 @@ var tutorial_data = {
 }
 
 func _ready():
+	
+	AudioManager.fade_to_bgm("gameplay")
 	
 	print(
 		"Progress saved: current=",
@@ -223,6 +225,7 @@ func parse_code(code):
 					"Repeat missing amount at line %d"
 					% [i + 1]
 				)
+				AudioManager.play_error()
 
 				runtime_stopped = true
 				return
@@ -260,6 +263,7 @@ func parse_code(code):
 					"While missing condition at line %d"
 					% [i + 1]
 				)
+				AudioManager.play_error()
 
 				runtime_stopped = true
 				return
@@ -322,6 +326,7 @@ func parse_single_command(line, line_number = -1):
 			"Unknown command at line %d: %s"
 			% [line_number + 1, line]
 		)
+		AudioManager.play_error()
 
 		runtime_stopped = true
 
@@ -330,10 +335,12 @@ func validate_amount(amount):
 
 	if amount < 1:
 		ui.show_error("Amount must be > 0")
+		AudioManager.play_error()
 		return 1
 
 	if amount > 20:
 		ui.show_error("Amount too large!")
+		AudioManager.play_error()
 		return 20
 
 	return amount
@@ -456,6 +463,7 @@ func get_amount(line):
 		ui.show_error(
 			"Invalid number: " + number_text
 		)
+		AudioManager.play_error()
 
 		runtime_stopped = true
 
@@ -628,6 +636,7 @@ func parse_if_statement(lines, start_index):
 			"If missing condition at line %d"
 			% [start_index + 1]
 		)
+		AudioManager.play_error()
 
 		runtime_stopped = true
 
@@ -875,6 +884,7 @@ func execute_command(command):
 			"Infinite loop detected!",
 			command.get("line", -1)
 		)
+		AudioManager.play_error()
 		return
 
 	var type = command["type"]
@@ -905,6 +915,7 @@ func execute_command(command):
 						"Movement blocked!",
 						command.get("line", -1)
 					)
+					AudioManager.play_error()
 					return
 
 				await wait_for_player()
@@ -1018,6 +1029,7 @@ func execute_command(command):
 
 				if safety > max_loop:
 					ui.show_error("Infinite loop detected!")
+					AudioManager.play_error()
 					return
 
 				await execute_command_list(loop_commands)
@@ -1090,6 +1102,7 @@ func perform_jump():
 
 	if not success:
 		ui.show_error("Jump blocked!")
+		AudioManager.play_error()
 		return
 
 	await wait_for_player()
@@ -1113,6 +1126,7 @@ func perform_jump_right():
 		ui.show_error(
 			"Jump failed!"
 		)
+		AudioManager.play_error()
 
 
 func perform_jump_left():
@@ -1126,6 +1140,7 @@ func perform_jump_left():
 		ui.show_error(
 			"Jump failed!"
 		)
+		AudioManager.play_error()
 
 
 # ==================================================
@@ -1174,14 +1189,16 @@ func _on_goal_body_entered(body):
 
 	if coins_collected < 1:
 		ui.show_error("Collect the coin first!")
+		AudioManager.play_error()
 		return
 
+	#AudioManager.stop_bgm()
+	AudioManager.play_sfx("portal")
 	level_finished = true
 
 	LevelManager.unlock_level(
 		level_number + 1
 	)
-	
 
 	portal_completed = true
 
@@ -1190,10 +1207,10 @@ func _on_goal_body_entered(body):
 		portal_completed
 	)
 
+	call_deferred("_show_finish_popup")
+
+func _show_finish_popup():
 	ui.show_level_complete(level_number)
-	
-	await get_tree().process_frame
-	LevelManager.next_level()
 
 # ==================================================
 # COIN
@@ -1204,6 +1221,7 @@ func _on_coin_body_entered(body):
 	if body.name != "Player":
 		return
 
+	AudioManager.play_sfx("coin")
 	coins_collected += 1
 	
 	coin_completed = true
@@ -1265,6 +1283,7 @@ func _on_spike_body_entered(body):
 	await player.die()
 
 	ui.show_error("You died!")
+	AudioManager.play_error()
 
 	restart_level()
 

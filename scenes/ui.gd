@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-@onready var code_input = $CodeInput
+@onready var code_input = $BottomLeftLayout/CodeInput
 @onready var queue_display = $QueueDisplay
 @onready var error_label = $ErrorLabel
 @onready var pause_menu = $Control
@@ -126,6 +126,7 @@ func _on_commands_pressed():
 	
 	$CommandsPopup/Panel.pivot_offset = $CommandsPopup/Panel.size / 2
 	
+	AudioManager.play_ui("ui_open")
 	commands_popup.show()
 	
 	$CommandsPopup/Panel.scale = Vector2.ZERO
@@ -139,7 +140,8 @@ func _on_commands_pressed():
 
 
 func _on_close_commands_pressed():
-
+	
+	AudioManager.play_ui("ui_close")
 	commands_popup.hide()
 
 func _input(event):
@@ -161,6 +163,7 @@ func show_level_complete(level_number):
 	)
 
 func _on_run_button_pressed():
+	AudioManager.play_run()
 	run_pressed.emit()
 
 func _on_restart_button_pressed():

@@ -62,18 +62,23 @@ func play_anim(anim_name):
 
 func set_state_idle():
 	play_anim("idle")
+	AudioManager.stop_footsteps()
 
 func set_state_run():
 	play_anim("run")
+	AudioManager.play_footsteps()
 
 func set_state_jump():
 	play_anim("jump")
+	AudioManager.stop_footsteps()
 
 func set_state_fall():
 	play_anim("fall")
+	AudioManager.stop_footsteps()
 
 func set_state_death():
 	play_anim("death")
+	AudioManager.stop_footsteps()
 	
 
 func move_right():
@@ -164,6 +169,7 @@ func jump_arc(direction):
 	is_arc_jumping = true
 	is_jumping = true
 
+	AudioManager.play_sfx("jump")
 	set_state_jump()
 
 	var end = position + Vector2(

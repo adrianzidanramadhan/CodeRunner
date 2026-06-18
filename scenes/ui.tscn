@@ -4,9 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://bri3x183i0yqc" path="res://assets/UI Elements/Icons/Icon_10.png" id="2_wm3ai"]
 [ext_resource type="Texture2D" uid="uid://bcw4cl67r4dd2" path="res://assets/UI Elements/Icons/Icon_01.png" id="3_8dubc"]
 [ext_resource type="Texture2D" uid="uid://cwc2ycmp1pjwv" path="res://assets/UI Elements/Icons/Icon_11.png" id="3_vdcm2"]
+[ext_resource type="Script" uid="uid://cs2o4xif5x0ij" path="res://script/resize_handle.gd" id="3_ycmcx"]
+[ext_resource type="StyleBox" uid="uid://cenxglnveuq3l" path="res://assets/tres/clear.tres" id="4_kupmu"]
 [ext_resource type="Texture2D" uid="uid://b6g4cjsfqnrh1" path="res://assets/UI Elements/Icons/Icon_07.png" id="4_p7vwb"]
+[ext_resource type="StyleBox" uid="uid://bhqr6wrdtwbub" path="res://assets/tres/clear_hover.tres" id="5_catpy"]
 [ext_resource type="Texture2D" uid="uid://c1vpjabsellde" path="res://assets/UI Elements/Banners/Banner.png" id="5_ktti3"]
 [ext_resource type="Texture2D" uid="uid://dngy3yp6iatmx" path="res://assets/UI Elements/Icons/Icon_08.png" id="5_wm3ai"]
+[ext_resource type="Texture2D" uid="uid://ccy4dsvxofx7f" path="res://assets/UI Elements/Icons/Icon_02.png" id="6_41akx"]
 [ext_resource type="FontFile" uid="uid://cd4uspbcjrqlt" path="res://assets/font/Poppins-SemiBold.ttf" id="6_cgfq5"]
 [ext_resource type="StyleBox" uid="uid://bsh8wguyv7y71" path="res://assets/tres/button_rounded_transparent.tres" id="7_cgfq5"]
 [ext_resource type="PackedScene" uid="uid://dwaw4rn0jcn1x" path="res://scenes/LevelCompletePopup.tscn" id="8_7dvkv"]
@@ -51,16 +55,50 @@ default_font = ExtResource("11_6rmj2")
 [node name="UI" type="CanvasLayer" unique_id=1980193790]
 script = ExtResource("1_gdt2y")
 
-[node name="CodeInput" type="TextEdit" parent="." unique_id=28585654]
-custom_minimum_size = Vector2(20, 400)
+[node name="BottomLeftLayout" type="VBoxContainer" parent="." unique_id=54570865]
+anchors_preset = 9
+anchor_bottom = 1.0
 offset_left = 20.0
-offset_top = 400.0
+offset_top = 148.0
 offset_right = 420.0
-offset_bottom = 800.0
+grow_vertical = 2
+alignment = 2
+
+[node name="CodeInput" type="TextEdit" parent="BottomLeftLayout" unique_id=28585654]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+size_flags_horizontal = 8
 theme_override_fonts/font = ExtResource("11_6rmj2")
 theme_override_font_sizes/font_size = 24
-text = "move_right(3)"
+placeholder_text = "Masukan kode disini"
+scroll_smooth = true
 highlight_current_line = true
+
+[node name="ResizeHandle" type="Panel" parent="BottomLeftLayout/CodeInput" unique_id=1610883591]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -12.0
+grow_horizontal = 2
+mouse_default_cursor_shape = 9
+script = ExtResource("3_ycmcx")
+
+[node name="ExpandButton" type="Button" parent="BottomLeftLayout/CodeInput/ResizeHandle" unique_id=1744650214]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -35.0
+offset_top = 19.0
+offset_right = -5.0
+offset_bottom = 49.0
+grow_horizontal = 0
+theme_override_styles/normal = ExtResource("4_kupmu")
+theme_override_styles/pressed = ExtResource("4_kupmu")
+theme_override_styles/hover = ExtResource("5_catpy")
+icon = ExtResource("6_41akx")
+icon_alignment = 1
+expand_icon = true
 
 [node name="QueueDisplay" type="RichTextLabel" parent="." unique_id=773365491]
 anchors_preset = 1

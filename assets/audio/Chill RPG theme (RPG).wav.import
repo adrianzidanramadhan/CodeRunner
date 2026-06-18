@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://dj4stlahh5j4w"
-path="res://.godot/imported/Chill RPG theme (RPG).wav-fa73efc484a3e352f1289035c9024d25.sample"
+path="res://.godot/imported/Chill RPG theme (RPG).wav-4864a41d054e7ba2b5d2a92040f9039d.sample"
 
 [deps]
 
-source_file="res://assets/sound/Chill RPG theme (RPG).wav"
-dest_files=["res://.godot/imported/Chill RPG theme (RPG).wav-fa73efc484a3e352f1289035c9024d25.sample"]
+source_file="res://assets/audio/Chill RPG theme (RPG).wav"
+dest_files=["res://.godot/imported/Chill RPG theme (RPG).wav-4864a41d054e7ba2b5d2a92040f9039d.sample"]
 
 [params]
 
