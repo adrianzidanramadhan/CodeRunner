@@ -843,6 +843,9 @@ func execute_commands():
 
 	for i in range(command_queue.size()):
 
+		if level_finished:
+			return
+
 		if should_stop():
 			return
 
@@ -872,6 +875,9 @@ func execute_commands():
 # ==================================================
 
 func execute_command(command):
+
+	if level_finished:
+		return
 
 	if should_stop():
 		return
@@ -904,10 +910,10 @@ func execute_command(command):
 				var success = false
 
 				if direction == "right":
-					success = player.move_right()
+					success = await player.move_right()
 
 				elif direction == "left":
-					success = player.move_left()
+					success = await player.move_left()
 
 				if not success:
 					runtime_stopped = true
@@ -917,8 +923,6 @@ func execute_command(command):
 					)
 					AudioManager.play_error()
 					return
-
-				await wait_for_player()
 				
 				if should_stop():
 					return
@@ -1058,17 +1062,16 @@ func execute_command(command):
 	# ==========================================
 	# APPLY GRAVITY
 	# ==========================================
-	while player.should_fall() and !player.is_jumping:
-
-		player.move_down()
-
-		while player.is_moving:
-			await get_tree().process_frame
+	while player.should_fall() and !player.is_airborne():
+		await player.move_down()
 
 
 func execute_command_list(commands):
 
 	for cmd in commands:
+
+		if level_finished:
+			return
 
 		if should_stop():
 			return
@@ -1080,14 +1083,14 @@ func execute_command_list(commands):
 # WAIT PLAYER
 # ==================================================
 
-func wait_for_player():
-
-	while is_instance_valid(player) and player.is_moving:
-
-		if !is_inside_tree():
-			return
-
-		await get_tree().process_frame
+#func wait_for_player():
+#
+	#while is_instance_valid(player) and player.is_moving:
+#
+		#if !is_inside_tree():
+			#return
+#
+		#await get_tree().process_frame
 
 
 # ==================================================
@@ -1095,31 +1098,16 @@ func wait_for_player():
 # ==================================================
 
 func perform_jump():
+	var success = await player.jump_up()
 
-	player.is_jumping = true
-
-	var success = player.move_up()
-
-	if not success:
-		ui.show_error("Jump blocked!")
+	if !success:
+		ui.show_error("Jump failed!")
 		AudioManager.play_error()
-		return
-
-	await wait_for_player()
-
-	success = player.move_up()
-
-	if success:
-		await wait_for_player()
-
-	player.is_jumping = false
 
 
 func perform_jump_right():
 
-	var success = await player.jump_arc(
-		Vector2.RIGHT
-	)
+	var success = await player.jump_right()
 
 	if !success:
 
@@ -1131,9 +1119,7 @@ func perform_jump_right():
 
 func perform_jump_left():
 
-	var success = await player.jump_arc(
-		Vector2.LEFT
-	)
+	var success = await player.jump_left()
 
 	if !success:
 
