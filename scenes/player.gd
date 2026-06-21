@@ -172,6 +172,7 @@ func move_down():
 
 
 func should_fall():
+	print(global_position.y)
 	floor_check.target_position = Vector2(0, tile_size)
 	floor_check.force_raycast_update()
 

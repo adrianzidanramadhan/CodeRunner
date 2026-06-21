@@ -13,6 +13,8 @@ var command_queue = []
 var coins_collected := 0
 var level_finished := false
 var is_running := false
+const FALL_LIMIT_Y = 300
+var is_reloading := false
 
 var tutorial_data = {
 	1: [
@@ -29,6 +31,9 @@ func _ready():
 	setup_ui()
 	setup_executor()
 	start_tutorial_if_needed()
+
+func _process(delta):
+	check_fall_death()
 
 func setup_ui():
 	ui.run_pressed.connect(_on_run_pressed)
@@ -84,12 +89,22 @@ func post_command_checks():
 		return
 
 func apply_gravity():
-
+	
 	while player.should_fall():
 		await player.move_down()
 
 func check_hazards():
-	if player.spike_ahead():
+	#if player.spike_ahead():
+		#await player.die()
+		#LevelManager.reload_level()
+	check_fall_death()
+
+func check_fall_death():
+	if is_reloading:
+		return
+
+	if player.global_position.y > FALL_LIMIT_Y:
+		is_reloading = true
 		await player.die()
 		LevelManager.reload_level()
 
