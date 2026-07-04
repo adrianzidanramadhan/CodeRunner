@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://b6bug1ivls6fi"]
+
+[ext_resource type="Script" uid="uid://co6k01yka36ta" path="res://scripts/audio_manager.gd" id="1_hux41"]
+[ext_resource type="AudioStream" uid="uid://cqlivvjpyvfqg" path="res://assets/audio/Footsteps Loop 1 (Rpg).wav" id="2_v6v0x"]
+
+[sub_resource type="AudioStreamMP3" id="AudioStreamMP3_v6v0x"]
+loop = true
+
+[node name="AudioManager" type="Node2D" unique_id=1620315926]
+script = ExtResource("1_hux41")
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="." unique_id=361628321]
+stream = SubResource("AudioStreamMP3_v6v0x")
+volume_db = 15.0
+
+[node name="UI" type="AudioStreamPlayer2D" parent="." unique_id=135340665]
+
+[node name="FootstepPlayer" type="AudioStreamPlayer2D" parent="." unique_id=522243153]
+stream = ExtResource("2_v6v0x")
+volume_db = 24.0
+
+[node name="SFXContainer" type="Node2D" parent="." unique_id=561208968]

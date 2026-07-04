@@ -1,0 +1,449 @@
+[gd_scene format=3 uid="uid://bscnx5m7wej0v"]
+
+[ext_resource type="Script" uid="uid://cemsx1hyvxfq6" path="res://scenes/ui.gd" id="1_gdt2y"]
+[ext_resource type="Texture2D" uid="uid://bri3x183i0yqc" path="res://assets/UI Elements/Icons/Icon_10.png" id="2_wm3ai"]
+[ext_resource type="Texture2D" uid="uid://bcw4cl67r4dd2" path="res://assets/UI Elements/Icons/Icon_01.png" id="3_8dubc"]
+[ext_resource type="Texture2D" uid="uid://cwc2ycmp1pjwv" path="res://assets/UI Elements/Icons/Icon_11.png" id="3_vdcm2"]
+[ext_resource type="Script" uid="uid://cs2o4xif5x0ij" path="res://scripts/resize_handle.gd" id="3_ycmcx"]
+[ext_resource type="StyleBox" uid="uid://cenxglnveuq3l" path="res://assets/tres/clear.tres" id="4_kupmu"]
+[ext_resource type="Texture2D" uid="uid://b6g4cjsfqnrh1" path="res://assets/UI Elements/Icons/Icon_07.png" id="4_p7vwb"]
+[ext_resource type="StyleBox" uid="uid://bhqr6wrdtwbub" path="res://assets/tres/clear_hover.tres" id="5_catpy"]
+[ext_resource type="Texture2D" uid="uid://c1vpjabsellde" path="res://assets/UI Elements/Banners/Banner.png" id="5_ktti3"]
+[ext_resource type="Texture2D" uid="uid://dngy3yp6iatmx" path="res://assets/UI Elements/Icons/Icon_08.png" id="5_wm3ai"]
+[ext_resource type="Texture2D" uid="uid://ccy4dsvxofx7f" path="res://assets/UI Elements/Icons/Icon_02.png" id="6_41akx"]
+[ext_resource type="FontFile" uid="uid://cd4uspbcjrqlt" path="res://assets/font/Poppins-SemiBold.ttf" id="6_cgfq5"]
+[ext_resource type="StyleBox" uid="uid://bsh8wguyv7y71" path="res://assets/tres/button_rounded_transparent.tres" id="7_cgfq5"]
+[ext_resource type="PackedScene" uid="uid://dwaw4rn0jcn1x" path="res://scenes/LevelCompletePopup.tscn" id="8_7dvkv"]
+[ext_resource type="StyleBox" uid="uid://du0m108rqovtq" path="res://assets/tres/button_rounded_transparent_hover.tres" id="8_vdcm2"]
+[ext_resource type="FontFile" uid="uid://chbpnwj3qvssf" path="res://assets/font/federhozen-regular.ttf" id="11_6rmj2"]
+[ext_resource type="Texture2D" uid="uid://c8xo6wxpt8kph" path="res://assets/UI Elements/Banners/Banner_Slots.png" id="11_vsj0x"]
+[ext_resource type="FontFile" uid="uid://drau7u1dxkxss" path="res://assets/font/federhozen-bold.ttf" id="14_qsv74"]
+[ext_resource type="Texture2D" uid="uid://cvii5iff1kggb" path="res://assets/HUD/Base-01.png" id="15_cof4p"]
+[ext_resource type="SpriteFrames" uid="uid://4mm2mc7lpa61" path="res://assets/tres/knight_outline_animated.tres" id="15_f7tlh"]
+[ext_resource type="Texture2D" uid="uid://bv8q477j1ngak" path="res://assets/UI Elements/Icons/Icon_05.png" id="16_f7tlh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vdcm2"]
+font = ExtResource("6_cgfq5")
+font_size = 64
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qsv74"]
+texture = ExtResource("11_vsj0x")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vsj0x"]
+texture = ExtResource("11_vsj0x")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qsv74"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1mc3"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cof4p"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8k7j3"]
+font = ExtResource("14_qsv74")
+font_size = 24
+
+[sub_resource type="Theme" id="Theme_jkdwc"]
+default_font = ExtResource("11_6rmj2")
+
+[node name="UI" type="CanvasLayer" unique_id=1980193790]
+script = ExtResource("1_gdt2y")
+
+[node name="BottomLeftLayout" type="VBoxContainer" parent="." unique_id=54570865]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 148.0
+offset_right = 420.0
+grow_vertical = 2
+alignment = 2
+
+[node name="CodeInput" type="TextEdit" parent="BottomLeftLayout" unique_id=28585654]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("11_6rmj2")
+theme_override_font_sizes/font_size = 24
+placeholder_text = "Masukan kode disini"
+scroll_smooth = true
+highlight_current_line = true
+
+[node name="ResizeHandle" type="Panel" parent="BottomLeftLayout/CodeInput" unique_id=1610883591]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -12.0
+grow_horizontal = 2
+mouse_default_cursor_shape = 9
+script = ExtResource("3_ycmcx")
+
+[node name="ExpandButton" type="Button" parent="BottomLeftLayout/CodeInput/ResizeHandle" unique_id=1744650214]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -35.0
+offset_top = 19.0
+offset_right = -5.0
+offset_bottom = 49.0
+grow_horizontal = 0
+theme_override_styles/normal = ExtResource("4_kupmu")
+theme_override_styles/pressed = ExtResource("4_kupmu")
+theme_override_styles/hover = ExtResource("5_catpy")
+icon = ExtResource("6_41akx")
+icon_alignment = 1
+expand_icon = true
+
+[node name="QueueDisplay" type="RichTextLabel" parent="." unique_id=773365491]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -600.0
+offset_bottom = 100.0
+grow_horizontal = 0
+theme_override_fonts/normal_font = ExtResource("11_6rmj2")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+
+[node name="ErrorLabel" type="Label" parent="." unique_id=2097746758]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.84263474, 3.5616756e-06, 4.813075e-07, 1)
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=298089783]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1009666802]
+layout_mode = 2
+alignment = 1
+
+[node name="MenuButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=643730678]
+layout_mode = 2
+icon = ExtResource("2_wm3ai")
+icon_alignment = 1
+
+[node name="CommandsButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=2137507386]
+layout_mode = 2
+icon = ExtResource("3_vdcm2")
+icon_alignment = 1
+
+[node name="RestartButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1785115727]
+layout_mode = 2
+icon = ExtResource("3_8dubc")
+icon_alignment = 1
+
+[node name="RunButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1181674180]
+layout_mode = 2
+icon = ExtResource("4_p7vwb")
+icon_alignment = 1
+
+[node name="Control" type="Control" parent="." unique_id=978164803]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="DarkOverlay" type="ColorRect" parent="Control" unique_id=2019170695]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.19607843)
+
+[node name="Banner" type="NinePatchRect" parent="Control" unique_id=1157232114]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -247.0
+offset_top = -225.0
+offset_right = 247.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_ktti3")
+region_rect = Rect2(0, 0, 248, 242)
+patch_margin_left = 67
+patch_margin_top = 66
+patch_margin_right = 64
+patch_margin_bottom = 65
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Banner" unique_id=1761284135]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -205.5
+offset_right = 220.0
+offset_bottom = 205.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 120
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/Banner/VBoxContainer" unique_id=833780251]
+layout_mode = 2
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_vdcm2")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Banner/VBoxContainer" unique_id=1118957378]
+layout_mode = 2
+theme_override_constants/separation = 150
+alignment = 1
+
+[node name="ExitToMenuButton" type="Button" parent="Control/Banner/VBoxContainer/HBoxContainer" unique_id=2127123189]
+process_mode = 2
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("7_cgfq5")
+theme_override_styles/pressed = ExtResource("7_cgfq5")
+theme_override_styles/hover = ExtResource("8_vdcm2")
+text = "MAIN MENU"
+icon = ExtResource("5_wm3ai")
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="ResumeButton" type="Button" parent="Control/Banner/VBoxContainer/HBoxContainer" unique_id=37928654]
+process_mode = 2
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("7_cgfq5")
+theme_override_styles/hover = ExtResource("8_vdcm2")
+text = "RESUME"
+icon = ExtResource("4_p7vwb")
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="ObjectivePanel" type="Panel" parent="." unique_id=1295188757]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -172.0
+offset_top = 110.0
+offset_right = -22.0
+offset_bottom = 240.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_qsv74")
+
+[node name="ObjectiveLabel" type="RichTextLabel" parent="ObjectivePanel" unique_id=1445517058]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -50.5
+offset_right = 58.0
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.27450982)
+theme_override_fonts/normal_font = ExtResource("14_qsv74")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "OBJECTIVE
+
+Collect Coin
+Reach Portal"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="CommandsPopup" type="Control" parent="." unique_id=1073825368]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="DarkOverlay" type="ColorRect" parent="CommandsPopup" unique_id=701550544]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.19607843)
+
+[node name="Panel" type="Panel" parent="CommandsPopup" unique_id=1485034647]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -252.0
+offset_top = -225.0
+offset_right = -29.0
+offset_bottom = 225.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_vsj0x")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CommandsPopup/Panel" unique_id=225788306]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.5
+offset_top = -205.0
+offset_right = 98.5
+offset_bottom = 195.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(20, 20)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("11_6rmj2")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="CommandsPopup/Panel" unique_id=146821500]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -50.0
+offset_right = 40.0
+offset_bottom = -20.0
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_qsv74")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h1mc3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cof4p")
+icon = ExtResource("5_wm3ai")
+icon_alignment = 1
+expand_icon = true
+
+[node name="LevelCompletePopup" parent="." unique_id=1506947087 instance=ExtResource("8_7dvkv")]
+
+[node name="TutorialPopup" type="Control" parent="." unique_id=2134741134]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DarkOverlay" type="ColorRect" parent="TutorialPopup" unique_id=1840744067]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.039215688)
+
+[node name="Portrait" type="AnimatedSprite2D" parent="TutorialPopup" unique_id=1620793429]
+position = Vector2(250, 230)
+scale = Vector2(10, 10)
+sprite_frames = ExtResource("15_f7tlh")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.55230963
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TutorialPopup" unique_id=1681046276]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -500.0
+offset_top = -200.0
+offset_right = 500.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("15_cof4p")
+region_rect = Rect2(0, 0, 64, 64)
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="TutorialLabel" type="Label" parent="TutorialPopup/NinePatchRect" unique_id=263081298]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 10.0
+offset_right = 93.0
+offset_bottom = 39.0
+text = "Knight"
+label_settings = SubResource("LabelSettings_8k7j3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MessageLabel" type="RichTextLabel" parent="TutorialPopup/NinePatchRect" unique_id=1081608460]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -490.0
+offset_top = -150.0
+offset_right = 490.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_jkdwc")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+
+[node name="NextButton" type="Button" parent="TutorialPopup/NinePatchRect" unique_id=449600621]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/normal = ExtResource("7_cgfq5")
+theme_override_styles/pressed = ExtResource("7_cgfq5")
+theme_override_styles/hover = ExtResource("8_vdcm2")
+icon = ExtResource("16_f7tlh")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/RunButton" to="." method="_on_run_button_pressed"]
+[connection signal="pressed" from="Control/Banner/VBoxContainer/HBoxContainer/ExitToMenuButton" to="." method="_on_exit_to_menu_button_pressed"]
+[connection signal="pressed" from="Control/Banner/VBoxContainer/HBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]

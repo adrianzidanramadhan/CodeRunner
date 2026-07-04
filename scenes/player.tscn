@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://ccpkyss6ki8ku"]
+
+[ext_resource type="Script" uid="uid://8gjc0q5u6w2g" path="res://scenes/player.gd" id="1_xo3ru"]
+[ext_resource type="SpriteFrames" uid="uid://c1ssie5p8trp" path="res://assets/tres/knight_animated.tres" id="2_g2els"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ct4mp"]
+height = 50.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
+size = Vector2(52, 40)
+
+[node name="Player" type="CharacterBody2D" unique_id=1149818697]
+script = ExtResource("1_xo3ru")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1473038868]
+shape = SubResource("CapsuleShape2D_ct4mp")
+
+[node name="WallCheck" type="RayCast2D" parent="." unique_id=620400969]
+target_position = Vector2(16, 0)
+
+[node name="FloorCheck" type="RayCast2D" parent="." unique_id=152763504]
+target_position = Vector2(0, 25)
+
+[node name="SpikeCheck" type="RayCast2D" parent="." unique_id=500916654]
+target_position = Vector2(16, 0)
+collision_mask = 4
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1017530793]
+offset = Vector2(0, -100)
+zoom = Vector2(1.2, 1.2)
+position_smoothing_enabled = true
+
+[node name="Visual" type="Node2D" parent="." unique_id=1727238363]
+position = Vector2(0, -30)
+
+[node name="Knight" type="AnimatedSprite2D" parent="Visual" unique_id=1105151284]
+position = Vector2(7.6293945e-06, -1.9999999)
+scale = Vector2(1.4, 1.4)
+sprite_frames = ExtResource("2_g2els")
+animation = &"attack2"
+autoplay = "idle"
+frame = 5
+frame_progress = 1.0
+
+[node name="SwordHitbox" type="Area2D" parent="." unique_id=1612044195]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox" unique_id=396762636]
+position = Vector2(37, 0)
+shape = SubResource("RectangleShape2D_dqkch")
+
+[connection signal="body_entered" from="SwordHitbox" to="." method="_on_sword_hitbox_body_entered"]

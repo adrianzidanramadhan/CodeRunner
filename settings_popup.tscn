@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://ciljra55m15ht"]
+
+[ext_resource type="Script" uid="uid://di5kx5jrla6ug" path="res://settings_popup.gd" id="1_7vpld"]
+
+[node name="SettingsPopup" type="CanvasLayer" unique_id=694085348]
+visible = false
+script = ExtResource("1_7vpld")
+
+[node name="Panel" type="Panel" parent="." unique_id=1807232317]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Volume Settings" type="Label" parent="Panel" unique_id=1429031344]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="VolumeSlider" type="HSlider" parent="Panel" unique_id=1523226347]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 16.0
+
+[node name="CloseButton" type="Button" parent="Panel" unique_id=1117730357]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0

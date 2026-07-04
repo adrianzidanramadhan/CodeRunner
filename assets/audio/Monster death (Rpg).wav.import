@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bnp6wf4y31oj4"
+path="res://.godot/imported/Monster death (Rpg).wav-65b107ad92a491e983b0adbfa432779c.sample"
+
+[deps]
+
+source_file="res://assets/audio/Monster death (Rpg).wav"
+dest_files=["res://.godot/imported/Monster death (Rpg).wav-65b107ad92a491e983b0adbfa432779c.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

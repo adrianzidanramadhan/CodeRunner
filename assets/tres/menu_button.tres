@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://bdadd0m5206uq"]
+
+[ext_resource type="FontFile" uid="uid://chbpnwj3qvssf" path="res://assets/font/federhozen-regular.ttf" id="1_qmvio"]
+
+[resource]
+default_font = ExtResource("1_qmvio")
+default_font_size = 24

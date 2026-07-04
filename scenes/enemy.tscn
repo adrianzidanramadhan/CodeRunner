@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cwf7tfhuph0ld"]
+
+[ext_resource type="Script" uid="uid://02n386lvlr17" path="res://scripts/enemy/mushroom.gd" id="1_xwavj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b7koy"]
+radius = 8.0
+height = 45.0
+
+[node name="Enemy" type="CharacterBody2D" unique_id=2118616187 groups=["enemy"]]
+script = ExtResource("1_xwavj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1025585562]
+shape = SubResource("CapsuleShape2D_b7koy")
+
+[node name="WallCheck" type="RayCast2D" parent="." unique_id=798980241]
+target_position = Vector2(16, 0)
+
+[node name="FloorCheck" type="RayCast2D" parent="." unique_id=1000248513]
+target_position = Vector2(0, 25)

@@ -1,0 +1,159 @@
+[gd_scene format=3 uid="uid://dwaw4rn0jcn1x"]
+
+[ext_resource type="Script" uid="uid://dliljkejdxhu4" path="res://scenes/level_complete_popup.gd" id="1_8hx3y"]
+[ext_resource type="FontFile" uid="uid://dw0dyktfrmwkj" path="res://assets/font/Poppins-Bold.ttf" id="2_o7k5u"]
+[ext_resource type="Texture2D" uid="uid://c1vpjabsellde" path="res://assets/UI Elements/Banners/Banner.png" id="2_w4se6"]
+[ext_resource type="FontFile" uid="uid://drau7u1dxkxss" path="res://assets/font/federhozen-bold.ttf" id="4_2b6xx"]
+[ext_resource type="FontFile" uid="uid://chbpnwj3qvssf" path="res://assets/font/federhozen-regular.ttf" id="5_0fq50"]
+[ext_resource type="Texture2D" uid="uid://dngy3yp6iatmx" path="res://assets/UI Elements/Icons/Icon_08.png" id="5_am7xt"]
+[ext_resource type="Texture2D" uid="uid://b6g4cjsfqnrh1" path="res://assets/UI Elements/Icons/Icon_07.png" id="6_0fq50"]
+
+[sub_resource type="Theme" id="Theme_tb7o6"]
+default_font = ExtResource("2_o7k5u")
+default_font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_d58ln"]
+font = ExtResource("4_2b6xx")
+font_size = 56
+
+[sub_resource type="LabelSettings" id="LabelSettings_fptkv"]
+font = ExtResource("5_0fq50")
+font_size = 32
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2b6xx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_am7xt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0fq50"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0fq50"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d58ln"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fptkv"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.004019165, 0.004019165, 0.004019165, 0)
+
+[node name="LevelCompletePopup" type="Control" unique_id=1506947087 node_paths=PackedStringArray("coin_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8hx3y")
+coin_label = NodePath("Content/MarginContainer/VBoxContainer/CoinLabel")
+
+[node name="DarkOverlay" type="ColorRect" parent="." unique_id=664122200]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.19607843)
+
+[node name="Banner" type="NinePatchRect" parent="." unique_id=497544074]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -225.0
+offset_right = 269.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_w4se6")
+region_rect = Rect2(0, 0, 248, 242)
+patch_margin_left = 67
+patch_margin_top = 66
+patch_margin_right = 64
+patch_margin_bottom = 65
+
+[node name="Content" type="NinePatchRect" parent="." unique_id=151262562]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -225.0
+offset_right = 269.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+region_rect = Rect2(0, 0, 248, 242)
+patch_margin_left = 67
+patch_margin_top = 66
+patch_margin_right = 64
+patch_margin_bottom = 65
+
+[node name="MarginContainer" type="MarginContainer" parent="Content" unique_id=1141097030]
+layout_mode = 0
+offset_right = 494.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content/MarginContainer" unique_id=419826885]
+layout_mode = 2
+theme_override_constants/separation = 48
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="Content/MarginContainer/VBoxContainer" unique_id=598580]
+layout_mode = 2
+theme = SubResource("Theme_tb7o6")
+theme_override_colors/font_color = Color(0, 0.13333334, 0.4, 1)
+text = "LEVEL COMPLETE!"
+label_settings = SubResource("LabelSettings_d58ln")
+horizontal_alignment = 1
+
+[node name="CoinLabel" type="Label" parent="Content/MarginContainer/VBoxContainer" unique_id=578960450]
+layout_mode = 2
+text = "Coin: 1/1"
+label_settings = SubResource("LabelSettings_fptkv")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/MarginContainer/VBoxContainer" unique_id=293934831]
+layout_mode = 2
+theme_override_constants/separation = 82
+alignment = 1
+
+[node name="LevelSelectButton" type="Button" parent="Content/MarginContainer/VBoxContainer/HBoxContainer" unique_id=158825725]
+custom_minimum_size = Vector2(82, 82)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2b6xx")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_am7xt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0fq50")
+icon = ExtResource("5_am7xt")
+icon_alignment = 1
+expand_icon = true
+
+[node name="NextButton" type="Button" parent="Content/MarginContainer/VBoxContainer/HBoxContainer" unique_id=879347010]
+custom_minimum_size = Vector2(82, 82)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0fq50")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_d58ln")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fptkv")
+icon = ExtResource("6_0fq50")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="Content/MarginContainer/VBoxContainer/HBoxContainer/LevelSelectButton" to="." method="_on_level_select_button_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/VBoxContainer/HBoxContainer/NextButton" to="." method="_on_next_button_pressed"]

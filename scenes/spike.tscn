@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b7ko82hf0bjv1"]
+
+[ext_resource type="Texture2D" uid="uid://d2bu2g1sunhy8" path="res://assets/tilemap/spike.png" id="1_ljd5v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ljd5v"]
+size = Vector2(8, 8)
+
+[node name="Spike" type="Area2D" unique_id=1516236643]
+collision_layer = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2079335301]
+texture_repeat = 2
+texture = ExtResource("1_ljd5v")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1590859914]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_ljd5v")

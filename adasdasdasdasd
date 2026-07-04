@@ -1,0 +1,106 @@
+[1mdiff --git a/assets/sound/Basic Rpg Intro Track (RPG).wav b/assets/sound/Basic Rpg Intro Track (RPG).wav[m
+[1mdeleted file mode 100644[m
+[1mindex b213832..0000000[m
+Binary files a/assets/sound/Basic Rpg Intro Track (RPG).wav and /dev/null differ
+[1mdiff --git a/assets/sound/Basic Rpg Intro Track (RPG).wav.import b/assets/sound/Basic Rpg Intro Track (RPG).wav.import[m
+[1mdeleted file mode 100644[m
+[1mindex c28d035..0000000[m
+[1m--- a/assets/sound/Basic Rpg Intro Track (RPG).wav.import[m	
+[1m+++ /dev/null[m
+[36m@@ -1,24 +0,0 @@[m
+[31m-[remap][m
+[31m-[m
+[31m-importer="wav"[m
+[31m-type="AudioStreamWAV"[m
+[31m-uid="uid://wemrescql7wo"[m
+[31m-path="res://.godot/imported/Basic Rpg Intro Track (RPG).wav-831b36deed5d3c4ff641ac310a683b73.sample"[m
+[31m-[m
+[31m-[deps][m
+[31m-[m
+[31m-source_file="res://assets/sound/Basic Rpg Intro Track (RPG).wav"[m
+[31m-dest_files=["res://.godot/imported/Basic Rpg Intro Track (RPG).wav-831b36deed5d3c4ff641ac310a683b73.sample"][m
+[31m-[m
+[31m-[params][m
+[31m-[m
+[31m-force/8_bit=false[m
+[31m-force/mono=false[m
+[31m-force/max_rate=false[m
+[31m-force/max_rate_hz=44100[m
+[31m-edit/trim=false[m
+[31m-edit/normalize=false[m
+[31m-edit/loop_mode=0[m
+[31m-edit/loop_begin=0[m
+[31m-edit/loop_end=-1[m
+[31m-compress/mode=2[m
+[1mdiff --git a/assets/sound/Chill RPG theme (RPG).wav b/assets/sound/Chill RPG theme (RPG).wav[m
+[1mdeleted file mode 100644[m
+[1mindex 32b6ff5..0000000[m
+Binary files a/assets/sound/Chill RPG theme (RPG).wav and /dev/null differ
+[1mdiff --git a/assets/sound/Chill RPG theme (RPG).wav.import b/assets/sound/Chill RPG theme (RPG).wav.import[m
+[1mdeleted file mode 100644[m
+[1mindex 8bcda39..0000000[m
+[1m--- a/assets/sound/Chill RPG theme (RPG).wav.import[m	
+[1m+++ /dev/null[m
+[36m@@ -1,24 +0,0 @@[m
+[31m-[remap][m
+[31m-[m
+[31m-importer="wav"[m
+[31m-type="AudioStreamWAV"[m
+[31m-uid="uid://dj4stlahh5j4w"[m
+[31m-path="res://.godot/imported/Chill RPG theme (RPG).wav-fa73efc484a3e352f1289035c9024d25.sample"[m
+[31m-[m
+[31m-[deps][m
+[31m-[m
+[31m-source_file="res://assets/sound/Chill RPG theme (RPG).wav"[m
+[31m-dest_files=["res://.godot/imported/Chill RPG theme (RPG).wav-fa73efc484a3e352f1289035c9024d25.sample"][m
+[31m-[m
+[31m-[params][m
+[31m-[m
+[31m-force/8_bit=false[m
+[31m-force/mono=false[m
+[31m-force/max_rate=false[m
+[31m-force/max_rate_hz=44100[m
+[31m-edit/trim=false[m
+[31m-edit/normalize=false[m
+[31m-edit/loop_mode=0[m
+[31m-edit/loop_begin=0[m
+[31m-edit/loop_end=-1[m
+[31m-compress/mode=2[m
+[1mdiff --git a/assets/sound/Footsteps Loop 1 (Rpg).wav b/assets/sound/Footsteps Loop 1 (Rpg).wav[m
+[1mdeleted file mode 100644[m
+[1mindex 30cf0ef..0000000[m
+Binary files a/assets/sound/Footsteps Loop 1 (Rpg).wav and /dev/null differ
+[1mdiff --git a/assets/sound/Footsteps Loop 1 (Rpg).wav.import b/assets/sound/Footsteps Loop 1 (Rpg).wav.import[m
+[1mdeleted file mode 100644[m
+[1mindex 74ef473..0000000[m
+[1m--- a/assets/sound/Footsteps Loop 1 (Rpg).wav.import[m	
+[1m+++ /dev/null[m
+[36m@@ -1,24 +0,0 @@[m
+[31m-[remap][m
+[31m-[m
+[31m-importer="wav"[m
+[31m-type="AudioStreamWAV"[m
+[31m-uid="uid://cqlivvjpyvfqg"[m
+[31m-path="res://.godot/imported/Footsteps Loop 1 (Rpg).wav-69d498e8e1b145c8e3000c18326d99a5.sample"[m
+[31m-[m
+[31m-[deps][m
+[31m-[m
+[31m-source_file="res://assets/sound/Footsteps Loop 1 (Rpg).wav"[m
+[31m-dest_files=["res://.godot/imported/Footsteps Loop 1 (Rpg).wav-69d498e8e1b145c8e3000c18326d99a5.sample"][m
+[31m-[m
+[31m-[params][m
+[31m-[m
+[31m-force/8_bit=false[m
+[31m-force/mono=false[m
+[31m-force/max_rate=false[m
+[31m-force/max_rate_hz=44100[m
+[31m-edit/trim=false[m
+[31m-edit/normalize=false[m
+[31m-edit/loop_mode=0[m
+[31m-edit/loop_begin=0[m
+[31m-edit/loop_end=-1[m
+[31m-compress/mode=2[m
+[1mdiff --git a/assets/sound/Footsteps Loop 2 (Rpg).wav b/assets/sound/Footsteps Loop 2 (Rpg).wav[m
+[1mdeleted file mode 100644[m
+[1mindex 1f420ac..0000000[m
+Binary files a/assets/sound/Footsteps Loop 2 (Rpg).wav and /dev
