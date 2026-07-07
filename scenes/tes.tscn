@@ -4,7 +4,8 @@
 [ext_resource type="Script" uid="uid://cijmjbbr8cjel" path="res://scripts/game.gd" id="1_fcdfo"]
 [ext_resource type="PackedScene" uid="uid://ccpkyss6ki8ku" path="res://scenes/player.tscn" id="2_fcdfo"]
 [ext_resource type="PackedScene" uid="uid://bscnx5m7wej0v" path="res://scenes/ui.tscn" id="3_2thv0"]
-[ext_resource type="PackedScene" uid="uid://cwf7tfhuph0ld" path="res://scenes/enemy.tscn" id="4_8ncqt"]
+[ext_resource type="PackedScene" uid="uid://dlfwao7kxupm8" path="res://scenes/enemies/mushroom.tscn" id="4_fcdfo"]
+[ext_resource type="PackedScene" uid="uid://b3r3oqshg6skp" path="res://scenes/enemies/goblin.tscn" id="6_2thv0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6gtbn"]
 texture = ExtResource("1_eu3iy")
@@ -597,7 +598,10 @@ collision_visibility_mode = 1
 [node name="Player" parent="." unique_id=1149818697 instance=ExtResource("2_fcdfo")]
 position = Vector2(-143, 183)
 
-[node name="Enemy" parent="." unique_id=2118616187 instance=ExtResource("4_8ncqt")]
-position = Vector2(215, 249)
+[node name="Enemy" parent="." unique_id=2118616187 instance=ExtResource("4_fcdfo")]
+position = Vector2(168, 247)
+
+[node name="Enemy2" parent="." unique_id=111256885 instance=ExtResource("6_2thv0")]
+position = Vector2(421, 246)
 
 [node name="UI" parent="." unique_id=1980193790 instance=ExtResource("3_2thv0")]

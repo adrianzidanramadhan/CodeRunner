@@ -6,6 +6,8 @@ extends Node
 @onready var footsteps = $FootstepPlayer
 
 var music_tracks = {}
+var speak_player: AudioStreamPlayer = null
+
 
 var sounds = {
 	"coin": preload("res://assets/audio/Coin Pickup.wav"),
@@ -21,7 +23,8 @@ var sounds = {
 	"attack": preload("res://assets/audio/attack.wav"),
 	"death": preload("res://assets/audio/Hurt.wav"),
 	"enemy_death": preload("res://assets/audio/Monster death (Rpg).wav"),
-	"enemy_attack": preload("res://assets/audio/enemy_attack.wav")
+	"enemy_attack": preload("res://assets/audio/enemy_attack.wav"),
+	"speak": preload("res://assets/audio/speak5.wav")
 }
 
 func _ready():
@@ -123,3 +126,21 @@ func play_footsteps():
 
 func stop_footsteps():
 	footsteps.stop()
+
+func play_speak():
+	if !sounds.has("speak"):
+		return
+		
+	if speak_player == null:
+		speak_player = AudioStreamPlayer.new()
+		speak_player.stream = sounds["speak"]
+		speak_player.volume_db = -5.0 
+		sfx_container.add_child(speak_player)
+
+	if !speak_player.playing:
+		speak_player.pitch_scale = randf_range(0.95, 1.05)
+		speak_player.play()
+
+func stop_speak():
+	if speak_player and speak_player.playing:
+		speak_player.stop()

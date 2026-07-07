@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://beavocip6dxuh"]
+
+[ext_resource type="Script" uid="uid://02n386lvlr17" path="res://scripts/enemy/mushroom.gd" id="1_7dhhk"]
+[ext_resource type="SpriteFrames" uid="uid://rlpqgduw5tyi" path="res://scenes/enemies/mushroom.tres" id="2_0qyvg"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jqul3"]
+radius = 8.0
+height = 45.0
+
+[node name="Mushroom" type="CharacterBody2D" unique_id=1807974308]
+script = ExtResource("1_7dhhk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=135526569]
+shape = SubResource("CapsuleShape2D_jqul3")
+
+[node name="WallCheck" type="RayCast2D" parent="." unique_id=1768410527]
+target_position = Vector2(16, 0)
+
+[node name="FloorCheck" type="RayCast2D" parent="." unique_id=335465693]
+target_position = Vector2(0, 25)
+
+[node name="Visual" type="Node2D" parent="." unique_id=668078145]
+
+[node name="Jamur" type="AnimatedSprite2D" parent="Visual" unique_id=318302716]
+unique_name_in_owner = true
+sprite_frames = ExtResource("2_0qyvg")
+animation = &"idle"
+autoplay = "idle"

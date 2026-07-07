@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://hla06eltkwf" path="res://assets/tilemap/door.png" id="4_xwcet"]
 [ext_resource type="Texture2D" uid="uid://dlwbiyfwwkysf" path="res://assets/tilemap/Coin.png" id="5_p1ry8"]
 [ext_resource type="Texture2D" uid="uid://d2bu2g1sunhy8" path="res://assets/tilemap/spike.png" id="6_xlg7c"]
-[ext_resource type="PackedScene" uid="uid://cwf7tfhuph0ld" path="res://scenes/enemy.tscn" id="8_gee14"]
+[ext_resource type="PackedScene" uid="uid://cwf7tfhuph0ld" path="res://scenes/enemies/enemy.tscn" id="8_gee14"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xwcet"]
 

@@ -19,7 +19,7 @@ var is_reloading := false
 
 var tutorial_data = {
 	1: [
-		{"text": "Halo! Aku Byte. Selamat datang di petualangan kode!", "mood": "idle"},
+		{"text": "Halo! Aku Knight. Selamat datang di petualangan kode!", "mood": "idle"},
 		{"text": "Untuk menggerakkan ksatria ke kanan, coba ketik perintah [color=yellow]move_right()[/color] di kotak kiri bawah.", "mood": "idle"},
 		{"text": "Setelah mengetik [color=yellow]move_right()[/color], tekan tombol [color=yellow]Run[/color] di atas atau Enter untuk mulai berjalan!", "mood": "idle"}
 	],

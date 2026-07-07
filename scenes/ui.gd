@@ -281,38 +281,29 @@ func show_current_tutorial():
 	start_typewriter()
 
 func start_typewriter():
-
 	is_typing = true
 	skip_typing = false
 	tutorial_next.hide()
+	tutorial_message.text = ""
 
 	var i = 0
 
 	while i < full_text.length():
-
 		if skip_typing:
 			tutorial_message.text = full_text
+			AudioManager.stop_speak()
 			break
 
-		if full_text[i] == "[":
-			var close_index = full_text.find("]", i)
-
-			if close_index != -1:
-				var bbcode_tag = full_text.substr(
-					i,
-					close_index - i + 1
-				)
-
-				tutorial_message.text += bbcode_tag
-				i = close_index + 1
-				continue
-
 		tutorial_message.text += full_text[i]
-		i += 1
+		
+		if full_text[i] != " ":
+			AudioManager.play_speak()
 
+		i += 1
 		await get_tree().create_timer(0.03).timeout
 
 	is_typing = false
+	AudioManager.stop_speak()
 	tutorial_next.show()
 	start_next_pulse()
 
