@@ -8,7 +8,7 @@
 script = ExtResource("1_70lkm")
 anim_path = NodePath("Visual/AnimatedSprite2D")
 
-[node name="Visual" parent="." index="3" unique_id=1251341206]
+[node name="Visual" parent="." index="5" unique_id=1251341206]
 position = Vector2(0, -9)
 
 [node name="AnimatedSprite2D" parent="Visual" index="0" unique_id=945350865]

@@ -61,7 +61,6 @@ func _ready():
 	setup_ui()
 	setup_executor()
 	
-	# HITUNG OTOMATIS: Cari semua node bernama "Coin" atau yang berawalan "Coin" di dalam map
 	total_coins_in_level = 0
 	for child in get_children():
 		if child.name.begins_with("Coin"):
@@ -72,7 +71,6 @@ func _ready():
 func _process(delta):
 	check_fall_death()
 
-# Di dalam setup_ui()
 func setup_ui():
 	ui.run_pressed.connect(_on_run_pressed)
 	ui.restart_pressed.connect(_on_restart_pressed)
@@ -141,9 +139,6 @@ func apply_gravity():
 		await player.move_down()
 
 func check_hazards():
-	#if player.spike_ahead():
-		#await player.die()
-		#LevelManager.reload_level()
 	check_fall_death()
 
 func check_fall_death():
@@ -163,7 +158,6 @@ func _on_coin_body_entered(body):
 
 func collect_coin():
 	coins_collected += 1
-	# Pastikan ada 3 argumen di sini:
 	ui.update_objectives(coins_collected, total_coins_in_level, level_finished)
 	AudioManager.play_sfx("coin")
 func _on_goal_body_entered(body):
@@ -186,7 +180,6 @@ func finish_level():
 	AudioManager.play_sfx("portal")
 	LevelManager.unlock_level(level_number + 1)
 	
-	# Kirim jumlah koin yang didapat dan total koin ke UI
 	ui.show_level_complete(level_number, coins_collected, total_coins_in_level)
 
 func _show_finish_popup():

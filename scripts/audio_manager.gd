@@ -37,6 +37,11 @@ func _ready():
 		"gameplay",
 		preload("res://assets/audio/Basic Rpg Intro Track (RPG).wav")
 	)
+	
+	register_bgm(
+		"combat",
+		preload("res://assets/audio/combat_theme.wav")
+	)
 
 func register_sound(name, stream):
 	sounds[name] = stream

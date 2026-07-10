@@ -137,33 +137,26 @@ func _on_close_commands_pressed():
 	commands_popup.hide()
 
 func _input(event):
-	# LOGIKA LAMA: Skip teks jalan jika layar diklik pakai mouse
 	if tutorial_popup.visible and event is InputEventMouseButton:
 		if event.pressed:
 			if is_typing:
 				skip_typing = true
 
-	# LOGIKA BARU: Jika tutorial popup sedang aktif/muncul di layar
 	if tutorial_popup.visible:
-		# Jika user menekan tombol Enter atau Spacebar (ui_accept)
+
 		if event.is_action_pressed("ui_accept"):
+
 			if is_typing:
-				# Jika teksnya masih berjalan mengetik, percepat langsung beres
 				skip_typing = true
 			else:
-				# Jika teks sudah beres mengetik, langsung trigger pindah halaman teks (seperti klik pedang)
 				_on_next_button_pressed()
-			
-			# Konsumsi input agar tidak tembus ke sistem game lainnya
+
 			get_viewport().set_input_as_handled()
 
-	# LOGIKA LAMA: Membuka menu bantuan cheat sheet perintah code
 	if event.is_action_pressed("ui_help"):
 		commands_popup.visible = !commands_popup.visible
 
-# Di dalam script ui.gd
 func show_level_complete(level_number: int, coins_collected: int, total_coins: int):
-	# Kita panggil fungsi set_coin_text yang ada di dalam LevelCompletePopup
 	level_complete_popup.set_coin_text(coins_collected, total_coins)
 	level_complete_popup.show_popup(level_number)
 
@@ -278,33 +271,41 @@ func show_current_tutorial():
 		"idle":
 			set_byte_mood(ByteMood.IDLE)
 
+	tutorial_message.visible_characters = 0
 	start_typewriter()
 
 func start_typewriter():
+
 	is_typing = true
 	skip_typing = false
+
 	tutorial_next.hide()
-	tutorial_message.text = ""
 
-	var i = 0
+	tutorial_message.bbcode_enabled = true
+	tutorial_message.text = full_text
 
-	while i < full_text.length():
+	tutorial_message.visible_characters = 0
+
+	AudioManager.play_speak()
+
+	var total = tutorial_message.get_total_character_count()
+
+	for i in range(total + 1):
+
 		if skip_typing:
-			tutorial_message.text = full_text
-			AudioManager.stop_speak()
+			tutorial_message.visible_characters = total
 			break
 
-		tutorial_message.text += full_text[i]
-		
-		if full_text[i] != " ":
-			AudioManager.play_speak()
+		tutorial_message.visible_characters = i
 
-		i += 1
 		await get_tree().create_timer(0.03).timeout
 
 	is_typing = false
+
 	AudioManager.stop_speak()
+
 	tutorial_next.show()
+
 	start_next_pulse()
 
 func _on_next_button_pressed():
