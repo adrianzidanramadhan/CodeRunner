@@ -22,7 +22,8 @@ target_position = Vector2(16, 0)
 target_position = Vector2(0, 25)
 
 [node name="SpikeCheck" type="RayCast2D" parent="." unique_id=500916654]
-target_position = Vector2(16, 0)
+position = Vector2(0, 16)
+target_position = Vector2(32, 0)
 collision_mask = 4
 collide_with_areas = true
 collide_with_bodies = false
@@ -41,7 +42,7 @@ scale = Vector2(1.4, 1.4)
 sprite_frames = ExtResource("2_g2els")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.20817725
+frame_progress = 0.110752426
 
 [node name="SwordHitbox" type="Area2D" parent="." unique_id=1612044195]
 

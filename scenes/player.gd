@@ -12,11 +12,20 @@ var hit_targets = []
 var sword_offset_right = Vector2(0, 0)
 var sword_offset_left = Vector2(-75, 0)
 
+var path = [
+	position + Vector2(tile_size * 0.5, -tile_size * jump_height),
+	position + Vector2(tile_size * 1.5, -tile_size * jump_height),
+	position + Vector2(tile_size * jump_distance, 0)
+]
+
 @onready var spike_check = $SpikeCheck
 @onready var wall_check = $WallCheck
 @onready var floor_check = $FloorCheck
 @onready var sprite = $Visual/Knight
 
+@export var jump_height := 2
+@export var jump_distance := 2
+@export var jump_duration := 0.45
 
 func _ready():
 	add_to_group("player")
@@ -100,6 +109,47 @@ func move_along_path(path: Array, duration := 0.4):
 	is_moving = false
 	return true
 
+func jump_to(offset_x: int):
+
+	var start = position
+	var end = start + Vector2(tile_size * offset_x, 0)
+
+	is_jumping = true
+	set_state_jump()
+	AudioManager.play_sfx("jump")
+
+	var tween = create_tween()
+
+	tween.set_parallel()
+
+	tween.tween_property(
+		self,
+		"position:x",
+		end.x,
+		jump_duration
+	).set_trans(Tween.TRANS_LINEAR)
+
+	tween.tween_property(
+		self,
+		"position:y",
+		start.y - tile_size * jump_height,
+		jump_duration * 0.45
+	).set_trans(Tween.TRANS_QUAD)\
+	.set_ease(Tween.EASE_OUT)
+
+	tween.chain().tween_property(
+		self,
+		"position:y",
+		end.y,
+		jump_duration * 0.55
+	).set_trans(Tween.TRANS_QUAD)\
+	.set_ease(Tween.EASE_IN)
+
+	await tween.finished
+
+	is_jumping = false
+
+	return true
 
 func blocked(offset: Vector2):
 	wall_check.target_position = offset
@@ -188,35 +238,18 @@ func should_fall():
 # =====================================================
 # JUMP
 # =====================================================
-
 func jump_right():
 
 	if is_dead or is_moving or is_attacking:
 		return false
 
 	sprite.flip_h = false
-
-	var peak = position + Vector2(tile_size, -tile_size)
-	var landing = position + Vector2(tile_size * 2, 0)
+	update_sword_hitbox()
 
 	if blocked(Vector2(tile_size, -tile_size)):
 		return false
 
-	is_jumping = true
-	set_state_jump()
-	AudioManager.play_sfx("jump")
-
-	await move_along_path(
-		[
-			peak,
-			landing
-		],
-		0.45
-	)
-
-	is_jumping = false
-
-	return true
+	return await jump_to(jump_distance)
 
 
 func jump_left():
@@ -225,29 +258,12 @@ func jump_left():
 		return false
 
 	sprite.flip_h = true
-
-	var peak = position + Vector2(-tile_size, -tile_size)
-	var landing = position + Vector2(-tile_size * 2, 0)
+	update_sword_hitbox()
 
 	if blocked(Vector2(-tile_size, -tile_size)):
 		return false
 
-	is_jumping = true
-	set_state_jump()
-	AudioManager.play_sfx("jump")
-
-	await move_along_path(
-		[
-			peak,
-			landing
-		],
-		0.45
-	)
-
-	is_jumping = false
-
-	return true
-
+	return await jump_to(-jump_distance)
 
 func jump_up():
 

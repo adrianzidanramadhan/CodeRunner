@@ -1,77 +1,76 @@
-[gd_scene format=4 uid="uid://cmi21d7jn2jks"]
+[gd_scene format=4 uid="uid://b20k7dirj70ka"]
 
-[ext_resource type="Script" uid="uid://cijmjbbr8cjel" path="res://scripts/game.gd" id="1_8i1lk"]
-[ext_resource type="Texture2D" uid="uid://625fm3eeyqht" path="res://assets/Background/Background.png" id="2_hgky1"]
-[ext_resource type="Texture2D" uid="uid://e68qefejimik" path="res://assets/Trees/bg/light_mountain.png" id="3_b4tpv"]
-[ext_resource type="Texture2D" uid="uid://bmc6vo1vbnlbt" path="res://assets/Trees/bg/tree_left.png" id="4_hkuam"]
-[ext_resource type="Texture2D" uid="uid://1226ynjas2af" path="res://assets/Trees/bg/tree_center.png" id="5_f3b2k"]
-[ext_resource type="Texture2D" uid="uid://5mqejwkx20ws" path="res://assets/Trees/bg/tree_right.png" id="6_sqrei"]
-[ext_resource type="Texture2D" uid="uid://dqpofnultu3q" path="res://assets/Trees/Dark-Tree.png" id="7_yhrca"]
-[ext_resource type="Texture2D" uid="uid://c4p8451ygpudn" path="res://assets/tilemap/Tiles.png" id="8_4eecq"]
-[ext_resource type="PackedScene" uid="uid://ccpkyss6ki8ku" path="res://scenes/player.tscn" id="9_b3p8y"]
-[ext_resource type="PackedScene" uid="uid://jrd2fm54hngq" path="res://scenes/coin.tscn" id="11_b4tpv"]
-[ext_resource type="PackedScene" uid="uid://b7ko82hf0bjv1" path="res://scenes/spike.tscn" id="12_hgky1"]
-[ext_resource type="PackedScene" uid="uid://bscnx5m7wej0v" path="res://scenes/ui.tscn" id="12_ida7w"]
-[ext_resource type="PackedScene" uid="uid://bsjtw6v1xxnl2" path="res://scenes/goal.tscn" id="12_pm1y0"]
+[ext_resource type="Script" uid="uid://cijmjbbr8cjel" path="res://scripts/game.gd" id="1_rge87"]
+[ext_resource type="Texture2D" uid="uid://625fm3eeyqht" path="res://assets/Background/Background.png" id="2_emhfo"]
+[ext_resource type="Texture2D" uid="uid://e68qefejimik" path="res://assets/Trees/bg/light_mountain.png" id="3_l0cwd"]
+[ext_resource type="Texture2D" uid="uid://bmc6vo1vbnlbt" path="res://assets/Trees/bg/tree_left.png" id="4_vnwci"]
+[ext_resource type="Texture2D" uid="uid://1226ynjas2af" path="res://assets/Trees/bg/tree_center.png" id="5_4u223"]
+[ext_resource type="Texture2D" uid="uid://5mqejwkx20ws" path="res://assets/Trees/bg/tree_right.png" id="6_vd1yw"]
+[ext_resource type="Texture2D" uid="uid://dqpofnultu3q" path="res://assets/Trees/Dark-Tree.png" id="7_wkjcw"]
+[ext_resource type="Texture2D" uid="uid://c4p8451ygpudn" path="res://assets/tilemap/Tiles.png" id="8_ricaf"]
+[ext_resource type="PackedScene" uid="uid://ccpkyss6ki8ku" path="res://scenes/player.tscn" id="9_gycp8"]
+[ext_resource type="PackedScene" uid="uid://bsjtw6v1xxnl2" path="res://scenes/goal.tscn" id="10_prm31"]
+[ext_resource type="PackedScene" uid="uid://b3r3oqshg6skp" path="res://scenes/enemies/goblin.tscn" id="11_rge87"]
+[ext_resource type="PackedScene" uid="uid://bscnx5m7wej0v" path="res://scenes/ui.tscn" id="12_hckfr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g7tkf"]
-atlas = ExtResource("7_yhrca")
+atlas = ExtResource("7_wkjcw")
 region = Rect2(2, 391, 108, 313)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4fww7"]
-atlas = ExtResource("7_yhrca")
+atlas = ExtResource("7_wkjcw")
 region = Rect2(5, 1092, 70, 108)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gvm5i"]
-atlas = ExtResource("7_yhrca")
+atlas = ExtResource("7_wkjcw")
 region = Rect2(2, 391, 108, 313)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jrfo0"]
-atlas = ExtResource("7_yhrca")
+atlas = ExtResource("7_wkjcw")
 region = Rect2(4, 720, 88, 208)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_db1r7"]
-atlas = ExtResource("7_yhrca")
+atlas = ExtResource("7_wkjcw")
 region = Rect2(2, 391, 108, 313)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6gwlt"]
-atlas = ExtResource("7_yhrca")
+atlas = ExtResource("7_wkjcw")
 region = Rect2(4, 720, 88, 208)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c2nc4"]
-atlas = ExtResource("7_yhrca")
+atlas = ExtResource("7_wkjcw")
 region = Rect2(674, 391, 108, 313)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vhxpm"]
-atlas = ExtResource("7_yhrca")
+atlas = ExtResource("7_wkjcw")
 region = Rect2(2, 391, 108, 313)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_arkx4"]
-atlas = ExtResource("7_yhrca")
+atlas = ExtResource("7_wkjcw")
 region = Rect2(4, 720, 88, 208)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jqv5m"]
-atlas = ExtResource("7_yhrca")
+atlas = ExtResource("7_wkjcw")
 region = Rect2(676, 720, 88, 208)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_noix2"]
-atlas = ExtResource("7_yhrca")
+atlas = ExtResource("7_wkjcw")
 region = Rect2(672, 0, 107, 368)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_025c5"]
-atlas = ExtResource("7_yhrca")
+atlas = ExtResource("7_wkjcw")
 region = Rect2(677, 1092, 70, 108)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bw3ef"]
-atlas = ExtResource("7_yhrca")
+atlas = ExtResource("7_wkjcw")
 region = Rect2(6, 944, 88, 144)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_07dy8"]
-atlas = ExtResource("7_yhrca")
+atlas = ExtResource("7_wkjcw")
 region = Rect2(309, 720, 55, 208)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xesoj"]
-texture = ExtResource("8_4eecq")
+texture = ExtResource("8_ricaf")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -645,7 +644,7 @@ terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_xesoj")
 
 [node name="Level3" type="Node2D" unique_id=232416967]
-script = ExtResource("1_8i1lk")
+script = ExtResource("1_rge87")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=302815520]
 
@@ -657,12 +656,12 @@ motion_mirroring = Vector2(1229, 0)
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=1404758163]
 position = Vector2(296.25, 104)
 scale = Vector2(1.2364582, 0.7647059)
-texture = ExtResource("2_hgky1")
+texture = ExtResource("2_emhfo")
 
 [node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=2079890264]
 position = Vector2(910.625, 104)
 scale = Vector2(1.3223959, 0.7647059)
-texture = ExtResource("2_hgky1")
+texture = ExtResource("2_emhfo")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground" unique_id=787165715]
 position = Vector2(2, -95)
@@ -671,55 +670,55 @@ motion_mirroring = Vector2(1229, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=1674356995]
 position = Vector2(47, 178)
-texture = ExtResource("3_b4tpv")
+texture = ExtResource("3_l0cwd")
 
 [node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=344689334]
 position = Vector2(142, 178)
-texture = ExtResource("3_b4tpv")
+texture = ExtResource("3_l0cwd")
 
 [node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=414911662]
 position = Vector2(236, 178)
-texture = ExtResource("3_b4tpv")
+texture = ExtResource("3_l0cwd")
 
 [node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=1805854204]
 position = Vector2(331, 178)
-texture = ExtResource("3_b4tpv")
+texture = ExtResource("3_l0cwd")
 
 [node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=1113636676]
 position = Vector2(425, 178)
-texture = ExtResource("3_b4tpv")
+texture = ExtResource("3_l0cwd")
 
 [node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=1570984091]
 position = Vector2(519.5, 178)
-texture = ExtResource("3_b4tpv")
+texture = ExtResource("3_l0cwd")
 
 [node name="Sprite2D7" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=876150674]
 position = Vector2(614.5, 178)
-texture = ExtResource("3_b4tpv")
+texture = ExtResource("3_l0cwd")
 
 [node name="Sprite2D8" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=1346506336]
 position = Vector2(708.5, 178)
-texture = ExtResource("3_b4tpv")
+texture = ExtResource("3_l0cwd")
 
 [node name="Sprite2D9" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=882912909]
 position = Vector2(803.5, 178)
-texture = ExtResource("3_b4tpv")
+texture = ExtResource("3_l0cwd")
 
 [node name="Sprite2D10" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=243262829]
 position = Vector2(897.5, 178)
-texture = ExtResource("3_b4tpv")
+texture = ExtResource("3_l0cwd")
 
 [node name="Sprite2D11" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=958244049]
 position = Vector2(992.5, 178)
-texture = ExtResource("3_b4tpv")
+texture = ExtResource("3_l0cwd")
 
 [node name="Sprite2D12" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=143697218]
 position = Vector2(1086.5, 178)
-texture = ExtResource("3_b4tpv")
+texture = ExtResource("3_l0cwd")
 
 [node name="Sprite2D13" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=701914376]
 position = Vector2(1181, 178)
-texture = ExtResource("3_b4tpv")
+texture = ExtResource("3_l0cwd")
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground" unique_id=978475794]
 position = Vector2(2, -95)
@@ -728,55 +727,55 @@ motion_mirroring = Vector2(1229, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=466657890]
 position = Vector2(524, 230)
-texture = ExtResource("4_hkuam")
+texture = ExtResource("4_vnwci")
 
 [node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=73851240]
 position = Vector2(619, 230)
-texture = ExtResource("5_f3b2k")
+texture = ExtResource("5_4u223")
 
 [node name="Sprite2D8" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=985436064]
 position = Vector2(713, 230)
-texture = ExtResource("5_f3b2k")
+texture = ExtResource("5_4u223")
 
 [node name="Sprite2D9" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=286863112]
 position = Vector2(807, 230)
-texture = ExtResource("5_f3b2k")
+texture = ExtResource("5_4u223")
 
 [node name="Sprite2D10" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=1341654956]
 position = Vector2(901, 230)
-texture = ExtResource("5_f3b2k")
+texture = ExtResource("5_4u223")
 
 [node name="Sprite2D11" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=1167130483]
 position = Vector2(995, 230)
-texture = ExtResource("5_f3b2k")
+texture = ExtResource("5_4u223")
 
 [node name="Sprite2D12" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=621352248]
 position = Vector2(1088, 230)
-texture = ExtResource("5_f3b2k")
+texture = ExtResource("5_4u223")
 
 [node name="Sprite2D13" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=1063108801]
 position = Vector2(1182, 230)
-texture = ExtResource("5_f3b2k")
+texture = ExtResource("5_4u223")
 
 [node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=1215812212]
 position = Vector2(140, 230)
-texture = ExtResource("5_f3b2k")
+texture = ExtResource("5_4u223")
 
 [node name="Sprite2D6" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=1995858647]
 position = Vector2(327, 230)
-texture = ExtResource("5_f3b2k")
+texture = ExtResource("5_4u223")
 
 [node name="Sprite2D7" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=681827011]
 position = Vector2(233, 230)
-texture = ExtResource("5_f3b2k")
+texture = ExtResource("5_4u223")
 
 [node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=1915546691]
 position = Vector2(47, 230)
-texture = ExtResource("5_f3b2k")
+texture = ExtResource("5_4u223")
 
 [node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=332240539]
 position = Vector2(437, 230)
-texture = ExtResource("6_sqrei")
+texture = ExtResource("6_vd1yw")
 
 [node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer3" unique_id=395866500]
 offset_top = 358.0
@@ -867,40 +866,13 @@ tile_map_data = PackedByteArray("AAAxABQAAAADAAIAAAAxABMAAAADAAMAAAAxABIAAAADAAM
 tile_set = SubResource("TileSet_53ndp")
 navigation_enabled = false
 
-[node name="Player" parent="." unique_id=961151976 instance=ExtResource("9_b3p8y")]
+[node name="Player" parent="." unique_id=961151976 instance=ExtResource("9_gycp8")]
 position = Vector2(90, 246)
 
-[node name="Goal" parent="." unique_id=550542505 instance=ExtResource("12_pm1y0")]
+[node name="Goal" parent="." unique_id=550542505 instance=ExtResource("10_prm31")]
 position = Vector2(670, 248)
 
-[node name="Coin" parent="." unique_id=1074071405 instance=ExtResource("11_b4tpv")]
-position = Vector2(459, 216)
+[node name="Enemy" parent="." unique_id=2118616187 instance=ExtResource("11_rge87")]
+position = Vector2(545, 250)
 
-[node name="Coin4" parent="." unique_id=1161285244 instance=ExtResource("11_b4tpv")]
-position = Vector2(329, 218)
-
-[node name="Coin5" parent="." unique_id=1005123276 instance=ExtResource("11_b4tpv")]
-position = Vector2(142, 219)
-
-[node name="Coin2" parent="." unique_id=1756749745 instance=ExtResource("11_b4tpv")]
-position = Vector2(264, 218)
-
-[node name="Coin3" parent="." unique_id=1756749746 instance=ExtResource("11_b4tpv")]
-position = Vector2(520, 217)
-
-[node name="Spike" parent="." unique_id=1516236643 instance=ExtResource("12_hgky1")]
-position = Vector2(142, 265)
-
-[node name="Spike2" parent="." unique_id=153835527 instance=ExtResource("12_hgky1")]
-position = Vector2(265, 264)
-
-[node name="Spike3" parent="." unique_id=258198906 instance=ExtResource("12_hgky1")]
-position = Vector2(330, 265)
-
-[node name="Spike4" parent="." unique_id=1127018230 instance=ExtResource("12_hgky1")]
-position = Vector2(458, 264)
-
-[node name="Spike5" parent="." unique_id=698939035 instance=ExtResource("12_hgky1")]
-position = Vector2(521, 266)
-
-[node name="UI" parent="." unique_id=1980193790 instance=ExtResource("12_ida7w")]
+[node name="UI" parent="." unique_id=1980193790 instance=ExtResource("12_hckfr")]

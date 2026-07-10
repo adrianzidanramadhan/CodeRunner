@@ -42,6 +42,8 @@ func _ready():
 
 	level_select_panel.hide()
 
+	LevelManager.load_progress()
+
 	setup_level_buttons()
 	
 	if LevelManager.open_level_select:

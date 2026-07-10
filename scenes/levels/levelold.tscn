@@ -1,6 +1,5 @@
-[gd_scene format=4 uid="uid://cmi21d7jn2jks"]
+[gd_scene format=4 uid="uid://bkeosmtahyjaa"]
 
-[ext_resource type="Script" uid="uid://cijmjbbr8cjel" path="res://scripts/game.gd" id="1_8i1lk"]
 [ext_resource type="Texture2D" uid="uid://625fm3eeyqht" path="res://assets/Background/Background.png" id="2_hgky1"]
 [ext_resource type="Texture2D" uid="uid://e68qefejimik" path="res://assets/Trees/bg/light_mountain.png" id="3_b4tpv"]
 [ext_resource type="Texture2D" uid="uid://bmc6vo1vbnlbt" path="res://assets/Trees/bg/tree_left.png" id="4_hkuam"]
@@ -9,10 +8,174 @@
 [ext_resource type="Texture2D" uid="uid://dqpofnultu3q" path="res://assets/Trees/Dark-Tree.png" id="7_yhrca"]
 [ext_resource type="Texture2D" uid="uid://c4p8451ygpudn" path="res://assets/tilemap/Tiles.png" id="8_4eecq"]
 [ext_resource type="PackedScene" uid="uid://ccpkyss6ki8ku" path="res://scenes/player.tscn" id="9_b3p8y"]
+[ext_resource type="PackedScene" uid="uid://bsjtw6v1xxnl2" path="res://scenes/goal.tscn" id="9_wb0vq"]
 [ext_resource type="PackedScene" uid="uid://jrd2fm54hngq" path="res://scenes/coin.tscn" id="11_b4tpv"]
 [ext_resource type="PackedScene" uid="uid://b7ko82hf0bjv1" path="res://scenes/spike.tscn" id="12_hgky1"]
 [ext_resource type="PackedScene" uid="uid://bscnx5m7wej0v" path="res://scenes/ui.tscn" id="12_ida7w"]
-[ext_resource type="PackedScene" uid="uid://bsjtw6v1xxnl2" path="res://scenes/goal.tscn" id="12_pm1y0"]
+
+[sub_resource type="GDScript" id="GDScript_hgky1"]
+script/source = "extends Node2D
+
+@export var level_number := 1
+
+@onready var player = $Player
+@onready var parser = CommandParser.new()
+@onready var ui = $UI
+@onready var coin = $Coin
+@onready var goal = $Goal
+@onready var executor = CommandExecutor.new()
+
+var command_queue = []
+var coins_collected := 0
+var total_coins_in_level := 0
+var level_finished := false
+var is_running := false
+const FALL_LIMIT_Y = 300
+var is_reloading := false
+
+var tutorial_data = {
+	1: [
+		{\"text\": \"Halo! Aku Byte. Selamat datang di petualangan kode!\", \"mood\": \"idle\"},
+		{\"text\": \"Untuk menggerakkan ksatria ke kanan, coba ketik perintah [color=yellow]move_right()[/color] di kotak kiri bawah.\", \"mood\": \"idle\"},
+		{\"text\": \"Setelah mengetik [color=yellow]move_right()[/color], tekan tombol [color=yellow]Run[/color] di atas atau Enter untuk mulai berjalan!\", \"mood\": \"idle\"}
+	],
+
+	2: [
+		{\"text\": \"Bagus sekali! Sekarang tantangannya sedikit lebih tinggi.\", \"mood\": \"idle\"},
+		{\"text\": \"Di depan kita ada rintangan baru. Kamu bisa berjalan dengan [color=yellow]move_right()[/color] seperti tadi.\", \"mood\": \"idle\"},
+		{\"text\": \"Tapi jika ada duri atau tebing, gunakan perintah [color=yellow]jump_right()[/color] untuk melompat ke arah kanan!\", \"mood\": \"idle\"},
+		{\"text\": \"Kombinasikan [color=yellow]move_right()[/color] dan [color=yellow]jump_right()[/color] agar ksatria bisa mencapai portal dengan aman.\", \"mood\": \"idle\"}
+	]
+}
+
+func _ready():
+	setup_ui()
+	setup_executor()
+	
+	# HITUNG OTOMATIS: Cari semua node bernama \"Coin\" atau yang berawalan \"Coin\" di dalam map
+	total_coins_in_level = 0
+	for child in get_children():
+		if child.name.begins_with(\"Coin\"):
+			total_coins_in_level += 1
+	print(\"Total koin yang ditemukan di level ini: \", total_coins_in_level)	
+	start_tutorial_if_needed()
+
+func _process(delta):
+	check_fall_death()
+
+# Di dalam setup_ui()
+func setup_ui():
+	ui.run_pressed.connect(_on_run_pressed)
+	ui.restart_pressed.connect(_on_restart_pressed)
+	# Tambahkan total_coins_in_level di parameter kedua
+	ui.update_objectives(0, total_coins_in_level, false)
+
+
+func setup_executor():
+	add_child(executor)
+	executor.setup(player, ui, self)
+
+func start_tutorial_if_needed():
+	if tutorial_data.has(level_number):
+		ui.start_tutorial(tutorial_data[level_number])
+
+func _on_run_pressed():
+	if is_running:
+		return
+
+	run_code()
+
+func _on_restart_pressed():
+	LevelManager.reload_level()
+
+func run_code():
+	ui.clear_error()
+
+	if !parse_user_code():
+		return
+
+	await execute_code()
+
+func parse_user_code():
+
+	var code = ui.code_input.text
+	command_queue = parser.parse(code)
+
+	if command_queue == null:
+		ui.show_error(parser.last_error)
+		return false
+
+	return true
+
+func execute_code():
+	is_running = true
+	await executor.execute_commands(command_queue)
+	is_running = false
+
+func post_command_checks():
+	await apply_gravity()
+	check_hazards()
+
+	if level_finished:
+		return
+
+func apply_gravity():
+	
+	while player.should_fall():
+		await player.move_down()
+
+func check_hazards():
+	#if player.spike_ahead():
+		#await player.die()
+		#LevelManager.reload_level()
+	check_fall_death()
+
+func check_fall_death():
+	if is_reloading:
+		return
+
+	if player.global_position.y > FALL_LIMIT_Y:
+		is_reloading = true
+		await player.die()
+		LevelManager.reload_level()
+
+func _on_coin_body_entered(body):
+	if body != player:
+		return
+
+	collect_coin()
+
+func collect_coin():
+	coins_collected += 1
+	# Pastikan ada 3 argumen di sini:
+	ui.update_objectives(coins_collected, total_coins_in_level, level_finished)
+	AudioManager.play_sfx(\"coin\")
+func _on_goal_body_entered(body):
+
+	if body != player:
+		return
+
+	if !can_finish_level():
+		ui.show_error(\"Collect coin first!\")
+		AudioManager.play_error()
+		return
+
+	finish_level()
+
+func can_finish_level():
+	return coins_collected >= total_coins_in_level
+
+func finish_level():
+	level_finished = true
+	AudioManager.play_sfx(\"portal\")
+	LevelManager.unlock_level(level_number + 1)
+	
+	# Kirim jumlah koin yang didapat dan total koin ke UI
+	ui.show_level_complete(level_number, coins_collected, total_coins_in_level)
+
+func _show_finish_popup():
+	ui.show_level_complete(level_number)
+"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g7tkf"]
 atlas = ExtResource("7_yhrca")
@@ -645,7 +808,8 @@ terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_xesoj")
 
 [node name="Level3" type="Node2D" unique_id=232416967]
-script = ExtResource("1_8i1lk")
+script = SubResource("GDScript_hgky1")
+level_number = 3
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=302815520]
 
@@ -870,37 +1034,29 @@ navigation_enabled = false
 [node name="Player" parent="." unique_id=961151976 instance=ExtResource("9_b3p8y")]
 position = Vector2(90, 246)
 
-[node name="Goal" parent="." unique_id=550542505 instance=ExtResource("12_pm1y0")]
-position = Vector2(670, 248)
+[node name="Goal" parent="." unique_id=550542505 instance=ExtResource("9_wb0vq")]
 
 [node name="Coin" parent="." unique_id=1074071405 instance=ExtResource("11_b4tpv")]
-position = Vector2(459, 216)
-
-[node name="Coin4" parent="." unique_id=1161285244 instance=ExtResource("11_b4tpv")]
-position = Vector2(329, 218)
-
-[node name="Coin5" parent="." unique_id=1005123276 instance=ExtResource("11_b4tpv")]
-position = Vector2(142, 219)
+position = Vector2(-214, 0)
 
 [node name="Coin2" parent="." unique_id=1756749745 instance=ExtResource("11_b4tpv")]
-position = Vector2(264, 218)
+position = Vector2(-118, 0)
 
 [node name="Coin3" parent="." unique_id=1756749746 instance=ExtResource("11_b4tpv")]
-position = Vector2(520, 217)
+position = Vector2(170, 0)
 
 [node name="Spike" parent="." unique_id=1516236643 instance=ExtResource("12_hgky1")]
-position = Vector2(142, 265)
+position = Vector2(176, 264)
 
 [node name="Spike2" parent="." unique_id=153835527 instance=ExtResource("12_hgky1")]
-position = Vector2(265, 264)
+position = Vector2(272, 264)
 
 [node name="Spike3" parent="." unique_id=258198906 instance=ExtResource("12_hgky1")]
-position = Vector2(330, 265)
+position = Vector2(336, 264)
 
 [node name="Spike4" parent="." unique_id=1127018230 instance=ExtResource("12_hgky1")]
-position = Vector2(458, 264)
-
-[node name="Spike5" parent="." unique_id=698939035 instance=ExtResource("12_hgky1")]
-position = Vector2(521, 266)
+position = Vector2(400, 264)
 
 [node name="UI" parent="." unique_id=1980193790 instance=ExtResource("12_ida7w")]
+
+[connection signal="body_entered" from="Goal" to="." method="_on_goal_body_entered"]

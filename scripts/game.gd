@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var level_number := 1
+var level_number := 1
 
 @onready var player = $Player
 @onready var parser = CommandParser.new()
@@ -161,6 +161,8 @@ var tutorial_data = {
 
 func _ready():
 
+	level_number = LevelManager.current_level
+
 	setup_ui()
 	setup_executor()
 
@@ -172,6 +174,9 @@ func _ready():
 
 	for goal in get_tree().get_nodes_in_group("goal"):
 		goal.reached.connect(_on_goal_reached)
+	
+	for spike in get_tree().get_nodes_in_group("spike"):
+		spike.touched.connect(_on_spike_touched)
 
 	ui.update_objectives(0, total_coins_in_level, false)
 
@@ -269,6 +274,17 @@ func collect_coin():
 		level_finished
 	)
 
+func _on_spike_touched():
+
+	if is_reloading:
+		return
+
+	is_reloading = true
+
+	await player.die()
+
+	LevelManager.reload_level()
+
 func _on_goal_reached():
 
 	if !can_finish_level():
@@ -284,9 +300,10 @@ func can_finish_level():
 func finish_level():
 	level_finished = true
 	AudioManager.play_sfx("portal")
-	LevelManager.unlock_level(level_number + 1)
+	var current = LevelManager.current_level
+	LevelManager.unlock_level(current + 1)
 	
-	ui.show_level_complete(level_number, coins_collected, total_coins_in_level)
+	ui.show_level_complete(current, coins_collected, total_coins_in_level)
 
 func _show_finish_popup():
 	ui.show_level_complete(level_number)

@@ -50,7 +50,7 @@ func show_popup(level_number):
 		tween.tween_property(banner, "rotation_degrees", 0, 0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func _on_next_button_pressed():
-	LevelManager.next_level()
+	LevelManager.load_level(next_level)
 
 func _on_level_select_button_pressed():
 	LevelManager.open_level_select = true
