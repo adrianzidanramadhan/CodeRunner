@@ -24,7 +24,9 @@ var sounds = {
 	"death": preload("res://assets/audio/Hurt.wav"),
 	"enemy_death": preload("res://assets/audio/Monster death (Rpg).wav"),
 	"enemy_attack": preload("res://assets/audio/enemy_attack.wav"),
-	"speak": preload("res://assets/audio/speak5.wav")
+	"speak": preload("res://assets/audio/speak5.wav"),
+	
+	"logo": preload("res://assets/audio/Modern9.wav")
 }
 
 func _ready():

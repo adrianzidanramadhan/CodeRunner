@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://60xgn0bw1lad"]
+
+[ext_resource type="Script" uid="uid://bv8k13qqi0yj2" path="res://scripts/splash_screen.gd" id="1_wxot6"]
+[ext_resource type="Texture2D" uid="uid://b2i6dyfu2wvj0" path="res://logo.jpeg" id="2_l2g8s"]
+
+[node name="SplashScreen" type="Control" unique_id=163319500]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wxot6")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1325711173]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.039215688, 0.039215688, 0.039215688, 1)
+
+[node name="Logo" type="TextureRect" parent="." unique_id=1636995834]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -125.0
+offset_right = 125.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_l2g8s")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Timer" type="Timer" parent="." unique_id=1869825850]
+wait_time = 10.0

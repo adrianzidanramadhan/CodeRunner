@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="codeRunner"
-run/main_scene="uid://dypo6atenxb2i"
+run/main_scene="uid://60xgn0bw1lad"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -22,6 +22,7 @@ AudioManager="*uid://b6bug1ivls6fi"
 
 [display]
 
+window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
