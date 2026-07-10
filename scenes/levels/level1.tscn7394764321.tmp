@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://625fm3eeyqht" path="res://assets/Background/Background.png" id="2_2r1tl"]
 [ext_resource type="PackedScene" uid="uid://ccpkyss6ki8ku" path="res://scenes/player.tscn" id="3_fcruq"]
 [ext_resource type="Texture2D" uid="uid://e68qefejimik" path="res://assets/Trees/bg/light_mountain.png" id="3_nkeig"]
+[ext_resource type="Texture2D" uid="uid://dtfhdi0nxlpoa" path="res://assets/portal/Portal-Sheet.png" id="4_2r1tl"]
 [ext_resource type="Texture2D" uid="uid://bmc6vo1vbnlbt" path="res://assets/Trees/bg/tree_left.png" id="4_nfihu"]
 [ext_resource type="Texture2D" uid="uid://1226ynjas2af" path="res://assets/Trees/bg/tree_center.png" id="5_lgguw"]
 [ext_resource type="Texture2D" uid="uid://5mqejwkx20ws" path="res://assets/Trees/bg/tree_right.png" id="6_jprdt"]
@@ -11,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://dqpofnultu3q" path="res://assets/Trees/Dark-Tree.png" id="7_nfihu"]
 [ext_resource type="Texture2D" uid="uid://c4p8451ygpudn" path="res://assets/tilemap/Tiles.png" id="8_nfihu"]
 [ext_resource type="PackedScene" uid="uid://jrd2fm54hngq" path="res://scenes/coin.tscn" id="10_nfihu"]
-[ext_resource type="PackedScene" uid="uid://bsjtw6v1xxnl2" path="res://scenes/goal.tscn" id="11_nfihu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4fww7"]
 atlas = ExtResource("7_nfihu")
@@ -615,6 +615,96 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_nfihu")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8a7m2"]
+atlas = ExtResource("4_2r1tl")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_plydf"]
+atlas = ExtResource("4_2r1tl")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ntmo"]
+atlas = ExtResource("4_2r1tl")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nkeig"]
+atlas = ExtResource("4_2r1tl")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfihu"]
+atlas = ExtResource("4_2r1tl")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgguw"]
+atlas = ExtResource("4_2r1tl")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jprdt"]
+atlas = ExtResource("4_2r1tl")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ps2vj"]
+atlas = ExtResource("4_2r1tl")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbmf2"]
+atlas = ExtResource("4_2r1tl")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xax6"]
+atlas = ExtResource("4_2r1tl")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g7tkf"]
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"close",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8a7m2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_plydf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ntmo")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nkeig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nfihu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgguw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jprdt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ps2vj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbmf2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xax6")
+}],
+"loop": false,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xwcet"]
+
 [node name="Level1" type="Node2D" unique_id=232416967]
 script = ExtResource("1_yynsy")
 
@@ -802,7 +892,21 @@ position = Vector2(128, 248)
 [node name="Coin" parent="." unique_id=1074071405 instance=ExtResource("10_nfihu")]
 position = Vector2(202, 246)
 
-[node name="Goal" parent="." unique_id=550542505 instance=ExtResource("11_nfihu")]
-position = Vector2(263, 246)
+[node name="Goal" type="Area2D" parent="." unique_id=2062163517]
+position = Vector2(-363, 3)
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Goal" unique_id=56384496]
+position = Vector2(638, 238)
+sprite_frames = SubResource("SpriteFrames_g7tkf")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.8798059
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goal" unique_id=2026875272]
+position = Vector2(639, 239)
+shape = SubResource("RectangleShape2D_xwcet")
 
 [node name="UI" parent="." unique_id=1980193790 instance=ExtResource("7_2r1tl")]
+visible = false
+
+[connection signal="body_entered" from="Goal" to="." method="_on_goal_body_entered"]

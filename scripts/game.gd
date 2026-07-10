@@ -19,53 +19,162 @@ var is_reloading := false
 
 var tutorial_data = {
 	1: [
-		{"text": "Halo! Aku Knight. Selamat datang di petualangan kode!", "mood": "idle"},
-		{"text": "Untuk menggerakkan ksatria ke kanan, coba ketik perintah [color=yellow]move_right()[/color] di kotak kiri bawah.", "mood": "idle"},
-		{"text": "Setelah mengetik [color=yellow]move_right()[/color], tekan tombol [color=yellow]Run[/color] di atas atau Enter untuk mulai berjalan!", "mood": "idle"}
+		{
+			"text":"Halo! Namaku Knight. Selamat datang di Code Knight!",
+			"mood":"idle"
+		},
+		{
+			"text":"Di game ini, kamu tidak mengendalikan ksatria secara langsung. Kamu akan memberi perintah menggunakan kode",
+			"mood":"idle"
+		},
+		{
+			"text":"Coba ketik [color=yellow]move_right()[/color] pada editor di kiri bawah",
+			"mood":"idle"
+		},
+		{
+			"text":"Setelah selesai, tekan tombol [color=yellow]Run[/color] untuk menjalankan programmu",
+			"mood":"idle"
+		},
+		{
+			"text":"Ambil semua koin, lalu masuk ke portal untuk menyelesaikan level",
+			"mood":"idle"
+		}
 	],
 
 	2: [
-		{"text": "Bagus sekali! Sekarang tantangannya sedikit lebih tinggi.", "mood": "idle"},
-		{"text": "Di depan kita ada rintangan baru. Kamu bisa berjalan dengan [color=yellow]move_right()[/color] seperti tadi.", "mood": "idle"},
-		{"text": "Tapi jika ada duri atau tebing, gunakan perintah [color=yellow]jump_right()[/color] untuk melompat ke arah kanan!", "mood": "idle"},
-		{"text": "Kombinasikan [color=yellow]move_right()[/color] dan [color=yellow]jump_right()[/color] agar ksatria bisa mencapai portal dengan aman.", "mood": "idle"}
+		{
+			"text":"Bagus! Sekarang kita bisa membuat kode lebih singkat.",
+			"mood":"idle"
+		},
+		{
+			"text":"Perintah [color=yellow]move_right()[/color] juga bisa diberi angka.",
+			"mood":"idle"
+		},
+		{
+			"text":"Misalnya [color=yellow]move_right(5)[/color] berarti berjalan lima langkah sekaligus.",
+			"mood":"idle"
+		},
+		{
+			"text":"Cobalah gunakan parameter agar programmu menjadi lebih ringkas.",
+			"mood":"idle"
+		}
 	],
 
 	3: [
-		{"text": "Lihat, ada lebih banyak duri di jalur ini!", "mood": "idle"},
-		{"text": "Menulis [color=yellow]jump_right()[/color] satu per satu cukup melelahkan ya?", "mood": "idle"},
-		{"text": "Coba gunakan [color=blue]repeat(jumlah):[/color] lalu tulis perintah di bawahnya dengan indentasi (spasi) agar diulang otomatis.", "mood": "idle"},
-		{"text": "Contoh:\n[color=blue]repeat(2):[/color]\n    [color=yellow]move_right()[/color]\n    [color=yellow]jump_right()[/color]", "mood": "idle"},
-		{"text": "Susun kombinasi gerakan dan lompatan untuk mengumpulkan semua koin dan mencapai portal!", "mood": "idle"}
+		{
+			"text":"Sekarang muncul rintangan baru!",
+			"mood":"idle"
+		},
+		{
+			"text":"Gunakan [color=yellow]jump_right()[/color] untuk melompati duri.",
+			"mood":"idle"
+		},
+		{
+			"text":"Perhatikan posisi duri sebelum menulis programmu.",
+			"mood":"idle"
+		}
 	],
 
 	4: [
-		{"text": "Kerja bagus sejauh ini! Tapi duri di depan makin rapat.", "mood": "idle"},
-		{"text": "Ingat, satu [color=yellow]jump_right()[/color] hanya bisa melompati SATU duri sekaligus.", "mood": "idle"},
-		{"text": "Perhatikan jarak antar duri dengan teliti sebelum menulis kodemu.", "mood": "idle"},
-		{"text": "Gunakan [color=blue]repeat():[/color] untuk merangkai pola gerak-lompat yang berulang agar kodemu lebih rapi.", "mood": "idle"},
-		{"text": "Kumpulkan semua koin di sepanjang jalan, lalu capai portal di ujung level!", "mood": "idle"}
+		{
+			"text":"Kalau ada banyak gerakan yang sama, jangan menulis berulang-ulang.",
+			"mood":"idle"
+		},
+		{
+			"text":"Gunakan [color=cyan]repeat(jumlah):[/color] untuk mengulang beberapa perintah.",
+			"mood":"idle"
+		},
+		{
+			"text":"Contoh:\n\n[color=cyan]repeat(3):[/color]\n    [color=yellow]move_right()[/color]",
+			"mood":"idle"
+		},
+		{
+			"text":"Loop membuat kode lebih rapi dan lebih mudah dibaca.",
+			"mood":"idle"
+		}
 	],
 
 	5: [
-		{"text": "Ini level paling menantang sejauh ini, hati-hati!", "mood": "idle"},
-		{"text": "Daripada menghitung jarak duri satu per satu, kamu bisa biarkan ksatria 'berpikir' sendiri.", "mood": "idle"},
-		{"text": "Coba gunakan [color=blue]if spike_ahead():[/color] lalu [color=yellow]jump_right()[/color], dan [color=blue]else:[/color] lalu [color=yellow]move_right()[/color].", "mood": "idle"},
-		{"text": "Dengan begitu, ksatria akan otomatis melompat hanya jika ada duri di depannya!", "mood": "idle"},
-		{"text": "Ulangi logika ini dengan [color=blue]repeat(jumlah):[/color] sampai ksatria mencapai portal.", "mood": "idle"},
-		{"text": "Selesaikan level ini untuk membuktikan kamu sudah menguasai dasar-dasar pemrograman!", "mood": "idle"}
+		{
+			"text":"Program yang pintar bisa mengambil keputusan sendiri.",
+			"mood":"idle"
+		},
+		{
+			"text":"Gunakan [color=cyan]if spike_ahead():[/color] untuk mengecek apakah ada duri di depan.",
+			"mood":"idle"
+		},
+		{
+			"text":"Jika ada duri, gunakan [color=yellow]jump_right()[/color]. Jika tidak ada, lanjutkan berjalan.",
+			"mood":"idle"
+		},
+		{
+			"text":"Selamat! Kamu sudah mempelajari dasar pemrograman menggunakan percabangan.",
+			"mood":"idle"
+		}
+	],
+	
+	6: [
+		{
+			"text":"Hati-hati! Sekarang ada monster yang berpatroli.",
+			"mood":"idle"
+		},
+		{
+			"text":"Monster akan berjalan bolak-balik di platformnya.",
+			"mood":"idle"
+		},
+		{
+			"text":"Jika kamu memasuki area pandangnya, ia akan mengejarmu.",
+			"mood":"idle"
+		},
+		{
+			"text":"Susun programmu dengan baik agar bisa melewati monster dengan aman.",
+			"mood":"idle"
+		}
+	],
+	
+	7: [
+		{
+			"text":"Goblin lebih cepat daripada Mushroom!",
+			"mood":"idle"
+		},
+		{
+			"text":"Begitu melihatmu, Goblin dapat bergerak dua langkah dalam satu giliran.",
+			"mood":"idle"
+		},
+		{
+			"text":"Perhatikan jarakmu sebelum mendekat.",
+			"mood":"idle"
+		}
+	],
+	
+	8: [
+		{
+			"text":"Sekarang gunakan semua kemampuan yang sudah kamu pelajari.",
+			"mood":"idle"
+		},
+		{
+			"text":"Loop, percabangan, lompatan, dan strategi akan membantumu menyelesaikan level ini.",
+			"mood":"idle"
+		}
 	]
 }
 
 func _ready():
+
 	setup_ui()
 	setup_executor()
-	
+
 	total_coins_in_level = 0
-	for child in get_children():
-		if child.name.begins_with("Coin"):
-			total_coins_in_level += 1
-	print("Total koin yang ditemukan di level ini: ", total_coins_in_level)	
+
+	for coin in get_tree().get_nodes_in_group("coin"):
+		total_coins_in_level += 1
+		coin.collected.connect(collect_coin)
+
+	for goal in get_tree().get_nodes_in_group("goal"):
+		goal.reached.connect(_on_goal_reached)
+
+	ui.update_objectives(0, total_coins_in_level, false)
+
 	start_tutorial_if_needed()
 
 func _process(delta):
@@ -150,23 +259,20 @@ func check_fall_death():
 		await player.die()
 		LevelManager.reload_level()
 
-func _on_coin_body_entered(body):
-	if body != player:
-		return
-
-	collect_coin()
-
 func collect_coin():
-	coins_collected += 1
-	ui.update_objectives(coins_collected, total_coins_in_level, level_finished)
-	AudioManager.play_sfx("coin")
-func _on_goal_body_entered(body):
 
-	if body != player:
-		return
+	coins_collected += 1
+
+	ui.update_objectives(
+		coins_collected,
+		total_coins_in_level,
+		level_finished
+	)
+
+func _on_goal_reached():
 
 	if !can_finish_level():
-		ui.show_error("Collect coin first!")
+		ui.show_error("Collect all coins first!")
 		AudioManager.play_error()
 		return
 

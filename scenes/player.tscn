@@ -29,6 +29,7 @@ collide_with_bodies = false
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1017530793]
 offset = Vector2(0, -100)
+zoom = Vector2(1.2, 1.2)
 position_smoothing_enabled = true
 
 [node name="Visual" type="Node2D" parent="." unique_id=1727238363]
@@ -38,10 +39,9 @@ position = Vector2(0, -30)
 position = Vector2(7.6293945e-06, -1.9999999)
 scale = Vector2(1.4, 1.4)
 sprite_frames = ExtResource("2_g2els")
-animation = &"attack2"
+animation = &"idle"
 autoplay = "idle"
-frame = 5
-frame_progress = 1.0
+frame_progress = 0.20817725
 
 [node name="SwordHitbox" type="Area2D" parent="." unique_id=1612044195]
 

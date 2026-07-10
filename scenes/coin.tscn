@@ -1,7 +1,57 @@
 [gd_scene format=3 uid="uid://jrd2fm54hngq"]
 
 [ext_resource type="Script" uid="uid://gfdmwtlddel" path="res://scenes/coin.gd" id="1_givlb"]
-[ext_resource type="Texture2D" uid="uid://dlwbiyfwwkysf" path="res://assets/tilemap/Coin.png" id="1_gor0n"]
+[ext_resource type="Texture2D" uid="uid://d2wec3b0jw46p" path="res://assets/tilemap/coins.png" id="2_i64fm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11l1o"]
+atlas = ExtResource("2_i64fm")
+region = Rect2(0, 0, 16, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d14el"]
+atlas = ExtResource("2_i64fm")
+region = Rect2(16, 0, 16, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ikuy"]
+atlas = ExtResource("2_i64fm")
+region = Rect2(32, 0, 16, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnlwo"]
+atlas = ExtResource("2_i64fm")
+region = Rect2(48, 0, 16, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jig8b"]
+atlas = ExtResource("2_i64fm")
+region = Rect2(64, 0, 16, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xmuha"]
+atlas = ExtResource("2_i64fm")
+region = Rect2(80, 0, 16, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kfxoj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_11l1o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d14el")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ikuy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnlwo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jig8b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xmuha")
+}],
+"loop": true,
+"name": &"coin",
+"speed": 8.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1seuy"]
 radius = 5.0
@@ -9,10 +59,11 @@ radius = 5.0
 [node name="Coin" type="Area2D" unique_id=1074071405]
 script = ExtResource("1_givlb")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=662516390]
-position = Vector2(368, 249)
-texture = ExtResource("1_gor0n")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2020089517]
+sprite_frames = SubResource("SpriteFrames_kfxoj")
+animation = &"coin"
+autoplay = "coin"
+frame_progress = 0.5109199
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=231577648]
-position = Vector2(368, 249)
 shape = SubResource("CircleShape2D_1seuy")

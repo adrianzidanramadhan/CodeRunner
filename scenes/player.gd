@@ -19,6 +19,7 @@ var sword_offset_left = Vector2(-75, 0)
 
 
 func _ready():
+	add_to_group("player")
 	start_position = position
 	$SwordHitbox.monitoring = false
 	set_state_idle()
