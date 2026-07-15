@@ -343,11 +343,18 @@ func spike_ahead():
 
 	return spike_check.is_colliding()
 
-func attack():
+func attack(direction := "front"):
 	if is_attacking:
 		return false
 
 	is_attacking = true
+	
+	if direction == "left":
+		sprite.flip_h = true
+	else:
+		sprite.flip_h = false
+
+	update_sword_hitbox()
 
 	sprite.play("attack")
 	AudioManager.play_sfx("attack")
@@ -375,6 +382,8 @@ func attack():
 
 	is_attacking = false
 	set_state_idle()
+	
+	return true
 
 func update_sword_hitbox():
 	if sprite.flip_h:

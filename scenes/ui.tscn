@@ -53,6 +53,7 @@ font_size = 24
 default_font = ExtResource("11_6rmj2")
 
 [node name="UI" type="CanvasLayer" unique_id=1980193790]
+process_mode = 3
 script = ExtResource("1_gdt2y")
 
 [node name="BottomLeftLayout" type="VBoxContainer" parent="." unique_id=54570865]

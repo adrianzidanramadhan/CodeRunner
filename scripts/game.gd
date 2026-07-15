@@ -9,6 +9,7 @@ var level_number := 1
 @onready var goal = $Goal
 @onready var executor = CommandExecutor.new()
 
+
 var command_queue = []
 var coins_collected := 0
 var total_coins_in_level := 0
@@ -160,6 +161,8 @@ var tutorial_data = {
 }
 
 func _ready():
+	
+	HealthManager.reset_hp()
 
 	level_number = LevelManager.current_level
 
@@ -178,9 +181,17 @@ func _ready():
 	for spike in get_tree().get_nodes_in_group("spike"):
 		spike.touched.connect(_on_spike_touched)
 
+	HealthManager.player_died.connect(_on_player_dead)
+	
+	HealthManager.hp_changed.connect(_on_hp_changed)
+
 	ui.update_objectives(0, total_coins_in_level, false)
 
 	start_tutorial_if_needed()
+
+func _on_hp_changed(current, max):
+
+	print("HP :", current, "/", max)
 
 func _process(delta):
 	check_fall_death()
@@ -281,9 +292,9 @@ func _on_spike_touched():
 
 	is_reloading = true
 
-	await player.die()
+	HealthManager.take_damage(1)
 
-	LevelManager.reload_level()
+	#LevelManager.reload_level()
 
 func _on_goal_reached():
 
@@ -307,3 +318,14 @@ func finish_level():
 
 func _show_finish_popup():
 	ui.show_level_complete(level_number)
+	
+func _on_player_dead():
+
+	if is_reloading:
+		return
+
+	is_reloading = true
+
+	await player.die()
+
+	LevelManager.reload_level()

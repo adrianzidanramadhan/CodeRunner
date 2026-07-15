@@ -2,11 +2,18 @@
 
 [ext_resource type="PackedScene" uid="uid://cwf7tfhuph0ld" path="res://scenes/enemies/enemy.tscn" id="1_0rrhd"]
 [ext_resource type="Script" uid="uid://vefwiu2wf3u4" path="res://scripts/enemy/goblin.gd" id="2_oth3g"]
+[ext_resource type="Shape2D" uid="uid://bt7b6205o8kbi" path="res://assets/tres/enemy_default_collison.tres" id="3_s0g86"]
 [ext_resource type="Texture2D" uid="uid://bxuqjpmxp4ps1" path="res://assets/Monsters_Creatures_Fantasy/Goblin/Attack.png" id="3_xkrhs"]
 [ext_resource type="Texture2D" uid="uid://c4ab3f526i80x" path="res://assets/Monsters_Creatures_Fantasy/Goblin/Death.png" id="4_s0g86"]
 [ext_resource type="Texture2D" uid="uid://iu7iqwcjjy32" path="res://assets/Monsters_Creatures_Fantasy/Goblin/Idle.png" id="5_ddai1"]
 [ext_resource type="Texture2D" uid="uid://2iarpxl3vn4r" path="res://assets/Monsters_Creatures_Fantasy/Goblin/Run.png" id="6_0k1hm"]
 [ext_resource type="Texture2D" uid="uid://cr8es16mn1y7t" path="res://assets/Monsters_Creatures_Fantasy/Goblin/Take Hit.png" id="7_ec05t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkrhs"]
+size = Vector2(500, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s0g86"]
+size = Vector2(80, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kqqlc"]
 atlas = ExtResource("3_xkrhs")
@@ -236,11 +243,20 @@ animations = [{
 script = ExtResource("2_oth3g")
 anim_path = NodePath("Visual/AnimatedSprite2D")
 
-[node name="Visual" parent="." index="3" unique_id=1251341206]
+[node name="CollisionShape2D" parent="." index="0" unique_id=1025585562]
+shape = ExtResource("3_s0g86")
+
+[node name="CollisionShape2D" parent="DetectionArea" parent_id_path=PackedInt32Array(1329727164) index="0" unique_id=2109966875]
+shape = SubResource("RectangleShape2D_xkrhs")
+
+[node name="CollisionShape2D" parent="AttackArea" parent_id_path=PackedInt32Array(2037222030) index="0" unique_id=306844850]
+shape = SubResource("RectangleShape2D_s0g86")
+
+[node name="Visual" parent="." index="5" unique_id=1251341206]
 position = Vector2(0, -9)
 
 [node name="AnimatedSprite2D" parent="Visual" index="0" unique_id=945350865]
-scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_y40a3")
-animation = &"idle"
+animation = &"attack"
 autoplay = "idle"
+frame = 6

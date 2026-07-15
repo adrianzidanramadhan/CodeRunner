@@ -19,10 +19,10 @@ config/icon="res://icon.svg"
 
 LevelManager="*uid://djh3h2b8eqmfj"
 AudioManager="*uid://b6bug1ivls6fi"
+HealthManager="*uid://cushiq5jukv2y"
 
 [display]
 
-window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

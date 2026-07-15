@@ -1,3 +1,5 @@
+#executor
+
 extends Node
 class_name CommandExecutor
 
@@ -50,7 +52,7 @@ func execute_command(command):
 			return await player.jump_left()
 
 		"attack":
-			return await player.attack()
+			return await player.attack(command["direction"])
 			
 		"repeat":
 			return await execute_repeat(command)

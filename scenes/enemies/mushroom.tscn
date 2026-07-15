@@ -3,15 +3,30 @@
 [ext_resource type="PackedScene" uid="uid://cwf7tfhuph0ld" path="res://scenes/enemies/enemy.tscn" id="1_2wybx"]
 [ext_resource type="Script" uid="uid://02n386lvlr17" path="res://scripts/enemy/mushroom.gd" id="1_70lkm"]
 [ext_resource type="SpriteFrames" uid="uid://rlpqgduw5tyi" path="res://scenes/enemies/mushroom.tres" id="3_1calh"]
+[ext_resource type="Shape2D" uid="uid://bt7b6205o8kbi" path="res://assets/tres/enemy_default_collison.tres" id="3_ubc2v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1calh"]
+size = Vector2(360, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ubc2v"]
+size = Vector2(60, 20)
 
 [node name="Enemy" unique_id=2118616187 instance=ExtResource("1_2wybx")]
 script = ExtResource("1_70lkm")
 anim_path = NodePath("Visual/AnimatedSprite2D")
 
+[node name="CollisionShape2D" parent="." index="0" unique_id=1025585562]
+shape = ExtResource("3_ubc2v")
+
+[node name="CollisionShape2D" parent="DetectionArea" parent_id_path=PackedInt32Array(1329727164) index="0" unique_id=2109966875]
+shape = SubResource("RectangleShape2D_1calh")
+
+[node name="CollisionShape2D" parent="AttackArea" parent_id_path=PackedInt32Array(2037222030) index="0" unique_id=306844850]
+shape = SubResource("RectangleShape2D_ubc2v")
+
 [node name="Visual" parent="." index="5" unique_id=1251341206]
 position = Vector2(0, -9)
 
 [node name="AnimatedSprite2D" parent="Visual" index="0" unique_id=945350865]
-scale = Vector2(1.2, 1.2)
 sprite_frames = ExtResource("3_1calh")
 animation = &"idle"

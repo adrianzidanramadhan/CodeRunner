@@ -2,21 +2,10 @@
 
 [ext_resource type="Script" uid="uid://djp16nujgt4ix" path="res://scripts/enemy/enemy.gd" id="1_6xk8f"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b7koy"]
-radius = 8.0
-height = 45.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6xk8f"]
-size = Vector2(360, 20)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8e3ao"]
-size = Vector2(84, 20)
-
 [node name="Enemy" type="CharacterBody2D" unique_id=2118616187 groups=["enemy"]]
 script = ExtResource("1_6xk8f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1025585562]
-shape = SubResource("CapsuleShape2D_b7koy")
 
 [node name="WallCheck" type="RayCast2D" parent="." unique_id=798980241]
 target_position = Vector2(16, 0)
@@ -27,12 +16,10 @@ target_position = Vector2(0, 25)
 [node name="DetectionArea" type="Area2D" parent="." unique_id=1329727164]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=2109966875]
-shape = SubResource("RectangleShape2D_6xk8f")
 
 [node name="AttackArea" type="Area2D" parent="." unique_id=2037222030]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=306844850]
-shape = SubResource("RectangleShape2D_8e3ao")
 
 [node name="Visual" type="Node2D" parent="." unique_id=1251341206]
 

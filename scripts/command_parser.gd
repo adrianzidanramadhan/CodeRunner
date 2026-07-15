@@ -1,3 +1,5 @@
+#parser
+
 extends RefCounted
 class_name CommandParser
 
@@ -129,9 +131,20 @@ func parse_command_data(line):
 	# ==========================================
 	# ATTACK
 	# ==========================================
-	elif line == "attack()" or line == "attack":
+	elif line.begins_with("attack"):
+
+		var direction = get_string_parameter(line)
+
+		if direction == "":
+			direction = "front"
+
+		if direction != "left" and direction != "right" and direction != "front":
+			set_error("Invalid attack direction: " + direction)
+			return null
+
 		return {
-			"type": "attack"
+			"type":"attack",
+			"direction":direction
 		}
 	return null
 
@@ -158,6 +171,24 @@ func get_amount(line):
 		return null
 
 	return int(text)
+
+
+func get_string_parameter(line):
+
+	var start = line.find("(")
+	var end = line.find(")")
+
+	if start == -1 or end == -1:
+		return ""
+
+	var text = line.substr(start + 1, end - start - 1)
+
+	text = text.strip_edges()
+
+	text = text.replace("\"","")
+	text = text.replace("'","")
+
+	return text.to_lower()
 
 
 # ==================================================
