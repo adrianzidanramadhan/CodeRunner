@@ -11,20 +11,23 @@
 [ext_resource type="Texture2D" uid="uid://c1vpjabsellde" path="res://assets/UI Elements/Banners/Banner.png" id="5_ktti3"]
 [ext_resource type="Texture2D" uid="uid://dngy3yp6iatmx" path="res://assets/UI Elements/Icons/Icon_08.png" id="5_wm3ai"]
 [ext_resource type="Texture2D" uid="uid://ccy4dsvxofx7f" path="res://assets/UI Elements/Icons/Icon_02.png" id="6_41akx"]
-[ext_resource type="FontFile" uid="uid://cd4uspbcjrqlt" path="res://assets/font/Poppins-SemiBold.ttf" id="6_cgfq5"]
 [ext_resource type="StyleBox" uid="uid://bsh8wguyv7y71" path="res://assets/tres/button_rounded_transparent.tres" id="7_cgfq5"]
 [ext_resource type="PackedScene" uid="uid://dwaw4rn0jcn1x" path="res://scenes/LevelCompletePopup.tscn" id="8_7dvkv"]
 [ext_resource type="StyleBox" uid="uid://du0m108rqovtq" path="res://assets/tres/button_rounded_transparent_hover.tres" id="8_vdcm2"]
 [ext_resource type="FontFile" uid="uid://chbpnwj3qvssf" path="res://assets/font/federhozen-regular.ttf" id="11_6rmj2"]
 [ext_resource type="Texture2D" uid="uid://c8xo6wxpt8kph" path="res://assets/UI Elements/Banners/Banner_Slots.png" id="11_vsj0x"]
 [ext_resource type="FontFile" uid="uid://drau7u1dxkxss" path="res://assets/font/federhozen-bold.ttf" id="14_qsv74"]
-[ext_resource type="Texture2D" uid="uid://cvii5iff1kggb" path="res://assets/HUD/Base-01.png" id="15_cof4p"]
-[ext_resource type="SpriteFrames" uid="uid://4mm2mc7lpa61" path="res://assets/tres/knight_outline_animated.tres" id="15_f7tlh"]
+[ext_resource type="PackedScene" uid="uid://dgjdaci14stt0" path="res://scenes/heart_ui.tscn" id="15_kupmu"]
+[ext_resource type="Texture2D" uid="uid://bsxknv3uha10l" path="res://assets/character/potrait.png" id="15_ycmcx"]
 [ext_resource type="Texture2D" uid="uid://bv8q477j1ngak" path="res://assets/UI Elements/Icons/Icon_05.png" id="16_f7tlh"]
+[ext_resource type="Texture2D" uid="uid://ctd8cwqpnyleq" path="res://assets/UI Elements/Ribbons/SmallDarkRibbons.png" id="18_ycmcx"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_vdcm2"]
-font = ExtResource("6_cgfq5")
-font_size = 64
+[sub_resource type="LabelSettings" id="LabelSettings_ycmcx"]
+font = ExtResource("14_qsv74")
+
+[sub_resource type="Theme" id="Theme_ycmcx"]
+default_font = ExtResource("11_6rmj2")
+default_font_size = 16
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qsv74"]
 texture = ExtResource("11_vsj0x")
@@ -45,12 +48,67 @@ content_margin_right = 4.0
 content_margin_bottom = 4.0
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
+[sub_resource type="Theme" id="Theme_jkdwc"]
+default_font = ExtResource("11_6rmj2")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycmcx"]
+atlas = ExtResource("15_ycmcx")
+region = Rect2(0, 427, 632, 416)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kupmu"]
+atlas = ExtResource("15_ycmcx")
+region = Rect2(632, 0, 632, 425)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_catpy"]
+atlas = ExtResource("15_ycmcx")
+region = Rect2(0, 0, 632, 425)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41akx"]
+atlas = ExtResource("15_ycmcx")
+region = Rect2(632, 427, 632, 416)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sesyt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycmcx")
+}],
+"loop": true,
+"name": &"angry",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kupmu")
+}],
+"loop": true,
+"name": &"happy",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_catpy")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41akx")
+}],
+"loop": true,
+"name": &"shock",
+"speed": 5.0
+}]
+
 [sub_resource type="LabelSettings" id="LabelSettings_8k7j3"]
 font = ExtResource("14_qsv74")
 font_size = 24
 
-[sub_resource type="Theme" id="Theme_jkdwc"]
-default_font = ExtResource("11_6rmj2")
+[sub_resource type="LabelSettings" id="LabelSettings_vdcm2"]
+font = ExtResource("14_qsv74")
+font_size = 64
 
 [node name="UI" type="CanvasLayer" unique_id=1980193790]
 process_mode = 3
@@ -75,25 +133,43 @@ placeholder_text = "Masukan kode disini"
 scroll_smooth = true
 highlight_current_line = true
 
-[node name="ResizeHandle" type="Panel" parent="BottomLeftLayout/CodeInput" unique_id=1610883591]
+[node name="ResizeHandle" type="Panel" parent="BottomLeftLayout/CodeInput" unique_id=1610883591 node_paths=PackedStringArray("expand_button")]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = -12.0
+offset_top = -24.0
 grow_horizontal = 2
 mouse_default_cursor_shape = 9
 script = ExtResource("3_ycmcx")
+expand_button = NodePath("HBoxContainer/ExpandButton")
 
-[node name="ExpandButton" type="Button" parent="BottomLeftLayout/CodeInput/ResizeHandle" unique_id=1744650214]
+[node name="Terminal" type="Label" parent="BottomLeftLayout/CodeInput/ResizeHandle" unique_id=836308974]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -11.5
+offset_right = 68.0
+offset_bottom = 11.5
+grow_vertical = 2
+text = "-Terminal-"
+label_settings = SubResource("LabelSettings_ycmcx")
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BottomLeftLayout/CodeInput/ResizeHandle" unique_id=2092826388]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -35.0
-offset_top = 19.0
-offset_right = -5.0
-offset_bottom = 49.0
+offset_left = -72.0
+offset_bottom = 24.0
 grow_horizontal = 0
+theme_override_constants/separation = 0
+
+[node name="ExpandButton" type="Button" parent="BottomLeftLayout/CodeInput/ResizeHandle/HBoxContainer" unique_id=1744650214]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
 theme_override_styles/normal = ExtResource("4_kupmu")
 theme_override_styles/pressed = ExtResource("4_kupmu")
 theme_override_styles/hover = ExtResource("5_catpy")
@@ -101,13 +177,37 @@ icon = ExtResource("6_41akx")
 icon_alignment = 1
 expand_icon = true
 
+[node name="RestartButton" type="Button" parent="BottomLeftLayout/CodeInput/ResizeHandle/HBoxContainer" unique_id=1785115727]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("4_kupmu")
+theme_override_styles/pressed = ExtResource("4_kupmu")
+theme_override_styles/hover = ExtResource("5_catpy")
+icon = ExtResource("3_8dubc")
+icon_alignment = 1
+expand_icon = true
+
+[node name="RunButton" type="Button" parent="BottomLeftLayout/CodeInput/ResizeHandle/HBoxContainer" unique_id=1181674180]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("4_kupmu")
+theme_override_styles/pressed = ExtResource("4_kupmu")
+theme_override_styles/hover = ExtResource("5_catpy")
+icon = ExtResource("4_p7vwb")
+icon_alignment = 1
+expand_icon = true
+
 [node name="QueueDisplay" type="RichTextLabel" parent="." unique_id=773365491]
-anchors_preset = 1
+anchors_preset = 3
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
-offset_left = -600.0
-offset_bottom = 100.0
+anchor_bottom = 1.0
+offset_left = -700.0
+offset_top = -128.0
+offset_bottom = -28.0
 grow_horizontal = 0
+grow_vertical = 0
 theme_override_fonts/normal_font = ExtResource("11_6rmj2")
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
@@ -121,125 +221,56 @@ theme_override_colors/font_color = Color(0.84263474, 3.5616756e-06, 4.813075e-07
 theme_override_font_sizes/font_size = 24
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=298089783]
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+[node name="Info" type="Panel" parent="." unique_id=1464297272]
+custom_minimum_size = Vector2(450, 20)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -592.0
+offset_top = -20.0
+offset_right = -142.0
+grow_horizontal = 0
+grow_vertical = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1009666802]
-layout_mode = 2
+[node name="Text" type="RichTextLabel" parent="Info" unique_id=592370953]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_ycmcx")
+text = "[F5] Run | [F6] Restart | [F1] Help | [ESC] Pause"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="VBoxContainer" parent="." unique_id=169631857]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -42.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 42.0
+grow_horizontal = 0
 alignment = 1
 
-[node name="MenuButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=643730678]
+[node name="MenuButton" type="Button" parent="HBoxContainer" unique_id=643730678]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 icon = ExtResource("2_wm3ai")
 icon_alignment = 1
+expand_icon = true
 
-[node name="CommandsButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=2137507386]
+[node name="CommandsButton" type="Button" parent="HBoxContainer" unique_id=2137507386]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 icon = ExtResource("3_vdcm2")
 icon_alignment = 1
-
-[node name="RestartButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1785115727]
-layout_mode = 2
-icon = ExtResource("3_8dubc")
-icon_alignment = 1
-
-[node name="RunButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1181674180]
-layout_mode = 2
-icon = ExtResource("4_p7vwb")
-icon_alignment = 1
-
-[node name="Control" type="Control" parent="." unique_id=978164803]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="DarkOverlay" type="ColorRect" parent="Control" unique_id=2019170695]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.19607843)
-
-[node name="Banner" type="NinePatchRect" parent="Control" unique_id=1157232114]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -247.0
-offset_top = -225.0
-offset_right = 247.0
-offset_bottom = 225.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_ktti3")
-region_rect = Rect2(0, 0, 248, 242)
-patch_margin_left = 67
-patch_margin_top = 66
-patch_margin_right = 64
-patch_margin_bottom = 65
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/Banner" unique_id=1761284135]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -220.0
-offset_top = -205.5
-offset_right = 220.0
-offset_bottom = 205.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 120
-alignment = 1
-
-[node name="Label" type="Label" parent="Control/Banner/VBoxContainer" unique_id=833780251]
-layout_mode = 2
-text = "PAUSED"
-label_settings = SubResource("LabelSettings_vdcm2")
-horizontal_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/Banner/VBoxContainer" unique_id=1118957378]
-layout_mode = 2
-theme_override_constants/separation = 150
-alignment = 1
-
-[node name="ExitToMenuButton" type="Button" parent="Control/Banner/VBoxContainer/HBoxContainer" unique_id=2127123189]
-process_mode = 2
-custom_minimum_size = Vector2(120, 120)
-layout_mode = 2
-theme_override_styles/normal = ExtResource("7_cgfq5")
-theme_override_styles/pressed = ExtResource("7_cgfq5")
-theme_override_styles/hover = ExtResource("8_vdcm2")
-text = "MAIN MENU"
-icon = ExtResource("5_wm3ai")
-icon_alignment = 1
-vertical_icon_alignment = 0
-
-[node name="ResumeButton" type="Button" parent="Control/Banner/VBoxContainer/HBoxContainer" unique_id=37928654]
-process_mode = 2
-custom_minimum_size = Vector2(120, 120)
-layout_mode = 2
-theme_override_styles/normal = ExtResource("7_cgfq5")
-theme_override_styles/hover = ExtResource("8_vdcm2")
-text = "RESUME"
-icon = ExtResource("4_p7vwb")
-icon_alignment = 1
-vertical_icon_alignment = 0
+expand_icon = true
 
 [node name="ObjectivePanel" type="Panel" parent="." unique_id=1295188757]
 anchors_preset = 1
@@ -277,6 +308,7 @@ fit_content = true
 horizontal_alignment = 1
 
 [node name="CommandsPopup" type="Control" parent="." unique_id=1073825368]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -348,6 +380,14 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="LevelCompletePopup" parent="." unique_id=1506947087 instance=ExtResource("8_7dvkv")]
+visible = false
+
+[node name="HeartUI" parent="." unique_id=847155867 instance=ExtResource("15_kupmu")]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 60.0
+offset_bottom = 60.0
+pivot_offset = Vector2(20, 20)
 
 [node name="TutorialPopup" type="Control" parent="." unique_id=2134741134]
 layout_mode = 3
@@ -366,15 +406,18 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.039215688)
 
-[node name="Portrait" type="AnimatedSprite2D" parent="TutorialPopup" unique_id=1620793429]
-position = Vector2(250, 230)
-scale = Vector2(10, 10)
-sprite_frames = ExtResource("15_f7tlh")
-animation = &"idle"
-autoplay = "idle"
-frame_progress = 0.55230963
+[node name="Control" type="Control" parent="TutorialPopup" unique_id=1021156227]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
 
-[node name="NinePatchRect" type="NinePatchRect" parent="TutorialPopup" unique_id=1681046276]
+[node name="Dialogue_box" type="NinePatchRect" parent="TutorialPopup/Control" unique_id=345683284]
+custom_minimum_size = Vector2(1000, 200)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -382,69 +425,240 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -500.0
-offset_top = -200.0
+offset_top = -210.0
 offset_right = 500.0
+offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 0
-texture = ExtResource("15_cof4p")
-region_rect = Rect2(0, 0, 64, 64)
-patch_margin_left = 12
-patch_margin_top = 12
-patch_margin_right = 12
-patch_margin_bottom = 12
+texture = ExtResource("5_ktti3")
+region_rect = Rect2(1.6784973, 0.39770508, 246.65991, 237.76395)
+patch_margin_left = 89
+patch_margin_top = 15
+patch_margin_right = 83
+patch_margin_bottom = 66
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="TutorialLabel" type="Label" parent="TutorialPopup/NinePatchRect" unique_id=263081298]
+[node name="MassageBox" type="NinePatchRect" parent="TutorialPopup/Control/Dialogue_box" unique_id=788457992]
+custom_minimum_size = Vector2(100, 50)
 layout_mode = 1
-offset_left = 30.0
-offset_top = 10.0
-offset_right = 93.0
-offset_bottom = 39.0
-text = "Knight"
-label_settings = SubResource("LabelSettings_8k7j3")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="MessageLabel" type="RichTextLabel" parent="TutorialPopup/NinePatchRect" unique_id=1081608460]
-layout_mode = 1
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -490.0
-offset_top = -150.0
-offset_right = 490.0
+anchor_bottom = 0.5
+offset_left = -231.0
+offset_top = -81.0
+offset_right = 461.0
+offset_bottom = 40.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+texture = ExtResource("11_vsj0x")
+region_rect = Rect2(4.775139, 4.803528, 185.24902, 182.31479)
+patch_margin_left = 19
+patch_margin_top = 22
+patch_margin_right = 23
+patch_margin_bottom = 18
+axis_stretch_horizontal = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialPopup/Control/Dialogue_box/MassageBox" unique_id=2055389687]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="MessageLabel" type="RichTextLabel" parent="TutorialPopup/Control/Dialogue_box/MassageBox/MarginContainer" unique_id=1081608460]
+layout_mode = 2
 theme = SubResource("Theme_jkdwc")
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
+text = "tes 1 2 3 4asjhdoasdihasdasd"
 
-[node name="NextButton" type="Button" parent="TutorialPopup/NinePatchRect" unique_id=449600621]
-custom_minimum_size = Vector2(50, 50)
+[node name="Char_bg" type="NinePatchRect" parent="TutorialPopup/Control/Dialogue_box" unique_id=1360258678]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -83.0
+offset_right = -256.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_vsj0x")
+region_rect = Rect2(4.775139, 4.803528, 185.24902, 182.31479)
+patch_margin_left = 19
+patch_margin_top = 22
+patch_margin_right = 23
+patch_margin_bottom = 18
+axis_stretch_horizontal = 1
+
+[node name="NextButton" type="Button" parent="TutorialPopup/Control/Dialogue_box" unique_id=449600621]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
-offset_right = -10.0
-offset_bottom = -10.0
+offset_left = -58.0
+offset_top = -83.0
+offset_right = -26.0
+offset_bottom = -51.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_styles/normal = ExtResource("7_cgfq5")
-theme_override_styles/pressed = ExtResource("7_cgfq5")
-theme_override_styles/hover = ExtResource("8_vdcm2")
+theme_override_styles/normal = ExtResource("4_kupmu")
+theme_override_styles/pressed = ExtResource("4_kupmu")
+theme_override_styles/hover = ExtResource("5_catpy")
 icon = ExtResource("16_f7tlh")
 icon_alignment = 1
 expand_icon = true
 
-[connection signal="pressed" from="MarginContainer/HBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/RunButton" to="." method="_on_run_button_pressed"]
-[connection signal="pressed" from="Control/Banner/VBoxContainer/HBoxContainer/ExitToMenuButton" to="." method="_on_exit_to_menu_button_pressed"]
-[connection signal="pressed" from="Control/Banner/VBoxContainer/HBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[node name="Portrait" type="AnimatedSprite2D" parent="TutorialPopup/Control" unique_id=1312341066]
+position = Vector2(221, 170)
+scale = Vector2(0.25, 0.255)
+sprite_frames = SubResource("SpriteFrames_sesyt")
+animation = &"idle"
+
+[node name="Name_box" type="NinePatchRect" parent="TutorialPopup/Control" unique_id=1430438543]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 119.0
+offset_top = -88.0
+offset_right = 324.0
+offset_bottom = -50.0
+grow_vertical = 0
+texture = ExtResource("18_ycmcx")
+region_rect = Rect2(65.4332, 1.6301537, 188.18542, 57.214718)
+patch_margin_left = 104
+patch_margin_top = 7
+patch_margin_right = 101
+patch_margin_bottom = 11
+axis_stretch_horizontal = 2
+
+[node name="Name" type="Label" parent="TutorialPopup/Control/Name_box" unique_id=263081298]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.0
+offset_top = -19.5
+offset_right = 42.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Knight"
+label_settings = SubResource("LabelSettings_8k7j3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pause" type="Control" parent="." unique_id=978164803]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="DarkOverlay" type="ColorRect" parent="Pause" unique_id=2019170695]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.19607843)
+
+[node name="Banner" type="NinePatchRect" parent="Pause" unique_id=1157232114]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -247.0
+offset_top = -225.0
+offset_right = 247.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("5_ktti3")
+region_rect = Rect2(0, 0, 248, 242)
+patch_margin_left = 91
+patch_margin_top = 66
+patch_margin_right = 84
+patch_margin_bottom = 65
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause/Banner" unique_id=1761284135]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -205.5
+offset_right = 220.0
+offset_bottom = 205.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 120
+alignment = 1
+
+[node name="Label" type="Label" parent="Pause/Banner/VBoxContainer" unique_id=833780251]
+layout_mode = 2
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_vdcm2")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Pause/Banner/VBoxContainer" unique_id=1118957378]
+layout_mode = 2
+theme_override_constants/separation = 150
+alignment = 1
+
+[node name="ExitToMenuButton" type="Button" parent="Pause/Banner/VBoxContainer/HBoxContainer" unique_id=2127123189]
+process_mode = 2
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("7_cgfq5")
+theme_override_styles/pressed = ExtResource("7_cgfq5")
+theme_override_styles/hover = ExtResource("8_vdcm2")
+text = "MAIN MENU"
+icon = ExtResource("5_wm3ai")
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="ResumeButton" type="Button" parent="Pause/Banner/VBoxContainer/HBoxContainer" unique_id=37928654]
+process_mode = 2
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("7_cgfq5")
+theme_override_styles/hover = ExtResource("8_vdcm2")
+text = "RESUME"
+icon = ExtResource("4_p7vwb")
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[connection signal="pressed" from="BottomLeftLayout/CodeInput/ResizeHandle/HBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="BottomLeftLayout/CodeInput/ResizeHandle/HBoxContainer/RunButton" to="." method="_on_run_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="Pause/Banner/VBoxContainer/HBoxContainer/ExitToMenuButton" to="." method="_on_exit_to_menu_button_pressed"]
+[connection signal="pressed" from="Pause/Banner/VBoxContainer/HBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]

@@ -290,11 +290,7 @@ func _on_spike_touched():
 	if is_reloading:
 		return
 
-	is_reloading = true
-
 	HealthManager.take_damage(1)
-
-	#LevelManager.reload_level()
 
 func _on_goal_reached():
 

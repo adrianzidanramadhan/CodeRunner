@@ -7,7 +7,6 @@
 [ext_resource type="FontFile" uid="uid://chbpnwj3qvssf" path="res://assets/font/federhozen-regular.ttf" id="5_0fq50"]
 [ext_resource type="Texture2D" uid="uid://dngy3yp6iatmx" path="res://assets/UI Elements/Icons/Icon_08.png" id="5_am7xt"]
 [ext_resource type="Texture2D" uid="uid://b6g4cjsfqnrh1" path="res://assets/UI Elements/Icons/Icon_07.png" id="6_0fq50"]
-[ext_resource type="Texture2D" uid="uid://dlwbiyfwwkysf" path="res://assets/tilemap/Coin.png" id="8_0fq50"]
 
 [sub_resource type="Theme" id="Theme_tb7o6"]
 default_font = ExtResource("2_o7k5u")
@@ -42,9 +41,6 @@ content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
 bg_color = Color(0.004019165, 0.004019165, 0.004019165, 0)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_d58ln"]
-radius = 5.0
 
 [node name="LevelCompletePopup" type="Control" unique_id=1506947087 node_paths=PackedStringArray("coin_label")]
 layout_mode = 3
@@ -158,17 +154,6 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_fptkv")
 icon = ExtResource("6_0fq50")
 icon_alignment = 1
 expand_icon = true
-
-[node name="Coin" type="Area2D" parent="." unique_id=1580221033]
-position = Vector2(-136, -1)
-
-[node name="Sprite2D" type="Sprite2D" parent="Coin" unique_id=89142627]
-position = Vector2(368, 249)
-texture = ExtResource("8_0fq50")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Coin" unique_id=249203673]
-position = Vector2(368, 249)
-shape = SubResource("CircleShape2D_d58ln")
 
 [connection signal="pressed" from="Content/MarginContainer/VBoxContainer/HBoxContainer/LevelSelectButton" to="." method="_on_level_select_button_pressed"]
 [connection signal="pressed" from="Content/MarginContainer/VBoxContainer/HBoxContainer/NextButton" to="." method="_on_next_button_pressed"]

@@ -2,6 +2,8 @@ extends Control
 
 @onready var code_input = get_parent()
 
+@export var expand_button: Button
+
 @export var min_height: float = 100.0
 @export var max_height: float = 480.0
 
@@ -15,8 +17,8 @@ var initial_mouse_y: float = 0.0
 var initial_height: float = 0.0
 
 func _ready():
-	if has_node("ExpandButton"):
-		$ExpandButton.pressed.connect(_on_expand_button_pressed)
+	if expand_button:
+		expand_button.pressed.connect(_on_expand_button_pressed)
 
 func _gui_input(event):
 	if event is InputEventMouseButton:
@@ -38,8 +40,8 @@ func _on_expand_button_pressed():
 	var target_height = maximized_height if not is_maximized else default_height
 	is_maximized = not is_maximized
 	
-	if has_node("ExpandButton"):
-		$ExpandButton.text = "▼" if is_maximized else "▲"
+	if expand_button:
+		expand_button.text = "" if is_maximized else ""
 	
 	var tween = create_tween()
 	tween.tween_property(code_input, "custom_minimum_size:y", target_height, 0.25).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)

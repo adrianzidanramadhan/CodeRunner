@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dgjdaci14stt0"]
+
+[ext_resource type="Script" uid="uid://bhyym64co6hak" path="res://scripts/heart_ui.gd" id="1_xlecj"]
+
+[node name="HeartUI" type="Control" unique_id=847155867]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_xlecj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1809813468]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 30

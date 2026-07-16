@@ -3,7 +3,7 @@ extends CanvasLayer
 @onready var code_input = $BottomLeftLayout/CodeInput
 @onready var queue_display = $QueueDisplay
 @onready var error_label = $ErrorLabel
-@onready var pause_menu = $Control
+@onready var pause_menu = $Pause
 @onready var commands_popup = $CommandsPopup
 
 @onready var level_complete_popup = $LevelCompletePopup
@@ -11,11 +11,11 @@ extends CanvasLayer
 @onready var objective_label = \
 	$ObjectivePanel/ObjectiveLabel
 	
-@onready var byte_portrait = $TutorialPopup/Portrait
+@onready var byte_portrait = $TutorialPopup/Control/Portrait
 @onready var tutorial_popup = $TutorialPopup
-@onready var tutorial_name = $TutorialPopup/NinePatchRect/TutorialLabel
-@onready var tutorial_message = $TutorialPopup/NinePatchRect/MessageLabel
-@onready var tutorial_next = $TutorialPopup/NinePatchRect/NextButton
+@onready var tutorial_name = $TutorialPopup/Control/Name_box/Name
+@onready var tutorial_message = $TutorialPopup/Control/Dialogue_box/MassageBox/MarginContainer/MessageLabel
+@onready var tutorial_next = $TutorialPopup/Control/Dialogue_box/NextButton
 
 enum ByteMood {
 	IDLE
@@ -37,15 +37,23 @@ func _ready():
 	
 	commands_popup.hide()
 
-	# Jika Anda memutuskan tetap memunculkan tombol fisik di layar, koneksi ini tetap aman bekerja:
 	if has_node("MarginContainer/HBoxContainer/CommandsButton"):
-		$MarginContainer/HBoxContainer/CommandsButton.pressed.connect(
+		$HBoxContainer/CommandsButton.pressed.connect(
 			_on_commands_pressed
 		)
 
 	$CommandsPopup/Panel/CloseButton.pressed.connect(
 		_on_close_commands_pressed
 	)
+
+	# ==========================================
+	#   KONEKSI DETEKSI KLIK OVERLAY (BARU)
+	# ==========================================
+	if has_node("Pause/DarkOverlay"):
+		$Pause/DarkOverlay.gui_input.connect(_on_pause_overlay_gui_input)
+		
+	if has_node("CommandsPopup/DarkOverlay"):
+		$CommandsPopup/DarkOverlay.gui_input.connect(_on_commands_overlay_gui_input)
 
 	$CommandsPopup/Panel/RichTextLabel.text = """
 === MOVEMENT ===
@@ -131,13 +139,11 @@ func _on_close_commands_pressed():
 	commands_popup.hide()
 
 func _input(event):
-	# Lewati teks tutorial dengan klik mouse
 	if tutorial_popup.visible and event is InputEventMouseButton:
 		if event.pressed:
 			if is_typing:
 				skip_typing = true
 
-	# Navigasi dialog tutorial menggunakan keyboard (Enter/Space)
 	if tutorial_popup.visible:
 		if event.is_action_pressed("ui_accept"):
 			if is_typing:
@@ -145,24 +151,20 @@ func _input(event):
 			else:
 				_on_next_button_pressed()
 			get_viewport().set_input_as_handled()
-			return # Stop eksekusi shortcut game saat tutorial aktif
+			return
 
 	# ==========================================
-	#    SISTEM KEYBOARD SHORTCUTS
+	#     SISTEM KEYBOARD SHORTCUTS
 	# ==========================================
 
-	# 1. SHORTCUT PAUSE MENU (Tombol ESCAPE)
-	# Menggunakan event.is_echo() agar saat tombol ditahan tidak membuka-tutup terus-menerus
 	if event is InputEventKey and event.pressed and not event.is_echo() and event.keycode == KEY_ESCAPE:
 		_on_menu_button_pressed()
-		get_viewport().set_input_as_handled() # Hentikan input agar tidak tembus ke node lain
+		get_viewport().set_input_as_handled()
 		return
 
-	# Jika menu pause sedang terbuka, shortcut game lainnya (F5, F6, dll) diblokir saja
 	if pause_menu.visible:
 		return
 
-	# 2. SHORTCUT COMMANDS MANUAL (Tombol F1 atau TAB)
 	if event.is_action_pressed("ui_help") or (event is InputEventKey and event.pressed and event.keycode == KEY_F1) or (event is InputEventKey and event.pressed and event.keycode == KEY_TAB):
 		if commands_popup.visible:
 			_on_close_commands_pressed()
@@ -170,12 +172,10 @@ func _input(event):
 			_on_commands_pressed()
 		get_viewport().set_input_as_handled()
 
-	# 3. SHORTCUT RESTART LEVEL (Tombol F6 atau CTRL + R)
 	elif (event is InputEventKey and event.pressed and event.keycode == KEY_F6) or (event is InputEventKey and event.pressed and event.keycode == KEY_R and event.ctrl_pressed):
 		_on_restart_button_pressed()
 		get_viewport().set_input_as_handled()
 
-	# 4. SHORTCUT RUN CODE (Tombol F5 atau CTRL + ENTER)
 	elif (event is InputEventKey and event.pressed and event.keycode == KEY_F5) or (event is InputEventKey and event.pressed and event.keycode == KEY_ENTER and event.ctrl_pressed):
 		_on_run_button_pressed()
 		get_viewport().set_input_as_handled()
@@ -307,3 +307,17 @@ func start_next_pulse():
 		Vector2.ONE,
 		0.5
 	)
+
+# ==========================================
+#     FUNGSI DETEKSI KLIK OVERLAY (BARU)
+# ==========================================
+
+func _on_pause_overlay_gui_input(event: InputEvent):
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			hide_pause()
+
+func _on_commands_overlay_gui_input(event: InputEvent):
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			_on_close_commands_pressed()

@@ -1,9 +1,7 @@
 extends Control
 
-# Pastikan di panel Scene, node Banner ada tepat di bawah LevelCompletePopup
 @onready var banner = $Banner 
 
-# Pastikan sudah di-drag ke Inspector di Godot Editor
 @export var coin_label: Label 
 
 var banner_start_pos : Vector2
@@ -12,12 +10,10 @@ var next_level = 1
 
 func _ready():
 	visible = false
-	# Tambahkan pengecekan keamanan agar tidak crash jika banner tidak ditemukan
 	if banner:
 		banner_start_pos = banner.position
 
 func set_coin_text(coins_collected: int, total_coins: int):
-	# Memastikan coin_label sudah terhubung di Inspector
 	if coin_label:
 		coin_label.text = "Coin: " + str(coins_collected) + "/" + str(total_coins)
 	else:
