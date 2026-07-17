@@ -618,7 +618,6 @@ sources/0 = SubResource("TileSetAtlasSource_nfihu")
 
 [node name="Level1" type="Node2D" unique_id=232416967]
 script = ExtResource("1_wb0vq")
-level_number = 3
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=302815520]
 
@@ -835,13 +834,13 @@ tile_map_data = PackedByteArray("AAAFABAAAAAWABEAAAAKABAAAAAWABEAAAARABAAAAAWABE
 tile_set = SubResource("TileSet_53ndp")
 
 [node name="Player" parent="." unique_id=961151976 instance=ExtResource("9_b3p8y")]
-position = Vector2(167, 248)
+position = Vector2(170, 232)
 
 [node name="Coin" parent="." unique_id=1074071405 instance=ExtResource("11_b4tpv")]
 position = Vector2(494, 251)
 
 [node name="Spike" parent="." unique_id=1535664433 instance=ExtResource("12_hgky1")]
-position = Vector2(337, 262)
+position = Vector2(335, 264)
 
 [node name="Goal" parent="." unique_id=550542505 instance=ExtResource("9_wb0vq")]
 position = Vector2(568, 253)

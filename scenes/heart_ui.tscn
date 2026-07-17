@@ -1,6 +1,92 @@
 [gd_scene format=3 uid="uid://dgjdaci14stt0"]
 
 [ext_resource type="Script" uid="uid://bhyym64co6hak" path="res://scripts/heart_ui.gd" id="1_xlecj"]
+[ext_resource type="Texture2D" uid="uid://d3gvxeejctirw" path="res://assets/HUD/sword4.png" id="2_sb1m5"]
+[ext_resource type="Script" uid="uid://otocqvt8gxp3" path="res://scripts/emblem.gd" id="3_4east"]
+[ext_resource type="Texture2D" uid="uid://v4dtjhdw72kr" path="res://assets/HUD/emblem.png" id="3_f2a05"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4east"]
+atlas = ExtResource("3_f2a05")
+region = Rect2(0, 0, 23, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6o6a"]
+atlas = ExtResource("3_f2a05")
+region = Rect2(23, 0, 23, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u53mv"]
+atlas = ExtResource("3_f2a05")
+region = Rect2(46, 0, 23, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vv7oy"]
+atlas = ExtResource("3_f2a05")
+region = Rect2(69, 0, 23, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hup5m"]
+atlas = ExtResource("3_f2a05")
+region = Rect2(0, 19, 23, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wnne"]
+atlas = ExtResource("3_f2a05")
+region = Rect2(23, 19, 23, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqxba"]
+atlas = ExtResource("3_f2a05")
+region = Rect2(46, 19, 23, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5p57b"]
+atlas = ExtResource("3_f2a05")
+region = Rect2(69, 19, 23, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5278g"]
+atlas = ExtResource("3_f2a05")
+region = Rect2(92, 19, 23, 19)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iw6kr"]
+atlas = ExtResource("3_f2a05")
+region = Rect2(115, 19, 23, 19)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mlf1g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4east")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6o6a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u53mv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vv7oy")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hup5m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6wnne")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqxba")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5p57b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5278g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iw6kr")
+}],
+"loop": false,
+"name": &"shine",
+"speed": 8.0
+}]
 
 [node name="HeartUI" type="Control" unique_id=847155867]
 layout_mode = 3
@@ -11,8 +97,23 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_xlecj")
 
+[node name="Sword" type="Sprite2D" parent="." unique_id=2033079461]
+scale = Vector2(2, 2)
+texture = ExtResource("2_sb1m5")
+
+[node name="Emblem" type="Node2D" parent="." unique_id=95157412]
+script = ExtResource("3_4east")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Emblem" unique_id=1819336393]
+position = Vector2(-59, 0)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_mlf1g")
+animation = &"idle"
+autoplay = "idle"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1809813468]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_constants/separation = 30
+pivot_offset = Vector2(20, 20)
+theme_override_constants/separation = 40

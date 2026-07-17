@@ -31,6 +31,10 @@ region = Rect2(320, 128, 64, 64)
 atlas = ExtResource("2_mvrql")
 region = Rect2(320, 128, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_1cpwx"]
+atlas = ExtResource("2_mvrql")
+region = Rect2(0, 0, 64, 64)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_l301u"]
 atlas = ExtResource("2_mvrql")
 region = Rect2(0, 256, 64, 64)
@@ -100,9 +104,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wq0bo")
 }],
-"loop": true,
+"loop": false,
 "name": &"damage",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -110,6 +114,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"empty",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1cpwx")
+}],
+"loop": true,
+"name": &"full",
 "speed": 5.0
 }, {
 "frames": [{
@@ -131,9 +143,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ma4ei")
 }],
-"loop": true,
+"loop": false,
 "name": &"heal",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -154,9 +166,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wm1lv")
 }],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
+"loop": false,
+"name": &"shine",
+"speed": 8.0
 }]
 
 [node name="Heart" type="Control" unique_id=902909300]
@@ -165,6 +177,7 @@ anchors_preset = 0
 script = ExtResource("1_1cpwx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1317951429]
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_xsugr")
-animation = &"damage"
-frame_progress = 0.90742517
+animation = &"full"
+autoplay = "full"

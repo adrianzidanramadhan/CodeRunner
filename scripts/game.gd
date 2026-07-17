@@ -17,6 +17,7 @@ var level_finished := false
 var is_running := false
 const FALL_LIMIT_Y = 300
 var is_reloading := false
+var movement_interrupted := false
 
 var tutorial_data = {
 	1: [
@@ -290,7 +291,11 @@ func _on_spike_touched():
 	if is_reloading:
 		return
 
+	movement_interrupted = true
+
 	HealthManager.take_damage(1)
+
+	await player.take_hit()
 
 func _on_goal_reached():
 

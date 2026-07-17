@@ -11,6 +11,8 @@ var start_position = Vector2()
 var hit_targets = []
 var sword_offset_right = Vector2(0, 0)
 var sword_offset_left = Vector2(-75, 0)
+var last_safe_position : Vector2
+var is_taking_hit := false
 
 var path = [
 	position + Vector2(tile_size * 0.5, -tile_size * jump_height),
@@ -22,6 +24,7 @@ var path = [
 @onready var wall_check = $WallCheck
 @onready var floor_check = $FloorCheck
 @onready var sprite = $Visual/Knight
+@onready var state = $PlayerState
 
 @export var jump_height := 2
 @export var jump_distance := 2
@@ -30,6 +33,7 @@ var path = [
 func _ready():
 	add_to_group("player")
 	start_position = position
+	last_safe_position = position
 	$SwordHitbox.monitoring = false
 	set_state_idle()
 	update_sword_hitbox()
@@ -44,32 +48,46 @@ func play_anim(anim_name):
 
 
 func set_state_idle():
-	play_anim("idle")
+
+	state.change_state(PlayerState.State.IDLE)
+
 	AudioManager.stop_footsteps()
 
 
 func set_state_run():
-	play_anim("run")
+
+	state.change_state(PlayerState.State.RUN)
+
 	AudioManager.play_footsteps()
 
 
 func set_state_jump():
-	play_anim("jump")
+
+	state.change_state(PlayerState.State.JUMP)
+
 	AudioManager.stop_footsteps()
 
 
 func set_state_fall():
-	play_anim("fall")
+
+	state.change_state(PlayerState.State.FALL)
+
 	AudioManager.stop_footsteps()
 
 
 func set_state_death():
-	play_anim("death")
+
+	state.change_state(PlayerState.State.DEAD)
+
 	AudioManager.stop_footsteps()
 
 
 func stop_action():
+
 	if is_dead:
+		return
+
+	if is_taking_hit:
 		return
 
 	is_moving = false
@@ -77,7 +95,6 @@ func stop_action():
 	is_falling = false
 
 	set_state_idle()
-
 
 # =====================================================
 # CORE MOVEMENT
@@ -176,6 +193,8 @@ func move_right():
 
 	var next = position + Vector2(tile_size, 0)
 
+	last_safe_position = position
+
 	await move_along_path([next], 0.18)
 
 	return true
@@ -195,6 +214,8 @@ func move_left():
 	set_state_run()
 
 	var next = position + Vector2(-tile_size, 0)
+
+	last_safe_position = position
 
 	await move_along_path([next], 0.18)
 
@@ -220,6 +241,8 @@ func move_down():
 	set_state_fall()
 
 	var next = position + Vector2(0, tile_size)
+
+	last_safe_position = position
 
 	await move_along_path([next], 0.12)
 
@@ -249,6 +272,8 @@ func jump_right():
 	if blocked(Vector2(tile_size, -tile_size)):
 		return false
 
+	last_safe_position = position
+
 	return await jump_to(jump_distance)
 
 
@@ -262,6 +287,8 @@ func jump_left():
 
 	if blocked(Vector2(-tile_size, -tile_size)):
 		return false
+
+	last_safe_position = position
 
 	return await jump_to(-jump_distance)
 
@@ -278,6 +305,8 @@ func jump_up():
 	is_jumping = true
 	set_state_jump()
 	AudioManager.play_sfx("jump")
+
+	last_safe_position = position
 
 	await move_along_path([next], 0.25)
 
@@ -410,3 +439,32 @@ func _on_sword_hitbox_body_entered(body):
 
 	if body.has_method("take_damage"):
 		await body.take_damage(1, attack_dir)
+
+func take_hit():
+
+	if is_dead:
+		return
+
+	is_taking_hit = true
+	is_moving = true
+
+	sprite.play("hit")
+
+	AudioManager.play_sfx("hit")
+
+	var tween = create_tween()
+
+	tween.tween_property(
+		self,
+		"position",
+		last_safe_position,
+		0.12
+	).set_trans(Tween.TRANS_BACK)\
+	.set_ease(Tween.EASE_OUT)
+
+	await tween.finished
+
+	is_moving = false
+	is_taking_hit = false
+
+	set_state_idle()

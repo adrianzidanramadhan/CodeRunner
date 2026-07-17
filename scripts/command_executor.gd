@@ -86,6 +86,15 @@ func execute_move(command):
 			return false
 		
 		await game.post_command_checks()
+		
+		if game.movement_interrupted:
+
+			game.movement_interrupted = false
+
+			player.stop_action()
+
+			return false
+			
 		await game.enemy_turn()
 
 	return true

@@ -7,6 +7,7 @@ extends Node
 
 var music_tracks = {}
 var speak_player: AudioStreamPlayer = null
+var last_hit_index := -1
 
 
 var sounds = {
@@ -25,6 +26,13 @@ var sounds = {
 	"enemy_death": preload("res://assets/audio/Monster death (Rpg).wav"),
 	"enemy_attack": preload("res://assets/audio/enemy_attack.wav"),
 	"speak": preload("res://assets/audio/speak5.wav"),
+	"hit": [
+		preload("res://assets/audio/hit-1.wav"),
+		preload("res://assets/audio/hit-2.wav"),
+		preload("res://assets/audio/hit-3.wav"),
+		preload("res://assets/audio/hit-4.wav"),
+		preload("res://assets/audio/hit-5.wav")
+	],
 	
 	"logo": preload("res://assets/audio/Modern9.wav")
 }
@@ -49,14 +57,26 @@ func register_sound(name, stream):
 	sounds[name] = stream
 
 func play_sfx(name):
+
 	if !sounds.has(name):
 		push_warning("Sound not found: " + name)
 		return
 
+	var stream = sounds[name]
+
+	if stream is Array:
+
+		if name == "hit":
+			stream = get_random_hit()
+		else:
+			stream = stream.pick_random()
+
 	var player = AudioStreamPlayer.new()
-	player.stream = sounds[name]
+
+	player.stream = stream
 
 	sfx_container.add_child(player)
+
 	player.play()
 
 	player.finished.connect(
@@ -151,3 +171,16 @@ func play_speak():
 func stop_speak():
 	if speak_player and speak_player.playing:
 		speak_player.stop()
+
+func get_random_hit():
+
+	var list = sounds["hit"]
+
+	var index = randi_range(0, list.size() - 1)
+
+	while index == last_hit_index and list.size() > 1:
+		index = randi_range(0, list.size() - 1)
+
+	last_hit_index = index
+
+	return list[index]

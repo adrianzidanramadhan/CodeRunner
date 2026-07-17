@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://8gjc0q5u6w2g" path="res://scenes/player.gd" id="1_xo3ru"]
 [ext_resource type="SpriteFrames" uid="uid://c1ssie5p8trp" path="res://assets/tres/knight_animated.tres" id="2_g2els"]
+[ext_resource type="Script" uid="uid://dn0sgy4dj6jgi" path="res://scripts/player/PlayerState.gd" id="2_qhqgy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ct4mp"]
 height = 38.0
@@ -11,6 +12,9 @@ size = Vector2(46, 40)
 
 [node name="Player" type="CharacterBody2D" unique_id=1149818697]
 script = ExtResource("1_xo3ru")
+
+[node name="PlayerState" type="Node" parent="." unique_id=432356321]
+script = ExtResource("2_qhqgy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1473038868]
 position = Vector2(0, 21)
@@ -42,8 +46,10 @@ drag_bottom_margin = 0.1
 
 [node name="Knight" type="AnimatedSprite2D" parent="Visual" unique_id=1105151284]
 sprite_frames = ExtResource("2_g2els")
-animation = &"idle"
+animation = &"hit"
 autoplay = "idle"
+frame = 1
+frame_progress = 1.0
 
 [node name="SwordHitbox" type="Area2D" parent="." unique_id=1612044195]
 

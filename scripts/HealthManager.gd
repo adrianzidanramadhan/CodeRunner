@@ -34,4 +34,5 @@ func heal(amount := 1):
 func reset_hp():
 
 	current_hp = max_hp
+
 	hp_changed.emit(current_hp, max_hp)
