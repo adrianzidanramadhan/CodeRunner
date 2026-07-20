@@ -117,7 +117,7 @@ func setup_level_buttons():
 		else:
 			button.disabled = true
 			if button_label:
-				button_label.text = "🔒"
+				button_label.text = "X"
 
 			if color_rect and color_rect.material is ShaderMaterial:
 				color_rect.material = color_rect.material.duplicate()

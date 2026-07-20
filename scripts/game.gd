@@ -161,6 +161,7 @@ var tutorial_data = {
 	]
 }
 
+
 func _ready():
 	
 	HealthManager.reset_hp()
@@ -210,7 +211,7 @@ func setup_executor():
 
 func start_tutorial_if_needed():
 	if tutorial_data.has(level_number):
-		ui.start_tutorial(tutorial_data[level_number])
+		ui.start_tutorial(tutorial_data[level_number], player)
 
 func _on_run_pressed():
 	if is_running:

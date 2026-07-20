@@ -10,11 +10,10 @@ extends CanvasLayer
 
 @onready var objective_label = \
 	$ObjectivePanel/ObjectiveLabel
-	
-@onready var byte_portrait = $TutorialPopup/Control/Portrait
+
 @onready var tutorial_popup = $TutorialPopup
 @onready var tutorial_name = $TutorialPopup/Control/Name_box/Name
-@onready var tutorial_message = $TutorialPopup/Control/Dialogue_box/MassageBox/MarginContainer/MessageLabel
+@onready var tutorial_message = $TutorialPopup/Control/Dialogue_box/MarginContainer/MessageLabel
 @onready var tutorial_next = $TutorialPopup/Control/Dialogue_box/NextButton
 
 enum ByteMood {
@@ -28,6 +27,13 @@ var full_text = ""
 var is_typing = false
 var skip_typing = false
 var pulse_tween = null
+
+# ==========================================
+#  VARIABEL BARU UNTUK GAYA SILKSONG
+# ==========================================
+var current_speaker: Node2D = null
+var default_camera_zoom := Vector2.ONE
+var zoom_factor := 1.35
 
 signal run_pressed
 signal restart_pressed
@@ -46,9 +52,6 @@ func _ready():
 		_on_close_commands_pressed
 	)
 
-	# ==========================================
-	#   KONEKSI DETEKSI KLIK OVERLAY (BARU)
-	# ==========================================
 	if has_node("Pause/DarkOverlay"):
 		$Pause/DarkOverlay.gui_input.connect(_on_pause_overlay_gui_input)
 		
@@ -94,10 +97,23 @@ go()
 	tutorial_next.mouse_entered.connect(_on_next_hover)
 	tutorial_next.mouse_exited.connect(_on_next_exit)
 
-func set_byte_mood(mood):
-	match mood:
-		ByteMood.IDLE:
-			byte_portrait.play("idle")
+# ==========================================
+#  PROSES TRACKING POSISI KARAKTER (BARU)
+# ==========================================
+func _process(_delta):
+	if tutorial_popup.visible and current_speaker and is_instance_valid(current_speaker):
+		var camera = get_viewport().get_camera_2d()
+		if camera:
+			var speaker_screen_pos = current_speaker.get_global_transform_with_canvas().origin
+			var dialogue_box = $TutorialPopup/Control
+			
+			dialogue_box.global_position.x = speaker_screen_pos.x - (dialogue_box.size.x / 2)
+			dialogue_box.global_position.y = speaker_screen_pos.y - dialogue_box.size.y - 120
+
+#func set_byte_mood(mood):
+	#match mood:
+		#ByteMood.IDLE:
+			#byte_portrait.play("idle")
 
 func _on_next_hover():
 	if pulse_tween:
@@ -152,10 +168,6 @@ func _input(event):
 				_on_next_button_pressed()
 			get_viewport().set_input_as_handled()
 			return
-
-	# ==========================================
-	#     SISTEM KEYBOARD SHORTCUTS
-	# ==========================================
 
 	if event is InputEventKey and event.pressed and not event.is_echo() and event.keycode == KEY_ESCAPE:
 		_on_menu_button_pressed()
@@ -247,25 +259,40 @@ func _on_menu_button_pressed():
 	else:
 		show_pause()
 
-func start_tutorial(messages):
+# ==========================================
+#  MODIFIKASI START TUTORIAL (DENGAN ZOOM)
+# ==========================================
+func start_tutorial(messages, speaker: Node2D = null):
 	tutorial_messages = messages
 	tutorial_index = 0
+	current_speaker = speaker
+	
+	# Efek Zoom In Kamera ke Karakter
+	var camera = get_viewport().get_camera_2d()
+	if camera:
+		default_camera_zoom = camera.zoom
+		
+		var dynamic_target_zoom = default_camera_zoom * zoom_factor
+		
+		var cam_tween = create_tween()
+		cam_tween.tween_property(camera, "zoom", dynamic_target_zoom, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	
 	show_current_tutorial()
 	
 func show_current_tutorial():
 	tutorial_popup.show()
 	var data = tutorial_messages[tutorial_index]
 	full_text = data["text"]
-	match data["mood"]:
-		"idle":
-			set_byte_mood(ByteMood.IDLE)
+	#match data["mood"]:
+		#"idle":
+			#set_byte_mood(ByteMood.IDLE)
 	tutorial_message.visible_characters = 0
 	start_typewriter()
 
 func start_typewriter():
 	is_typing = true
 	skip_typing = false
-	tutorial_next.hide()
+	#tutorial_next.hide()
 	tutorial_message.bbcode_enabled = true
 	tutorial_message.text = full_text
 	tutorial_message.visible_characters = 0
@@ -282,9 +309,19 @@ func start_typewriter():
 	tutorial_next.show()
 	start_next_pulse()
 
+# ==========================================
+#  MODIFIKASI AKHIR TUTORIAL (ZOOM OUT KEMBALI)
+# ==========================================
 func _on_next_button_pressed():
 	tutorial_index += 1
 	if tutorial_index >= tutorial_messages.size():
+		# Efek Zoom Out Kamera kembali normal
+		var camera = get_viewport().get_camera_2d()
+		if camera:
+			var cam_tween = create_tween()
+			cam_tween.tween_property(camera, "zoom", default_camera_zoom, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+			
+		current_speaker = null
 		tutorial_popup.hide()
 		return
 	show_current_tutorial()
@@ -307,10 +344,6 @@ func start_next_pulse():
 		Vector2.ONE,
 		0.5
 	)
-
-# ==========================================
-#     FUNGSI DETEKSI KLIK OVERLAY (BARU)
-# ==========================================
 
 func _on_pause_overlay_gui_input(event: InputEvent):
 	if event is InputEventMouseButton and event.pressed:

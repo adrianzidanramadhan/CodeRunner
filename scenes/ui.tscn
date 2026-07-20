@@ -8,15 +8,14 @@
 [ext_resource type="StyleBox" uid="uid://cenxglnveuq3l" path="res://assets/tres/clear.tres" id="4_kupmu"]
 [ext_resource type="Texture2D" uid="uid://b6g4cjsfqnrh1" path="res://assets/UI Elements/Icons/Icon_07.png" id="4_p7vwb"]
 [ext_resource type="StyleBox" uid="uid://bhqr6wrdtwbub" path="res://assets/tres/clear_hover.tres" id="5_catpy"]
-[ext_resource type="Texture2D" uid="uid://c1vpjabsellde" path="res://assets/UI Elements/Banners/Banner.png" id="5_ktti3"]
 [ext_resource type="Texture2D" uid="uid://dngy3yp6iatmx" path="res://assets/UI Elements/Icons/Icon_08.png" id="5_wm3ai"]
 [ext_resource type="Texture2D" uid="uid://ccy4dsvxofx7f" path="res://assets/UI Elements/Icons/Icon_02.png" id="6_41akx"]
 [ext_resource type="PackedScene" uid="uid://dwaw4rn0jcn1x" path="res://scenes/LevelCompletePopup.tscn" id="8_7dvkv"]
 [ext_resource type="FontFile" uid="uid://chbpnwj3qvssf" path="res://assets/font/federhozen-regular.ttf" id="11_6rmj2"]
 [ext_resource type="Texture2D" uid="uid://c8xo6wxpt8kph" path="res://assets/UI Elements/Banners/Banner_Slots.png" id="11_vsj0x"]
+[ext_resource type="Shader" uid="uid://fh5y0gfgq6o4" path="res://shader/dialogue_fade.gdshader" id="14_kupmu"]
 [ext_resource type="FontFile" uid="uid://drau7u1dxkxss" path="res://assets/font/federhozen-bold.ttf" id="14_qsv74"]
 [ext_resource type="PackedScene" uid="uid://dgjdaci14stt0" path="res://scenes/heart_ui.tscn" id="15_kupmu"]
-[ext_resource type="Texture2D" uid="uid://bsxknv3uha10l" path="res://assets/character/potrait.png" id="15_ycmcx"]
 [ext_resource type="Texture2D" uid="uid://bv8q477j1ngak" path="res://assets/UI Elements/Icons/Icon_05.png" id="16_f7tlh"]
 [ext_resource type="Texture2D" uid="uid://ctd8cwqpnyleq" path="res://assets/UI Elements/Ribbons/SmallDarkRibbons.png" id="18_ycmcx"]
 [ext_resource type="Theme" uid="uid://bmh7pcva0hjpp" path="res://assets/tres/menu.tres" id="20_catpy"]
@@ -34,60 +33,13 @@ default_font_size = 16
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qsv74"]
 texture = ExtResource("11_vsj0x")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_catpy"]
+shader = ExtResource("14_kupmu")
+shader_parameter/fade_width = 0.15
+
 [sub_resource type="Theme" id="Theme_jkdwc"]
 default_font = ExtResource("11_6rmj2")
 default_font_size = 0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ycmcx"]
-atlas = ExtResource("15_ycmcx")
-region = Rect2(0, 427, 632, 416)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kupmu"]
-atlas = ExtResource("15_ycmcx")
-region = Rect2(632, 0, 632, 425)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_catpy"]
-atlas = ExtResource("15_ycmcx")
-region = Rect2(0, 0, 632, 425)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_41akx"]
-atlas = ExtResource("15_ycmcx")
-region = Rect2(632, 427, 632, 416)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_sesyt"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ycmcx")
-}],
-"loop": true,
-"name": &"angry",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kupmu")
-}],
-"loop": true,
-"name": &"happy",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_catpy")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_41akx")
-}],
-"loop": true,
-"name": &"shock",
-"speed": 5.0
-}]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8k7j3"]
 font = ExtResource("14_qsv74")
@@ -314,7 +266,6 @@ offset_bottom = 90.0
 pivot_offset = Vector2(20, 20)
 
 [node name="DamageFlash" type="ColorRect" parent="." unique_id=168765616]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -324,7 +275,6 @@ mouse_filter = 2
 color = Color(1, 0.27450982, 0.27450982, 0)
 
 [node name="TutorialPopup" type="Control" parent="." unique_id=2134741134]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -342,114 +292,96 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.039215688)
 
 [node name="Control" type="Control" parent="TutorialPopup" unique_id=1021156227]
-custom_minimum_size = Vector2(0, 300)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Dialogue_box" type="NinePatchRect" parent="TutorialPopup/Control" unique_id=345683284]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -500.0
-offset_top = -210.0
-offset_right = 500.0
-offset_bottom = -10.0
-grow_horizontal = 2
-grow_vertical = 0
-texture = ExtResource("5_ktti3")
-region_rect = Rect2(1.6784973, 0.39770508, 246.65991, 237.76395)
-patch_margin_left = 89
-patch_margin_top = 15
-patch_margin_right = 83
-patch_margin_bottom = 66
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-
-[node name="MassageBox" type="NinePatchRect" parent="TutorialPopup/Control/Dialogue_box" unique_id=788457992]
-custom_minimum_size = Vector2(100, 50)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -231.0
-offset_top = -81.0
-offset_right = 461.0
-offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("11_vsj0x")
-region_rect = Rect2(4.775139, 4.803528, 185.24902, 182.31479)
-patch_margin_left = 19
-patch_margin_top = 22
-patch_margin_right = 23
-patch_margin_bottom = 18
-axis_stretch_horizontal = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="TutorialPopup/Control/Dialogue_box/MassageBox" unique_id=2055389687]
+[node name="Dialogue_box" type="ColorRect" parent="TutorialPopup/Control" unique_id=248745629]
+material = SubResource("ShaderMaterial_catpy")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.78431374)
+
+[node name="MenuUp" type="TextureRect" parent="TutorialPopup/Control/Dialogue_box" unique_id=204937288]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -133.5
+offset_top = -30.0
+offset_right = 133.5
+offset_bottom = 30.0
+grow_horizontal = 2
+texture = ExtResource("20_kupmu")
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialPopup/Control/Dialogue_box" unique_id=2055389687]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 25
 
-[node name="MessageLabel" type="RichTextLabel" parent="TutorialPopup/Control/Dialogue_box/MassageBox/MarginContainer" unique_id=1081608460]
+[node name="MessageLabel" type="RichTextLabel" parent="TutorialPopup/Control/Dialogue_box/MarginContainer" unique_id=1081608460]
 layout_mode = 2
 theme = SubResource("Theme_jkdwc")
-theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "aku ga ngerti apa yang kamu omongin"
 
-[node name="Char_bg" type="NinePatchRect" parent="TutorialPopup/Control/Dialogue_box" unique_id=1360258678]
-custom_minimum_size = Vector2(100, 50)
+[node name="MenuBottom" type="TextureRect" parent="TutorialPopup/Control/Dialogue_box" unique_id=787011391]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -450.0
-offset_top = -83.0
-offset_right = -256.0
-offset_bottom = 38.0
+anchor_bottom = 1.0
+offset_left = -134.0
+offset_top = -17.0
+offset_right = 134.0
+offset_bottom = 43.0
 grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("11_vsj0x")
-region_rect = Rect2(4.775139, 4.803528, 185.24902, 182.31479)
-patch_margin_left = 19
-patch_margin_top = 22
-patch_margin_right = 23
-patch_margin_bottom = 18
-axis_stretch_horizontal = 1
+grow_vertical = 0
+scale = Vector2(0.6, 0.6)
+pivot_offset_ratio = Vector2(0.5, 0)
+texture = ExtResource("23_41akx")
 
 [node name="NextButton" type="Button" parent="TutorialPopup/Control/Dialogue_box" unique_id=449600621]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -58.0
-offset_top = -83.0
-offset_right = -26.0
-offset_bottom = -51.0
-grow_horizontal = 0
+offset_left = -16.0
+offset_top = -20.0
+offset_right = 16.0
+offset_bottom = 12.0
+grow_horizontal = 2
 grow_vertical = 0
+rotation = 2.3561945
+scale = Vector2(0.6, 0.6)
+pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_override_styles/normal = ExtResource("4_kupmu")
 theme_override_styles/pressed = ExtResource("4_kupmu")
 theme_override_styles/hover = ExtResource("5_catpy")
@@ -457,13 +389,8 @@ icon = ExtResource("16_f7tlh")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Portrait" type="AnimatedSprite2D" parent="TutorialPopup/Control" unique_id=1312341066]
-position = Vector2(221, 170)
-scale = Vector2(0.25, 0.255)
-sprite_frames = SubResource("SpriteFrames_sesyt")
-animation = &"idle"
-
 [node name="Name_box" type="NinePatchRect" parent="TutorialPopup/Control" unique_id=1430438543]
+visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -575,6 +502,7 @@ expand_icon = true
 visible = false
 
 [node name="Pause" type="Control" parent="." unique_id=978164803]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
