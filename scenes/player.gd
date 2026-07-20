@@ -54,19 +54,31 @@ func stop_action():
 	set_state_idle()
 
 func move_right():
-	return await movement.move_right()
+
+	return await movement.move(
+		PlayerDirection.Direction.RIGHT
+	)
 
 func move_left():
-	return await movement.move_left()
+
+	return await movement.move(
+		PlayerDirection.Direction.LEFT
+	)
 
 func move_down():
 	return await movement.move_down()
 
 func jump_right():
-	return await movement.jump_right()
+
+	return await movement.jump(
+		PlayerDirection.Direction.RIGHT
+	)
 
 func jump_left():
-	return await movement.jump_left()
+
+	return await movement.jump(
+		PlayerDirection.Direction.LEFT
+	)
 
 func jump_up():
 	return await movement.jump_up()

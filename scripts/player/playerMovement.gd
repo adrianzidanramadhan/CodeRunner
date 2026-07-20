@@ -17,6 +17,7 @@ var is_falling = false
 @export var jump_distance := 2
 @export var jump_duration := 0.45
 
+
 func move_along_path(path: Array, duration := 0.4):
 
 	if is_moving:
@@ -41,6 +42,43 @@ func move_along_path(path: Array, duration := 0.4):
 	await tween.finished
 
 	is_moving = false
+	return true
+
+func follow_path(path: Array, duration := 0.4):
+
+	if is_moving:
+		return false
+
+	if path.is_empty():
+		return false
+
+	is_moving = true
+
+	var step_duration = duration / path.size()
+
+	for point in path:
+
+		# ===== Collision =====
+		var offset = point - player.position
+
+		if blocked(offset):
+
+			is_moving = false
+			return false
+
+		var tween = create_tween()
+
+		tween.tween_property(
+			player,
+			"position",
+			point,
+			step_duration
+		)
+
+		await tween.finished
+
+	is_moving = false
+
 	return true
 
 func jump_to(offset_x: int):
@@ -90,45 +128,36 @@ func blocked(offset: Vector2):
 	wall_check.force_raycast_update()
 	return wall_check.is_colliding()
 
-func move_right():
+func blocked_direction(direction:int, y := 0):
+
+	var sign = PlayerDirection.sign(direction)
+
+	return blocked(
+		Vector2(
+			tile_size * sign,
+			y
+		)
+	)
+
+func move(direction:int, amount:=1):
 
 	if player.is_dead or is_moving:
 		return false
 
-	sprite.flip_h = false
+	sprite.flip_h = PlayerDirection.is_left(direction)
 
-	if blocked(Vector2(tile_size,0)):
+	var sign = PlayerDirection.sign(direction)
+
+	if blocked(Vector2(tile_size * sign,0)):
 		return false
 
 	state.change_state(PlayerState.State.RUN)
 
-	var next = player.position + Vector2(tile_size,0)
+	var next = player.position + Vector2(tile_size * sign * amount,0)
 
 	player.last_safe_position = player.position
 
-	await move_along_path([next],0.18)
-
-	return true
-
-func move_left():
-
-	if player.is_dead or is_moving:
-		return false
-
-	sprite.flip_h = true
-
-	if blocked(Vector2(-tile_size,0)):
-		return false
-
-	state.change_state(PlayerState.State.RUN)
-
-	var next = player.position + Vector2(-tile_size,0)
-
-	player.last_safe_position = player.position
-
-	await move_along_path([next],0.18)
-
-	return true
+	return await follow_path([next],0.18)
 
 func move_down():
 
@@ -154,33 +183,21 @@ func move_down():
 
 	return true
 
-func jump_right():
+func jump(direction:int):
 
 	if player.is_dead or is_moving:
 		return false
 
-	sprite.flip_h = false
+	sprite.flip_h = PlayerDirection.is_left(direction)
 
-	if blocked(Vector2(tile_size, -tile_size)):
+	var sign = PlayerDirection.sign(direction)
+
+	if blocked_direction(direction, -tile_size):
 		return false
 
 	player.last_safe_position = player.position
 
-	return await jump_to(jump_distance)
-
-func jump_left():
-
-	if player.is_dead or is_moving:
-		return false
-
-	sprite.flip_h = true
-
-	if blocked(Vector2(-tile_size, -tile_size)):
-		return false
-
-	player.last_safe_position = player.position
-
-	return await jump_to(-jump_distance)
+	return await jump_to(sign * jump_distance)
 
 func jump_up():
 
@@ -234,3 +251,26 @@ func spike_ahead() -> bool:
 	spike_check.force_raycast_update()
 
 	return spike_check.is_colliding()
+
+func build_jump_path(start: Vector2, offset_x: int) -> Array:
+
+	var path := []
+
+	var end = start + Vector2(tile_size * offset_x, 0)
+
+	var steps := 8
+
+	for i in range(1, steps + 1):
+
+		var t = float(i) / steps
+
+		var x = lerp(start.x, end.x, t)
+
+		# parabola sederhana
+		var y = lerp(start.y, end.y, t)
+
+		y -= sin(t * PI) * tile_size * jump_height
+
+		path.append(Vector2(x, y))
+
+	return path

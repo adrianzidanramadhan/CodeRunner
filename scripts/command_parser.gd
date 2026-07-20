@@ -3,29 +3,58 @@
 extends RefCounted
 class_name CommandParser
 
-var last_error = ""
+const INDENT_SIZE = 4
+
+var last_error = {
+	"type": "",
+	"line": -1,
+	"column": -1,
+	"message": ""
+}
 
 
 func reset():
-	last_error = ""
-
+	last_error = {
+		"type": "",
+		"line": -1,
+		"column": -1,
+		"message": ""
+	}
 
 func parse(code: String):
 
 	reset()
 
+	# Support TAB
+	code = code.replace("\t", "    ")
+
+	# Samakan line ending
+	code = code.replace("\r\n", "\n")
+	code = code.replace("\r", "\n")
+
 	var lines = code.split("\n")
+
 	var result = parse_block(lines, 0, -1)
 
-	if last_error != "":
+	if last_error["message"] != "":
 		return null
 
 	return result["commands"]
 
+func set_error(
+	type,
+	message,
+	line := -1,
+	column := -1
+):
 
-func set_error(message):
-	last_error = message
+	if last_error["message"] != "":
+		return
 
+	last_error["type"] = type
+	last_error["message"] = message
+	last_error["line"] = line
+	last_error["column"] = column
 
 # ==================================================
 # PARSE SINGLE COMMAND
@@ -33,37 +62,51 @@ func set_error(message):
 
 func parse_single_command(line, line_number = -1):
 
-	var command_data = parse_command_data(line)
+	var command_data = parse_command_data(
+		line,
+		line_number
+	)
 
 	if command_data != null:
 		command_data["line"] = line_number
 		return command_data
 
-	set_error("Unknown command at line %d: %s" % [line_number + 1, line])
+	set_error(
+		"SyntaxError",
+		"Unknown command '%s'." % line,
+		line_number,
+		0
+	)
 	return null
 
-
-func validate_amount(amount):
+func validate_amount(amount, line_number := -1):
 
 	if amount == null:
 		return null
 
 	if amount < 1:
-		set_error("Amount must be > 0")
+		set_error(
+			"ValueError",
+			"Amount must be greater than 0.",
+			line_number
+		)
 		return null
 
 	if amount > 20:
-		set_error("Amount too large")
+		set_error(
+			"ValueError",
+			"Amount cannot exceed 20.",
+			line_number
+		)
 		return null
 
 	return amount
-
 
 # ==================================================
 # COMMAND DATA
 # ==================================================
 
-func parse_command_data(line):
+func parse_command_data(line, line_number := -1):
 
 	# ==========================================
 	# MOVE RIGHT
@@ -71,7 +114,8 @@ func parse_command_data(line):
 	if line.begins_with("move_right"):
 
 		var amount = validate_amount(
-			get_amount(line)
+			get_amount(line, line_number),
+			line_number
 		)
 
 		if amount == null:
@@ -89,7 +133,8 @@ func parse_command_data(line):
 	elif line.begins_with("move_left"):
 
 		var amount = validate_amount(
-			get_amount(line)
+			get_amount(line, line_number),
+			line_number
 		)
 
 		if amount == null:
@@ -139,7 +184,11 @@ func parse_command_data(line):
 			direction = "front"
 
 		if direction != "left" and direction != "right" and direction != "front":
-			set_error("Invalid attack direction: " + direction)
+			set_error(
+				"SyntaxError",
+				"Invalid attack direction '%s'." % direction,
+				line_number
+			)
 			return null
 
 		return {
@@ -148,12 +197,11 @@ func parse_command_data(line):
 		}
 	return null
 
-
 # ==================================================
 # GET AMOUNT
 # ==================================================
 
-func get_amount(line):
+func get_amount(line, line_number := -1):
 
 	var start = line.find("(")
 	var end = line.find(")")
@@ -167,13 +215,17 @@ func get_amount(line):
 		return 1
 
 	if !text.is_valid_int():
-		set_error("Invalid number: " + text)
+		set_error(
+			"SyntaxError",
+			"Expected integer but got '%s'." % text,
+			line_number,
+			start + 1
+		)
 		return null
 
 	return int(text)
 
-
-func get_string_parameter(line):
+func get_string_parameter(line,line_number := -1):
 
 	var start = line.find("(")
 	var end = line.find(")")
@@ -190,24 +242,34 @@ func get_string_parameter(line):
 
 	return text.to_lower()
 
-
 # ==================================================
 # GET INDENT
 # ==================================================
 
-func get_indent(line):
+func get_indent(line, line_number):
 
-	var count = 0
+	var count := 0
 
-	for letter in line:
+	for c in line:
 
-		if letter == " ":
+		if c == " ":
 			count += 1
 		else:
 			break
 
-	return count
+	if count % INDENT_SIZE != 0:
 
+		set_error(
+			"IndentationError",
+		    "Expected indentation to be a multiple of %d spaces, found %d."
+				% [INDENT_SIZE, count],
+			line_number,
+			count
+		)
+
+		return -1
+
+	return count / INDENT_SIZE
 
 # ==================================================
 # PARSE IF
@@ -217,7 +279,7 @@ func parse_if_statement(lines, start_index):
 
 	var line = lines[start_index].strip_edges()
 
-	var current_indent = get_indent(lines[start_index])
+	var current_indent = get_indent(lines[start_index], start_index)
 
 	# ======================================
 	# CONDITION
@@ -227,8 +289,9 @@ func parse_if_statement(lines, start_index):
 	if condition == "":
 
 		set_error(
-			"If missing condition at line %d"
-			% [start_index + 1]
+			"SyntaxError",
+			"Expected condition after 'if'.",
+			start_index
 		)
 
 		return {
@@ -288,7 +351,7 @@ func parse_if_statement(lines, start_index):
 
 		if next_line.begins_with("else"):
 
-			var else_indent = get_indent(lines[i])
+			var else_indent = get_indent(lines[i],i)
 
 			var else_result = parse_block(
 				lines,
@@ -321,12 +384,10 @@ func parse_if_statement(lines, start_index):
 		"next_index": i
 	}
 
-
 func extract_condition(line:String, keyword:String):
 	var result = line.replace(keyword, "")
 	result = result.replace(":", "")
 	return result.strip_edges()
-
 
 # ==================================================
 # PARSE BLOCK
@@ -347,11 +408,31 @@ func parse_block(lines, start_index, parent_indent):
 			i += 1
 			continue
 
-		var indent = get_indent(raw_line)
+		var indent = get_indent(raw_line, i)
+
+		if indent == -1:
+			return {
+				"commands": [],
+				"next_index": lines.size()
+			}
 
 		# keluar block
 		if indent <= parent_indent:
 			break
+		
+		if indent > parent_indent + 1:
+
+			set_error(
+				"IndentationError",
+				"Unexpected indentation level.",
+				i,
+				indent * INDENT_SIZE
+			)
+
+			return {
+				"commands": [],
+				"next_index": lines.size()
+			}
 
 		var line = raw_line.strip_edges()
 
@@ -369,7 +450,11 @@ func parse_block(lines, start_index, parent_indent):
 			)
 
 			if condition_text == "":
-				set_error("While missing condition")
+				set_error(
+					"SyntaxError",
+					"Expected condition after 'while'.",
+					i
+				)
 				return {
 					"commands": [],
 					"next_index": lines.size()
@@ -389,7 +474,10 @@ func parse_block(lines, start_index, parent_indent):
 		# ======================================
 		elif line.begins_with("repeat"):
 
-			var amount = validate_amount(get_amount(line))
+			var amount = validate_amount(
+				get_amount(line, i),
+				i
+			)
 
 			if amount == null:
 				return {
