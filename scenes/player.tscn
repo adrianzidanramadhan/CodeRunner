@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://8gjc0q5u6w2g" path="res://scenes/player.gd" id="1_xo3ru"]
 [ext_resource type="SpriteFrames" uid="uid://c1ssie5p8trp" path="res://assets/tres/knight_animated.tres" id="2_g2els"]
 [ext_resource type="Script" uid="uid://dn0sgy4dj6jgi" path="res://scripts/player/PlayerState.gd" id="2_qhqgy"]
+[ext_resource type="Script" uid="uid://barytu3m16usy" path="res://scripts/player/playerCombat.gd" id="3_dqkch"]
+[ext_resource type="Script" uid="uid://c5muflh05pkvr" path="res://scripts/player/playerMovement.gd" id="4_qlg0r"]
+[ext_resource type="Script" uid="uid://dlo3daumvecyb" path="res://scripts/player/PlayerHealth.gd" id="5_tuyoq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ct4mp"]
 height = 38.0
@@ -15,6 +18,15 @@ script = ExtResource("1_xo3ru")
 
 [node name="PlayerState" type="Node" parent="." unique_id=432356321]
 script = ExtResource("2_qhqgy")
+
+[node name="PlayerCombat" type="Node" parent="." unique_id=1000008198]
+script = ExtResource("3_dqkch")
+
+[node name="PlayerMovement" type="Node" parent="." unique_id=1669827228]
+script = ExtResource("4_qlg0r")
+
+[node name="PlayerHealth" type="Node" parent="." unique_id=160544347]
+script = ExtResource("5_tuyoq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1473038868]
 position = Vector2(0, 21)
@@ -56,5 +68,3 @@ frame_progress = 1.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox" unique_id=396762636]
 position = Vector2(34, 20)
 shape = SubResource("RectangleShape2D_dqkch")
-
-[connection signal="body_entered" from="SwordHitbox" to="." method="_on_sword_hitbox_body_entered"]

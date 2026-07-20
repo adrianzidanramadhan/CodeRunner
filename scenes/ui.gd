@@ -37,7 +37,7 @@ func _ready():
 	
 	commands_popup.hide()
 
-	if has_node("MarginContainer/HBoxContainer/CommandsButton"):
+	if has_node("HBoxContainer/CommandsButton"):
 		$HBoxContainer/CommandsButton.pressed.connect(
 			_on_commands_pressed
 		)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cryvv8tr751yp"
-path="res://.godot/imported/Sword3.png-7f17f1a8016efe777c8551d8653d1ff1.ctex"
+uid="uid://c44ks8fj3n1ft"
+path="res://.godot/imported/4.png-395b08b1e60f4319737768f9ff7a6f47.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/HUD/Sword3.png"
-dest_files=["res://.godot/imported/Sword3.png-7f17f1a8016efe777c8551d8653d1ff1.ctex"]
+source_file="res://assets/tilemap/Background/4.png"
+dest_files=["res://.godot/imported/4.png-395b08b1e60f4319737768f9ff7a6f47.ctex"]
 
 [params]
 

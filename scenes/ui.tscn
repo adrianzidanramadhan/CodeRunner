@@ -11,9 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://c1vpjabsellde" path="res://assets/UI Elements/Banners/Banner.png" id="5_ktti3"]
 [ext_resource type="Texture2D" uid="uid://dngy3yp6iatmx" path="res://assets/UI Elements/Icons/Icon_08.png" id="5_wm3ai"]
 [ext_resource type="Texture2D" uid="uid://ccy4dsvxofx7f" path="res://assets/UI Elements/Icons/Icon_02.png" id="6_41akx"]
-[ext_resource type="StyleBox" uid="uid://bsh8wguyv7y71" path="res://assets/tres/button_rounded_transparent.tres" id="7_cgfq5"]
 [ext_resource type="PackedScene" uid="uid://dwaw4rn0jcn1x" path="res://scenes/LevelCompletePopup.tscn" id="8_7dvkv"]
-[ext_resource type="StyleBox" uid="uid://du0m108rqovtq" path="res://assets/tres/button_rounded_transparent_hover.tres" id="8_vdcm2"]
 [ext_resource type="FontFile" uid="uid://chbpnwj3qvssf" path="res://assets/font/federhozen-regular.ttf" id="11_6rmj2"]
 [ext_resource type="Texture2D" uid="uid://c8xo6wxpt8kph" path="res://assets/UI Elements/Banners/Banner_Slots.png" id="11_vsj0x"]
 [ext_resource type="FontFile" uid="uid://drau7u1dxkxss" path="res://assets/font/federhozen-bold.ttf" id="14_qsv74"]
@@ -21,6 +19,10 @@
 [ext_resource type="Texture2D" uid="uid://bsxknv3uha10l" path="res://assets/character/potrait.png" id="15_ycmcx"]
 [ext_resource type="Texture2D" uid="uid://bv8q477j1ngak" path="res://assets/UI Elements/Icons/Icon_05.png" id="16_f7tlh"]
 [ext_resource type="Texture2D" uid="uid://ctd8cwqpnyleq" path="res://assets/UI Elements/Ribbons/SmallDarkRibbons.png" id="18_ycmcx"]
+[ext_resource type="Theme" uid="uid://bmh7pcva0hjpp" path="res://assets/tres/menu.tres" id="20_catpy"]
+[ext_resource type="Texture2D" uid="uid://d0megcmuavf17" path="res://assets/HUD/menuUp.png" id="20_kupmu"]
+[ext_resource type="Texture2D" uid="uid://cee0vt5bmm1dc" path="res://assets/HUD/border_emblem.png" id="20_rlppe"]
+[ext_resource type="Texture2D" uid="uid://c2oc2es63bqt4" path="res://assets/HUD/menudown.png" id="23_41akx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ycmcx"]
 font = ExtResource("14_qsv74")
@@ -32,24 +34,9 @@ default_font_size = 16
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qsv74"]
 texture = ExtResource("11_vsj0x")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vsj0x"]
-texture = ExtResource("11_vsj0x")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qsv74"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1mc3"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cof4p"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
 [sub_resource type="Theme" id="Theme_jkdwc"]
 default_font = ExtResource("11_6rmj2")
+default_font_size = 0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ycmcx"]
 atlas = ExtResource("15_ycmcx")
@@ -106,9 +93,21 @@ animations = [{
 font = ExtResource("14_qsv74")
 font_size = 24
 
-[sub_resource type="LabelSettings" id="LabelSettings_vdcm2"]
-font = ExtResource("14_qsv74")
-font_size = 64
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vsj0x"]
+texture = ExtResource("11_vsj0x")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qsv74"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1mc3"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cof4p"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="UI" type="CanvasLayer" unique_id=1980193790]
 process_mode = 3
@@ -307,78 +306,6 @@ Reach Portal"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="CommandsPopup" type="Control" parent="." unique_id=1073825368]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="DarkOverlay" type="ColorRect" parent="CommandsPopup" unique_id=701550544]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.19607843)
-
-[node name="Panel" type="Panel" parent="CommandsPopup" unique_id=1485034647]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -252.0
-offset_top = -225.0
-offset_right = -29.0
-offset_bottom = 225.0
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_vsj0x")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="CommandsPopup/Panel" unique_id=225788306]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -101.5
-offset_top = -205.0
-offset_right = 98.5
-offset_bottom = 195.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(20, 20)
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("11_6rmj2")
-theme_override_font_sizes/normal_font_size = 16
-bbcode_enabled = true
-horizontal_alignment = 1
-
-[node name="CloseButton" type="Button" parent="CommandsPopup/Panel" unique_id=146821500]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = -50.0
-offset_right = 40.0
-offset_bottom = -20.0
-grow_vertical = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_qsv74")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_h1mc3")
-theme_override_styles/hover = SubResource("StyleBoxFlat_cof4p")
-icon = ExtResource("5_wm3ai")
-icon_alignment = 1
-expand_icon = true
-
 [node name="HeartUI" parent="." unique_id=847155867 instance=ExtResource("15_kupmu")]
 offset_left = 140.0
 offset_top = 50.0
@@ -387,6 +314,7 @@ offset_bottom = 90.0
 pivot_offset = Vector2(20, 20)
 
 [node name="DamageFlash" type="ColorRect" parent="." unique_id=168765616]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -395,10 +323,8 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 0.27450982, 0.27450982, 0)
 
-[node name="LevelCompletePopup" parent="." unique_id=1506947087 instance=ExtResource("8_7dvkv")]
-visible = false
-
 [node name="TutorialPopup" type="Control" parent="." unique_id=2134741134]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -426,7 +352,6 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Dialogue_box" type="NinePatchRect" parent="TutorialPopup/Control" unique_id=345683284]
-custom_minimum_size = Vector2(1000, 200)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -487,7 +412,7 @@ layout_mode = 2
 theme = SubResource("Theme_jkdwc")
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
-text = "tes 1 2 3 4asjhdoasdihasdasd"
+text = "aku ga ngerti apa yang kamu omongin"
 
 [node name="Char_bg" type="NinePatchRect" parent="TutorialPopup/Control/Dialogue_box" unique_id=1360258678]
 custom_minimum_size = Vector2(100, 50)
@@ -574,8 +499,82 @@ label_settings = SubResource("LabelSettings_8k7j3")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Pause" type="Control" parent="." unique_id=978164803]
+[node name="CommandsPopup" type="Control" parent="." unique_id=1073825368]
 visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="DarkOverlay" type="ColorRect" parent="CommandsPopup" unique_id=701550544]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.19607843)
+
+[node name="Panel" type="Panel" parent="CommandsPopup" unique_id=1485034647]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -252.0
+offset_top = -225.0
+offset_right = -29.0
+offset_bottom = 225.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_vsj0x")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CommandsPopup/Panel" unique_id=225788306]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.5
+offset_top = -205.0
+offset_right = 98.5
+offset_bottom = 195.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(20, 20)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("11_6rmj2")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="CommandsPopup/Panel" unique_id=146821500]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -50.0
+offset_right = 40.0
+offset_bottom = -20.0
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_qsv74")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h1mc3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_cof4p")
+icon = ExtResource("5_wm3ai")
+icon_alignment = 1
+expand_icon = true
+
+[node name="LevelCompletePopup" parent="." unique_id=1506947087 instance=ExtResource("8_7dvkv")]
+visible = false
+
+[node name="Pause" type="Control" parent="." unique_id=978164803]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -591,83 +590,98 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.19607843)
+color = Color(0, 0, 0, 0.39215687)
 
-[node name="Banner" type="NinePatchRect" parent="Pause" unique_id=1157232114]
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause" unique_id=1761284135]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -247.0
-offset_top = -225.0
-offset_right = 247.0
-offset_bottom = 225.0
+offset_left = -100.0
+offset_top = -53.5
+offset_right = 100.0
+offset_bottom = 53.5
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
-texture = ExtResource("5_ktti3")
-region_rect = Rect2(0, 0, 248, 242)
-patch_margin_left = 91
-patch_margin_top = 66
-patch_margin_right = 84
-patch_margin_bottom = 65
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 1
+theme = ExtResource("20_catpy")
+theme_override_constants/separation = 25
+alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Pause/Banner" unique_id=1761284135]
+[node name="MenuUp" type="Sprite2D" parent="Pause/VBoxContainer" unique_id=1640340481]
+position = Vector2(128, -40)
+texture = ExtResource("20_kupmu")
+
+[node name="ResumeButton" type="TextureButton" parent="Pause/VBoxContainer" unique_id=1447699053]
+process_mode = 2
+layout_mode = 2
+texture_hover = ExtResource("20_rlppe")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Pause/VBoxContainer/ResumeButton" unique_id=1976823571]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -220.0
-offset_top = -205.5
-offset_right = 220.0
-offset_bottom = 205.5
+offset_left = -33.5
+offset_top = -11.5
+offset_right = 33.5
+offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 120
-alignment = 1
+text = "CONTINUE"
 
-[node name="Label" type="Label" parent="Pause/Banner/VBoxContainer" unique_id=833780251]
+[node name="OptionsButton" type="TextureButton" parent="Pause/VBoxContainer" unique_id=892422374]
 layout_mode = 2
-text = "PAUSED"
-label_settings = SubResource("LabelSettings_vdcm2")
-horizontal_alignment = 1
+texture_hover = ExtResource("20_rlppe")
+stretch_mode = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Pause/Banner/VBoxContainer" unique_id=1118957378]
-layout_mode = 2
-theme_override_constants/separation = 150
-alignment = 1
+[node name="Label" type="Label" parent="Pause/VBoxContainer/OptionsButton" unique_id=1881909488]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -29.5
+offset_top = -11.5
+offset_right = 29.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "OPTIONS"
 
-[node name="ExitToMenuButton" type="Button" parent="Pause/Banner/VBoxContainer/HBoxContainer" unique_id=2127123189]
+[node name="ExitToMenuButton" type="TextureButton" parent="Pause/VBoxContainer" unique_id=211353387]
 process_mode = 2
-custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
-theme_override_styles/normal = ExtResource("7_cgfq5")
-theme_override_styles/pressed = ExtResource("7_cgfq5")
-theme_override_styles/hover = ExtResource("8_vdcm2")
-text = "MAIN MENU"
-icon = ExtResource("5_wm3ai")
-icon_alignment = 1
-vertical_icon_alignment = 0
+texture_hover = ExtResource("20_rlppe")
+stretch_mode = 3
 
-[node name="ResumeButton" type="Button" parent="Pause/Banner/VBoxContainer/HBoxContainer" unique_id=37928654]
-process_mode = 2
-custom_minimum_size = Vector2(120, 120)
-layout_mode = 2
-theme_override_styles/normal = ExtResource("7_cgfq5")
-theme_override_styles/hover = ExtResource("8_vdcm2")
-text = "RESUME"
-icon = ExtResource("4_p7vwb")
-icon_alignment = 1
-vertical_icon_alignment = 0
+[node name="Label" type="Label" parent="Pause/VBoxContainer/ExitToMenuButton" unique_id=158224193]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -11.5
+offset_right = 48.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "EXIT TO MENU"
+
+[node name="MenuBottom" type="Sprite2D" parent="Pause/VBoxContainer" unique_id=291500129]
+position = Vector2(128, 180)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("23_41akx")
 
 [connection signal="pressed" from="BottomLeftLayout/CodeInput/ResizeHandle/HBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="BottomLeftLayout/CodeInput/ResizeHandle/HBoxContainer/RunButton" to="." method="_on_run_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
-[connection signal="pressed" from="Pause/Banner/VBoxContainer/HBoxContainer/ExitToMenuButton" to="." method="_on_exit_to_menu_button_pressed"]
-[connection signal="pressed" from="Pause/Banner/VBoxContainer/HBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Pause/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Pause/VBoxContainer/ExitToMenuButton" to="." method="_on_exit_to_menu_button_pressed"]

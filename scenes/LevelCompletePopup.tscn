@@ -1,16 +1,12 @@
 [gd_scene format=3 uid="uid://dwaw4rn0jcn1x"]
 
 [ext_resource type="Script" uid="uid://dliljkejdxhu4" path="res://scenes/level_complete_popup.gd" id="1_8hx3y"]
-[ext_resource type="FontFile" uid="uid://dw0dyktfrmwkj" path="res://assets/font/Poppins-Bold.ttf" id="2_o7k5u"]
-[ext_resource type="Texture2D" uid="uid://c1vpjabsellde" path="res://assets/UI Elements/Banners/Banner.png" id="2_w4se6"]
+[ext_resource type="Texture2D" uid="uid://d0megcmuavf17" path="res://assets/HUD/menuUp.png" id="2_0fq50"]
+[ext_resource type="Theme" uid="uid://bmh7pcva0hjpp" path="res://assets/tres/menu.tres" id="2_btflc"]
 [ext_resource type="FontFile" uid="uid://drau7u1dxkxss" path="res://assets/font/federhozen-bold.ttf" id="4_2b6xx"]
 [ext_resource type="FontFile" uid="uid://chbpnwj3qvssf" path="res://assets/font/federhozen-regular.ttf" id="5_0fq50"]
-[ext_resource type="Texture2D" uid="uid://dngy3yp6iatmx" path="res://assets/UI Elements/Icons/Icon_08.png" id="5_am7xt"]
-[ext_resource type="Texture2D" uid="uid://b6g4cjsfqnrh1" path="res://assets/UI Elements/Icons/Icon_07.png" id="6_0fq50"]
-
-[sub_resource type="Theme" id="Theme_tb7o6"]
-default_font = ExtResource("2_o7k5u")
-default_font_size = 48
+[ext_resource type="Texture2D" uid="uid://c2oc2es63bqt4" path="res://assets/HUD/menudown.png" id="6_d58ln"]
+[ext_resource type="Texture2D" uid="uid://cee0vt5bmm1dc" path="res://assets/HUD/border_emblem.png" id="8_fptkv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_d58ln"]
 font = ExtResource("4_2b6xx")
@@ -18,29 +14,7 @@ font_size = 56
 
 [sub_resource type="LabelSettings" id="LabelSettings_fptkv"]
 font = ExtResource("5_0fq50")
-font_size = 32
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2b6xx"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_am7xt"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0fq50"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0fq50"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d58ln"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fptkv"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.004019165, 0.004019165, 0.004019165, 0)
+font_size = 28
 
 [node name="LevelCompletePopup" type="Control" unique_id=1506947087 node_paths=PackedStringArray("coin_label")]
 layout_mode = 3
@@ -50,7 +24,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8hx3y")
-coin_label = NodePath("Content/MarginContainer/VBoxContainer/CoinLabel")
+coin_label = NodePath("VBoxContainer/CoinLabel")
 
 [node name="DarkOverlay" type="ColorRect" parent="." unique_id=664122200]
 layout_mode = 1
@@ -61,99 +35,114 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.19607843)
 
-[node name="Banner" type="NinePatchRect" parent="." unique_id=497544074]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=419826885]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -225.0
-offset_top = -225.0
-offset_right = 269.0
-offset_bottom = 225.0
+offset_left = -210.0
+offset_top = -185.0
+offset_right = 210.0
+offset_bottom = 185.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_w4se6")
-region_rect = Rect2(0, 0, 248, 242)
-patch_margin_left = 67
-patch_margin_top = 66
-patch_margin_right = 64
-patch_margin_bottom = 65
-
-[node name="Content" type="NinePatchRect" parent="." unique_id=151262562]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -225.0
-offset_top = -225.0
-offset_right = 269.0
-offset_bottom = 225.0
-grow_horizontal = 2
-grow_vertical = 2
-region_rect = Rect2(0, 0, 248, 242)
-patch_margin_left = 67
-patch_margin_top = 66
-patch_margin_right = 64
-patch_margin_bottom = 65
-
-[node name="MarginContainer" type="MarginContainer" parent="Content" unique_id=1141097030]
-layout_mode = 0
-offset_right = 494.0
-offset_bottom = 450.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 40
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Content/MarginContainer" unique_id=419826885]
-layout_mode = 2
-theme_override_constants/separation = 48
+theme_override_constants/separation = 20
 alignment = 1
 
-[node name="TitleLabel" type="Label" parent="Content/MarginContainer/VBoxContainer" unique_id=598580]
+[node name="MenuUp" type="Sprite2D" parent="VBoxContainer" unique_id=196617037]
+position = Vector2(210, -40)
+scale = Vector2(1.8, 1.8)
+texture = ExtResource("2_0fq50")
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer" unique_id=598580]
 layout_mode = 2
-theme = SubResource("Theme_tb7o6")
 theme_override_colors/font_color = Color(0, 0.13333334, 0.4, 1)
-text = "LEVEL COMPLETE!"
+text = "LEVEL 01 CLEARED"
 label_settings = SubResource("LabelSettings_d58ln")
 horizontal_alignment = 1
 
-[node name="CoinLabel" type="Label" parent="Content/MarginContainer/VBoxContainer" unique_id=578960450]
+[node name="CoinLabel" type="Label" parent="VBoxContainer" unique_id=578960450]
 layout_mode = 2
-text = "Coin: 1/1"
+text = "1/1"
 label_settings = SubResource("LabelSettings_fptkv")
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Content/MarginContainer/VBoxContainer" unique_id=293934831]
+[node name="MenuBottom" type="Sprite2D" parent="VBoxContainer" unique_id=700291609]
+position = Vector2(210, 140)
+texture = ExtResource("6_d58ln")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=663923982]
 layout_mode = 2
-theme_override_constants/separation = 82
-alignment = 1
+theme = ExtResource("2_btflc")
 
-[node name="LevelSelectButton" type="Button" parent="Content/MarginContainer/VBoxContainer/HBoxContainer" unique_id=158825725]
+[node name="Control" type="Control" parent="VBoxContainer/VBoxContainer" unique_id=1099289168]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="NextButton" type="TextureButton" parent="VBoxContainer/VBoxContainer" unique_id=1799148035]
 custom_minimum_size = Vector2(82, 82)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_2b6xx")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_am7xt")
-theme_override_styles/hover = SubResource("StyleBoxFlat_0fq50")
-icon = ExtResource("5_am7xt")
-icon_alignment = 1
-expand_icon = true
+texture_hover = ExtResource("8_fptkv")
+stretch_mode = 3
 
-[node name="NextButton" type="Button" parent="Content/MarginContainer/VBoxContainer/HBoxContainer" unique_id=879347010]
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/NextButton" unique_id=1346878989]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -17.0
+offset_right = 64.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "NEXT LEVEL"
+
+[node name="RestartButton" type="TextureButton" parent="VBoxContainer/VBoxContainer" unique_id=1771325800]
+layout_mode = 2
+texture_hover = ExtResource("8_fptkv")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/RestartButton" unique_id=1455073943]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -17.0
+offset_right = 50.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "RESTART"
+
+[node name="LevelSelectButton" type="TextureButton" parent="VBoxContainer/VBoxContainer" unique_id=1659107864]
 custom_minimum_size = Vector2(82, 82)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_0fq50")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_d58ln")
-theme_override_styles/hover = SubResource("StyleBoxFlat_fptkv")
-icon = ExtResource("6_0fq50")
-icon_alignment = 1
-expand_icon = true
+texture_hover = ExtResource("8_fptkv")
+stretch_mode = 3
 
-[connection signal="pressed" from="Content/MarginContainer/VBoxContainer/HBoxContainer/LevelSelectButton" to="." method="_on_level_select_button_pressed"]
-[connection signal="pressed" from="Content/MarginContainer/VBoxContainer/HBoxContainer/NextButton" to="." method="_on_next_button_pressed"]
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/LevelSelectButton" unique_id=1742162784]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.5
+offset_top = -17.0
+offset_right = 83.5
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "EXIT TO MENU"
+
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/LevelSelectButton" to="." method="_on_level_select_button_pressed"]

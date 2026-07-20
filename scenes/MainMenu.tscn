@@ -2,23 +2,29 @@
 
 [ext_resource type="Script" uid="uid://lh5x7gawb0y4" path="res://scenes/main_menu.gd" id="1_lnxie"]
 [ext_resource type="Texture2D" uid="uid://625fm3eeyqht" path="res://assets/Background/Background.png" id="2_sks6p"]
+[ext_resource type="Texture2D" uid="uid://cg78r5qlbms7x" path="res://assets/HUD/borderUp_nopx.png" id="4_2nypq"]
+[ext_resource type="Texture2D" uid="uid://durpewvpulq3v" path="res://assets/tilemap/Background/1.png" id="4_8vx4p"]
 [ext_resource type="Texture2D" uid="uid://dt1hyiujlgamd" path="res://assets/Trees/Background.png" id="4_ow34m"]
-[ext_resource type="Texture2D" uid="uid://bri3x183i0yqc" path="res://assets/UI Elements/Icons/Icon_10.png" id="5_ucygd"]
-[ext_resource type="Texture2D" uid="uid://c1vpjabsellde" path="res://assets/UI Elements/Banners/Banner.png" id="7_7la6k"]
-[ext_resource type="Texture2D" uid="uid://cwc2ycmp1pjwv" path="res://assets/UI Elements/Icons/Icon_11.png" id="7_8a8k8"]
+[ext_resource type="Texture2D" uid="uid://coofi0q6cm2rf" path="res://assets/tilemap/Background/2.png" id="5_tdapf"]
+[ext_resource type="Texture2D" uid="uid://ba3br6504dyqi" path="res://assets/tilemap/Background/3.png" id="6_v41fp"]
+[ext_resource type="Texture2D" uid="uid://c44ks8fj3n1ft" path="res://assets/tilemap/Background/4.png" id="7_7shrw"]
+[ext_resource type="Texture2D" uid="uid://evmhiy4nru43" path="res://assets/HUD/borderBottom_nopx.png" id="7_bky6r"]
 [ext_resource type="FontFile" uid="uid://drau7u1dxkxss" path="res://assets/font/federhozen-bold.ttf" id="8_2nypq"]
-[ext_resource type="Texture2D" uid="uid://cvbwk3l1oea7c" path="res://assets/UI Elements/Icons/Icon_09.png" id="8_l4mxc"]
+[ext_resource type="Texture2D" uid="uid://fufqnch5l3c2" path="res://assets/tilemap/Background/5.png" id="8_viowm"]
+[ext_resource type="Texture2D" uid="uid://dc5kqe0qlopiv" path="res://assets/tilemap/Background/6.png" id="9_1n6yq"]
 [ext_resource type="FontFile" uid="uid://chbpnwj3qvssf" path="res://assets/font/federhozen-regular.ttf" id="9_bky6r"]
-[ext_resource type="StyleBox" uid="uid://bsh8wguyv7y71" path="res://assets/tres/button_rounded_transparent.tres" id="9_l4mxc"]
-[ext_resource type="Texture2D" uid="uid://sg20yhjq1hkh" path="res://assets/UI Elements/Ribbons/SmallRibbons1.png" id="10_7la6k"]
+[ext_resource type="Texture2D" uid="uid://cee0vt5bmm1dc" path="res://assets/HUD/border_emblem.png" id="9_tdapf"]
+[ext_resource type="Texture2D" uid="uid://bukfl5khsklm8" path="res://assets/HUD/box.png" id="10_7la6k"]
 [ext_resource type="Theme" uid="uid://bdadd0m5206uq" path="res://assets/tres/menu_button.tres" id="10_bky6r"]
-[ext_resource type="StyleBox" uid="uid://du0m108rqovtq" path="res://assets/tres/button_rounded_transparent_hover.tres" id="10_l4mxc"]
-[ext_resource type="Texture2D" uid="uid://b8k7vpgt2utlt" path="res://assets/UI Elements/Ribbons/SmallRibbonsOpen.png" id="11_2nypq"]
-[ext_resource type="Texture2D" uid="uid://dngy3yp6iatmx" path="res://assets/UI Elements/Icons/Icon_08.png" id="12_bky6r"]
+[ext_resource type="Shader" uid="uid://ynu5ex1vbsgk" path="res://shader/MainMenu.gdshader" id="11_2nypq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_lulne"]
 font = ExtResource("8_2nypq")
-font_size = 80
+font_size = 84
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 0.39215687)
 
 [sub_resource type="Theme" id="Theme_l4mxc"]
 
@@ -27,26 +33,19 @@ font = ExtResource("9_bky6r")
 font_size = 18
 font_color = Color(13.750843, 13.750843, 13.750843, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bky6r"]
-atlas = ExtResource("10_7la6k")
-region = Rect2(2, 0, 190, 60)
-
 [sub_resource type="LabelSettings" id="LabelSettings_ptake"]
 font = ExtResource("8_2nypq")
 font_size = 48
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ptake"]
-bg_color = Color(11.708403, 11.708403, 11.708403, 0)
+[sub_resource type="Theme" id="Theme_8a8k8"]
+default_font = ExtResource("9_bky6r")
+default_font_size = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hubol"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8vx4p"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.6, 0.6, 0.6, 0)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bky6r"]
+shader = ExtResource("11_2nypq")
+shader_parameter/hover_intensity = 0.0
+shader_parameter/kanan_kiri_saja = false
+shader_parameter/atas_bawah_saja = false
 
 [node name="MainMenu" type="Control" unique_id=809523929]
 layout_mode = 3
@@ -389,6 +388,62 @@ texture = ExtResource("4_ow34m")
 region_enabled = true
 region_rect = Rect2(224, 0, 128, 256)
 
+[node name="ParallaxBackground1" type="ParallaxBackground" parent="." unique_id=1170083686]
+visible = false
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground1" unique_id=2033971622]
+motion_mirroring = Vector2(576, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground1/ParallaxLayer" unique_id=1368649747]
+position = Vector2(288, 162)
+texture = ExtResource("4_8vx4p")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground1" unique_id=744630244]
+motion_mirroring = Vector2(576, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground1/ParallaxLayer2" unique_id=2074856005]
+position = Vector2(288, 162)
+texture = ExtResource("5_tdapf")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground1" unique_id=1247146279]
+motion_mirroring = Vector2(576, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground1/ParallaxLayer3" unique_id=105189996]
+position = Vector2(288, 162)
+texture = ExtResource("6_v41fp")
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground1" unique_id=663885124]
+motion_mirroring = Vector2(576, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground1/ParallaxLayer4" unique_id=1522730922]
+position = Vector2(288, 162)
+texture = ExtResource("7_7shrw")
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground1" unique_id=2118619078]
+motion_mirroring = Vector2(576, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground1/ParallaxLayer5" unique_id=1490173799]
+position = Vector2(288, 162)
+texture = ExtResource("8_viowm")
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxBackground1" unique_id=55670654]
+motion_mirroring = Vector2(576, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground1/ParallaxLayer6" unique_id=859219000]
+position = Vector2(288, 162)
+texture = ExtResource("9_1n6yq")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1149040730]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.19607843)
+
 [node name="VersionLabel" type="Label" parent="." unique_id=591734142]
 layout_mode = 1
 anchors_preset = 3
@@ -403,35 +458,40 @@ grow_vertical = 0
 text = "V.0.1.0"
 
 [node name="MainMenuPanel" type="Control" parent="." unique_id=1463801683]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MainMenuPanel" unique_id=930373344]
+[node name="MarginContainer" type="VBoxContainer" parent="MainMenuPanel" unique_id=1693506638]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 306.0
-offset_top = 54.0
-offset_right = 806.0
-offset_bottom = 554.0
+offset_left = -213.0
+offset_top = -155.0
+offset_right = 213.0
+offset_bottom = 155.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 64
+theme_override_constants/separation = 72
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MainMenuPanel/MarginContainer" unique_id=924822231]
 layout_mode = 2
 theme_override_constants/separation = -8
 
+[node name="MenuUp" type="Sprite2D" parent="MainMenuPanel/MarginContainer/VBoxContainer2" unique_id=1401032100]
+position = Vector2(213, -25)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_2nypq")
+
 [node name="TitleLabel" type="Label" parent="MainMenuPanel/MarginContainer/VBoxContainer2" unique_id=879199037]
 layout_mode = 2
-text = "Code Blade"
+text = "CODE BLADE"
 label_settings = SubResource("LabelSettings_lulne")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -446,20 +506,24 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="MenuBottom" type="Sprite2D" parent="MainMenuPanel/MarginContainer/VBoxContainer2" unique_id=1471849604]
+position = Vector2(213, 140)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("7_bky6r")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenuPanel/MarginContainer" unique_id=1231961311]
 layout_mode = 2
+theme_override_constants/separation = 12
 alignment = 2
 
-[node name="ContinueButton" type="TextureButton" parent="MainMenuPanel/MarginContainer/VBoxContainer" unique_id=513682078]
+[node name="StartButton" type="TextureButton" parent="MainMenuPanel/MarginContainer/VBoxContainer" unique_id=513682078]
 layout_mode = 2
 theme = ExtResource("10_bky6r")
-texture_normal = SubResource("AtlasTexture_bky6r")
-texture_pressed = ExtResource("10_7la6k")
-texture_hover = ExtResource("11_2nypq")
+texture_hover = ExtResource("9_tdapf")
 stretch_mode = 3
 flip_h = true
 
-[node name="Label" type="Label" parent="MainMenuPanel/MarginContainer/VBoxContainer/ContinueButton" unique_id=89739878]
+[node name="Label" type="Label" parent="MainMenuPanel/MarginContainer/VBoxContainer/StartButton" unique_id=89739878]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -467,98 +531,63 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 24
-text = "Continue"
+text = "Start Game"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PlayButton" type="TextureButton" parent="MainMenuPanel/MarginContainer/VBoxContainer" unique_id=479900205]
+[node name="OptionButton" type="TextureButton" parent="MainMenuPanel/MarginContainer/VBoxContainer" unique_id=837795755]
 layout_mode = 2
 theme = ExtResource("10_bky6r")
-texture_normal = ExtResource("10_7la6k")
-texture_pressed = ExtResource("10_7la6k")
-texture_hover = ExtResource("11_2nypq")
+texture_hover = ExtResource("9_tdapf")
 stretch_mode = 3
 
-[node name="Label" type="Label" parent="MainMenuPanel/MarginContainer/VBoxContainer/PlayButton" unique_id=2062161839]
+[node name="Label" type="Label" parent="MainMenuPanel/MarginContainer/VBoxContainer/OptionButton" unique_id=1427739409]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Play"
+text = "Options"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LevelButton" type="TextureButton" parent="MainMenuPanel/MarginContainer/VBoxContainer" unique_id=457608349]
+[node name="ExtrasButton" type="TextureButton" parent="MainMenuPanel/MarginContainer/VBoxContainer" unique_id=457608349]
 layout_mode = 2
 theme = ExtResource("10_bky6r")
-texture_normal = ExtResource("10_7la6k")
-texture_pressed = ExtResource("10_7la6k")
-texture_hover = ExtResource("11_2nypq")
+texture_hover = ExtResource("9_tdapf")
 stretch_mode = 3
 
-[node name="Label" type="Label" parent="MainMenuPanel/MarginContainer/VBoxContainer/LevelButton" unique_id=1406437264]
+[node name="Label" type="Label" parent="MainMenuPanel/MarginContainer/VBoxContainer/ExtrasButton" unique_id=1406437264]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Level Select"
+text = "Extras"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="MainMenuPanel" unique_id=1415221915]
-custom_minimum_size = Vector2(50, 50)
+[node name="QuitButton" type="TextureButton" parent="MainMenuPanel/MarginContainer/VBoxContainer" unique_id=826725185]
+layout_mode = 2
+theme = ExtResource("10_bky6r")
+texture_hover = ExtResource("9_tdapf")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="MainMenuPanel/MarginContainer/VBoxContainer/QuitButton" unique_id=1186256031]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
+anchors_preset = 15
 anchor_right = 1.0
-offset_left = 1046.0
-offset_right = 1112.0
-offset_bottom = 174.0
-grow_horizontal = 0
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="MainMenuPanel/MarginContainer2" unique_id=2008250046]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-
-[node name="SettingButton" type="Button" parent="MainMenuPanel/MarginContainer2/VBoxContainer2" unique_id=1138769690]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme_override_styles/normal = ExtResource("9_l4mxc")
-theme_override_styles/pressed = ExtResource("9_l4mxc")
-theme_override_styles/hover = ExtResource("10_l4mxc")
-icon = ExtResource("5_ucygd")
-icon_alignment = 1
-expand_icon = true
-
-[node name="InfoButton" type="Button" parent="MainMenuPanel/MarginContainer2/VBoxContainer2" unique_id=983739140]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme_override_styles/normal = ExtResource("9_l4mxc")
-theme_override_styles/pressed = ExtResource("9_l4mxc")
-theme_override_styles/hover = ExtResource("10_l4mxc")
-icon = ExtResource("7_8a8k8")
-icon_alignment = 1
-expand_icon = true
-
-[node name="ExitButton" type="Button" parent="MainMenuPanel/MarginContainer2/VBoxContainer2" unique_id=909471629]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-theme_override_styles/normal = ExtResource("9_l4mxc")
-theme_override_styles/pressed = ExtResource("9_l4mxc")
-theme_override_styles/hover = ExtResource("10_l4mxc")
-icon = ExtResource("8_l4mxc")
-icon_alignment = 1
-expand_icon = true
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit Game"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="LevelSelectPanel" type="Control" parent="." unique_id=492008617]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -566,51 +595,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BannerSprite" type="TextureRect" parent="LevelSelectPanel" unique_id=480723713]
-custom_minimum_size = Vector2(450, 450)
+[node name="ColorRect" type="ColorRect" parent="LevelSelectPanel" unique_id=1566752700]
+visible = false
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -124.0
-offset_top = -121.0
-offset_right = 124.0
-offset_bottom = 121.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("7_7la6k")
-
-[node name="Content" type="TextureRect" parent="LevelSelectPanel" unique_id=945723381]
-custom_minimum_size = Vector2(450, 450)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -124.0
-offset_top = -121.0
-offset_right = 124.0
-offset_bottom = 121.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="LabelSelect" type="Label" parent="LevelSelectPanel/Content" unique_id=1923524125]
-layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_top = 40.0
-offset_bottom = 98.0
+anchor_bottom = 1.0
 grow_horizontal = 2
-text = "Select Level"
-label_settings = SubResource("LabelSettings_ptake")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_trim_flags = 128
+grow_vertical = 2
+color = Color(0, 0, 0, 0.11764706)
 
-[node name="GridContainer" type="GridContainer" parent="LevelSelectPanel/Content" unique_id=2136274460]
+[node name="Content" type="VBoxContainer" parent="LevelSelectPanel" unique_id=1239414632]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -618,90 +613,579 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -133.0
-offset_top = -105.0
+offset_top = -132.0
 offset_right = 133.0
-offset_bottom = 53.0
+offset_bottom = 132.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 0
+theme_override_constants/separation = 84
+alignment = 1
+
+[node name="LabelSelect" type="Label" parent="LevelSelectPanel/Content" unique_id=1923524125]
+layout_mode = 2
+text = "SELECT LEVEL"
+label_settings = SubResource("LabelSettings_ptake")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_trim_flags = 128
+
+[node name="GridContainer" type="GridContainer" parent="LevelSelectPanel/Content" unique_id=2136274460]
+layout_mode = 2
+theme = SubResource("Theme_8a8k8")
 columns = 5
 
-[node name="LevelButton1" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=158122707]
+[node name="LevelButton1" type="TextureButton" parent="LevelSelectPanel/Content/GridContainer" unique_id=1568906383]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-text = "1"
+texture_normal = ExtResource("10_7la6k")
+texture_pressed = ExtResource("10_7la6k")
+texture_hover = ExtResource("10_7la6k")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="LevelButton2" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=1448326589]
+[node name="Label" type="Label" parent="LevelSelectPanel/Content/GridContainer/LevelButton1" unique_id=844542500]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="LevelSelectPanel/Content/GridContainer/LevelButton1" unique_id=1658874999]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_bky6r")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -22.0
+offset_right = 22.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0.19607843)
+
+[node name="LevelButton2" type="TextureButton" parent="LevelSelectPanel/Content/GridContainer" unique_id=1793701379]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-text = "1"
+texture_normal = ExtResource("10_7la6k")
+texture_pressed = ExtResource("10_7la6k")
+texture_hover = ExtResource("10_7la6k")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="LevelButton3" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=1906546337]
+[node name="Label" type="Label" parent="LevelSelectPanel/Content/GridContainer/LevelButton2" unique_id=2003169790]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="LevelSelectPanel/Content/GridContainer/LevelButton2" unique_id=741168363]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_bky6r")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -22.0
+offset_right = 22.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0.19607843)
+
+[node name="LevelButton3" type="TextureButton" parent="LevelSelectPanel/Content/GridContainer" unique_id=414559433]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-text = "1"
+texture_normal = ExtResource("10_7la6k")
+texture_pressed = ExtResource("10_7la6k")
+texture_hover = ExtResource("10_7la6k")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="LevelButton4" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=1018475192]
+[node name="Label" type="Label" parent="LevelSelectPanel/Content/GridContainer/LevelButton3" unique_id=1923195645]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="LevelSelectPanel/Content/GridContainer/LevelButton3" unique_id=808156655]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_bky6r")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -22.0
+offset_right = 22.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0.19607843)
+
+[node name="LevelButton4" type="TextureButton" parent="LevelSelectPanel/Content/GridContainer" unique_id=724107388]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-text = "1"
+texture_normal = ExtResource("10_7la6k")
+texture_pressed = ExtResource("10_7la6k")
+texture_hover = ExtResource("10_7la6k")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="LevelButton5" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=71084629]
+[node name="Label" type="Label" parent="LevelSelectPanel/Content/GridContainer/LevelButton4" unique_id=871410141]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="LevelSelectPanel/Content/GridContainer/LevelButton4" unique_id=738787794]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_bky6r")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -22.0
+offset_right = 22.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0.19607843)
+
+[node name="LevelButton5" type="TextureButton" parent="LevelSelectPanel/Content/GridContainer" unique_id=418108572]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-text = "1"
+texture_normal = ExtResource("10_7la6k")
+texture_pressed = ExtResource("10_7la6k")
+texture_hover = ExtResource("10_7la6k")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="LevelButton6" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=1555213801]
+[node name="Label" type="Label" parent="LevelSelectPanel/Content/GridContainer/LevelButton5" unique_id=390312717]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="LevelSelectPanel/Content/GridContainer/LevelButton5" unique_id=42706734]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_bky6r")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -22.0
+offset_right = 22.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0.19607843)
+
+[node name="LevelButton6" type="TextureButton" parent="LevelSelectPanel/Content/GridContainer" unique_id=15979598]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-text = "1"
+texture_normal = ExtResource("10_7la6k")
+texture_pressed = ExtResource("10_7la6k")
+texture_hover = ExtResource("10_7la6k")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="LevelButton7" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=193140002]
+[node name="Label" type="Label" parent="LevelSelectPanel/Content/GridContainer/LevelButton6" unique_id=10450414]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="LevelSelectPanel/Content/GridContainer/LevelButton6" unique_id=611527809]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_bky6r")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -22.0
+offset_right = 22.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0.19607843)
+
+[node name="LevelButton7" type="TextureButton" parent="LevelSelectPanel/Content/GridContainer" unique_id=316824733]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-text = "1"
+texture_normal = ExtResource("10_7la6k")
+texture_pressed = ExtResource("10_7la6k")
+texture_hover = ExtResource("10_7la6k")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="LevelButton8" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=497167380]
+[node name="Label" type="Label" parent="LevelSelectPanel/Content/GridContainer/LevelButton7" unique_id=1528188347]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="LevelSelectPanel/Content/GridContainer/LevelButton7" unique_id=1666038421]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_bky6r")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -22.0
+offset_right = 22.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0.19607843)
+
+[node name="LevelButton8" type="TextureButton" parent="LevelSelectPanel/Content/GridContainer" unique_id=1259505594]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-text = "1"
+texture_normal = ExtResource("10_7la6k")
+texture_pressed = ExtResource("10_7la6k")
+texture_hover = ExtResource("10_7la6k")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="LevelButton9" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=1187980287]
+[node name="Label" type="Label" parent="LevelSelectPanel/Content/GridContainer/LevelButton8" unique_id=1416742591]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="LevelSelectPanel/Content/GridContainer/LevelButton8" unique_id=2094619225]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_bky6r")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -22.0
+offset_right = 22.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0.19607843)
+
+[node name="LevelButton9" type="TextureButton" parent="LevelSelectPanel/Content/GridContainer" unique_id=750829936]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-text = "1"
+texture_normal = ExtResource("10_7la6k")
+texture_pressed = ExtResource("10_7la6k")
+texture_hover = ExtResource("10_7la6k")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="LevelButton10" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=1893967917]
+[node name="Label" type="Label" parent="LevelSelectPanel/Content/GridContainer/LevelButton9" unique_id=1973348507]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="LevelSelectPanel/Content/GridContainer/LevelButton9" unique_id=296775574]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_bky6r")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -22.0
+offset_right = 22.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0.19607843)
+
+[node name="LevelButton10" type="TextureButton" parent="LevelSelectPanel/Content/GridContainer" unique_id=628126113]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-text = "1"
+texture_normal = ExtResource("10_7la6k")
+texture_pressed = ExtResource("10_7la6k")
+texture_hover = ExtResource("10_7la6k")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="LevelButton11" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=452600035]
+[node name="Label" type="Label" parent="LevelSelectPanel/Content/GridContainer/LevelButton10" unique_id=302670892]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="LevelSelectPanel/Content/GridContainer/LevelButton10" unique_id=1935746065]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_bky6r")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -22.0
+offset_right = 22.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0.19607843)
+
+[node name="LevelButton11" type="TextureButton" parent="LevelSelectPanel/Content/GridContainer" unique_id=66698545]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-text = "1"
+texture_normal = ExtResource("10_7la6k")
+texture_pressed = ExtResource("10_7la6k")
+texture_hover = ExtResource("10_7la6k")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="LevelButton12" type="Button" parent="LevelSelectPanel/Content/GridContainer" unique_id=779756355]
+[node name="Label" type="Label" parent="LevelSelectPanel/Content/GridContainer/LevelButton11" unique_id=884817290]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="LevelSelectPanel/Content/GridContainer/LevelButton11" unique_id=427497741]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_bky6r")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -22.0
+offset_right = 22.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0.19607843)
+
+[node name="LevelButton12" type="TextureButton" parent="LevelSelectPanel/Content/GridContainer" unique_id=1761839750]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-text = "1"
+texture_normal = ExtResource("10_7la6k")
+texture_pressed = ExtResource("10_7la6k")
+texture_hover = ExtResource("10_7la6k")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="BackButton" type="Button" parent="LevelSelectPanel/Content" unique_id=761738084]
+[node name="Label" type="Label" parent="LevelSelectPanel/Content/GridContainer/LevelButton12" unique_id=1615114768]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="LevelSelectPanel/Content/GridContainer/LevelButton12" unique_id=1746126306]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_bky6r")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -22.0
+offset_right = 22.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0.19607843)
+
+[node name="BackButton" type="TextureButton" parent="LevelSelectPanel/Content" unique_id=342248678]
 custom_minimum_size = Vector2(40, 40)
-layout_mode = 0
-offset_left = 59.0
-offset_top = 312.0
-offset_right = 99.0
-offset_bottom = 352.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_ptake")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_hubol")
-theme_override_styles/hover = SubResource("StyleBoxFlat_8vx4p")
-icon = ExtResource("12_bky6r")
-icon_alignment = 1
-expand_icon = true
+layout_mode = 2
+texture_hover = ExtResource("9_tdapf")
 
-[connection signal="pressed" from="MainMenuPanel/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="pressed" from="MainMenuPanel/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="MainMenuPanel/MarginContainer/VBoxContainer/LevelButton" to="." method="_on_level_button_pressed"]
-[connection signal="pressed" from="MainMenuPanel/MarginContainer2/VBoxContainer2/SettingButton" to="." method="_on_setting_button_pressed"]
-[connection signal="pressed" from="MainMenuPanel/MarginContainer2/VBoxContainer2/ExitButton" to="." method="_on_exit_button_pressed"]
+[node name="Label" type="Label" parent="LevelSelectPanel/Content/BackButton" unique_id=399426629]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("10_bky6r")
+text = "Back"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="MainMenuPanel/MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MainMenuPanel/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="LevelSelectPanel/Content/BackButton" to="." method="_on_back_button_pressed"]

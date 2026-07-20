@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://bmh7pcva0hjpp"]
+
+[ext_resource type="FontFile" uid="uid://chbpnwj3qvssf" path="res://assets/font/federhozen-regular.ttf" id="1_lpcj2"]
+
+[resource]
+default_font = ExtResource("1_lpcj2")
+default_font_size = 28
